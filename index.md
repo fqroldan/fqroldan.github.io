@@ -4,4 +4,4 @@ My research topics are in macroeconomics, international finance, sovereign debt 
 
 Find here my [CV](https://drive.google.com/file/d/14Yimriq4uOen_k-KuCq1pAFy9ZpeVSuq/view) and a [draft](https://qurufinwe.github.io/resources/JMP_Roldan.pdf) of my job market paper.
 
-(https://lh4.googleusercontent.com/aOPotfmxKmDROeMPtd1BlscgW1cjw8vA8Lb0dL2y5yaYwUgkX6bAgVCBNSstczFAvcS4s9D46jGZLP3D-JbUtXsntGTtscsY248BIClxqeluZ3D50LE=w271)
+![pic](https://lh4.googleusercontent.com/aOPotfmxKmDROeMPtd1BlscgW1cjw8vA8Lb0dL2y5yaYwUgkX6bAgVCBNSstczFAvcS4s9D46jGZLP3D-JbUtXsntGTtscsY248BIClxqeluZ3D50LE=w271)
