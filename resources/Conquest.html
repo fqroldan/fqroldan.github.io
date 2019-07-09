@@ -12059,7 +12059,7 @@ C = \left( \begin{array}{cc}
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="k">function</span> <span class="n">make_LQ</span><span class="p">(</span><span class="n">plm</span><span class="o">::</span><span class="n">PLM</span><span class="p">,</span> <span class="n">δ</span><span class="p">)</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="k">function</span> <span class="n">make_LQ</span><span class="p">(</span><span class="n">plm</span><span class="o">::</span><span class="n">PLM</span><span class="p">,</span> <span class="n">δ</span><span class="p">,</span> <span class="n">σc</span><span class="p">,</span> <span class="n">σe</span><span class="p">)</span>
   <span class="c"># Law of motion x_{t+1} = A x_t + B u_t + C w_{t+1}</span>
   <span class="c"># u = mean inflation, y = u + σc ϵ</span>
 
@@ -12089,8 +12089,8 @@ C = \left( \begin{array}{cc}
   
   <span class="c"># Shocks: unemployment is affected directly by the cost-push shock and indirectly by the inflation control shock (κ-to-1), inflation affected directly by the control shock</span>
   <span class="n">C</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-  <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="o">:</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="n">κ</span><span class="p">]</span>
-  <span class="n">C</span><span class="p">[</span><span class="n">plm</span><span class="o">.</span><span class="n">Mu</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+  <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="o">:</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">σe</span> <span class="n">κ</span><span class="o">*</span><span class="n">σc</span><span class="p">]</span>
+  <span class="n">C</span><span class="p">[</span><span class="n">plm</span><span class="o">.</span><span class="n">Mu</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">σc</span>
 
   <span class="c"># Set up objective function</span>
   <span class="c"># r = x&#39;Rx + u&#39;Qu + 2 u&#39;Nx</span>
@@ -12228,7 +12228,7 @@ C = \left( \begin{array}{cc}
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="k">function</span> <span class="n">simul_PLM</span><span class="p">(</span><span class="n">ce</span><span class="o">::</span><span class="n">ConquestEconomy</span><span class="p">,</span> <span class="n">plm</span><span class="o">::</span><span class="n">PLM</span><span class="p">)</span>
-  <span class="n">lq</span> <span class="o">=</span> <span class="n">make_LQ</span><span class="p">(</span><span class="n">plm</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">δ</span><span class="p">)</span>
+  <span class="n">lq</span> <span class="o">=</span> <span class="n">make_LQ</span><span class="p">(</span><span class="n">plm</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">δ</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">σc</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">σe</span><span class="p">)</span>
 
   <span class="n">xpath</span><span class="p">,</span> <span class="n">upath</span><span class="p">,</span> <span class="n">wpath</span> <span class="o">=</span> <span class="n">compute_sequence</span><span class="p">(</span><span class="n">lq</span><span class="p">,</span> <span class="n">ones</span><span class="p">(</span><span class="n">lags</span><span class="p">(</span><span class="n">plm</span><span class="p">)))</span>
 <span class="k">end</span>
@@ -12325,7 +12325,7 @@ C = \left( \begin{array}{cc}
   <span class="c"># Unpack and prepare</span>
   <span class="n">plm_g</span><span class="p">,</span> <span class="n">plm_p</span><span class="p">,</span> <span class="n">alm</span> <span class="o">=</span> <span class="n">ce</span><span class="o">.</span><span class="n">plm_g</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">plm_p</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">alm</span>
   <span class="n">expectations</span> <span class="o">=</span> <span class="n">ce</span><span class="o">.</span><span class="n">private_expectations</span>
-  <span class="n">alm_lq</span> <span class="o">=</span> <span class="n">make_LQ</span><span class="p">(</span><span class="n">alm</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">δ</span><span class="p">)</span>
+  <span class="n">alm_lq</span> <span class="o">=</span> <span class="n">make_LQ</span><span class="p">(</span><span class="n">alm</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">δ</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">σc</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">σe</span><span class="p">)</span>
   <span class="n">solve_Phelps!</span><span class="p">(</span><span class="n">alm_lq</span><span class="p">)</span>
 
   <span class="c"># Initial state</span>
@@ -12366,7 +12366,7 @@ C = \left( \begin{array}{cc}
     <span class="n">Xt</span> <span class="o">=</span> <span class="n">xnew</span>
 
     <span class="c"># Gov&#39;t chooses its action</span>
-    <span class="n">lq</span> <span class="o">=</span> <span class="n">make_LQ</span><span class="p">(</span><span class="n">plm_g</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">δ</span><span class="p">)</span>
+    <span class="n">lq</span> <span class="o">=</span> <span class="n">make_LQ</span><span class="p">(</span><span class="n">plm_g</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">δ</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">σc</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">σe</span><span class="p">))</span>
     <span class="n">solve_Phelps!</span><span class="p">(</span><span class="n">lq</span><span class="p">)</span>
 
     <span class="c"># Private sector sets expectations</span>
@@ -12401,7 +12401,7 @@ C = \left( \begin{array}{cc}
     <span class="k">end</span>
     <span class="k">if</span> <span class="n">expectations</span> <span class="o">==</span> <span class="s">&quot;RLS&quot;</span>
       <span class="n">update_PC_RLS!</span><span class="p">(</span><span class="n">plm_p</span><span class="p">,</span> <span class="n">alm</span><span class="p">,</span> <span class="n">Ut</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">xnew</span><span class="p">)</span>
-      <span class="n">lq_p</span> <span class="o">=</span> <span class="n">make_LQ</span><span class="p">(</span><span class="n">plm_g</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">δ</span><span class="p">)</span>
+      <span class="n">lq_p</span> <span class="o">=</span> <span class="n">make_LQ</span><span class="p">(</span><span class="n">plm_g</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">δ</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">σc</span><span class="p">,</span> <span class="n">ce</span><span class="o">.</span><span class="n">σe</span><span class="p">)</span>
       <span class="n">solve_Phelps!</span><span class="p">(</span><span class="n">lq_p</span><span class="p">)</span>
 
       <span class="n">x_priv</span> <span class="o">=</span> <span class="p">(</span><span class="n">expand_matrix</span><span class="p">(</span><span class="n">plm_g</span><span class="p">,</span> <span class="n">alm</span><span class="p">,</span> <span class="o">-</span><span class="n">lq_p</span><span class="o">.</span><span class="n">F</span><span class="p">)</span> <span class="o">*</span> <span class="n">Xt</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
