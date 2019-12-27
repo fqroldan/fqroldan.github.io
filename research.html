@@ -79,7 +79,22 @@
 				<h2>Credibility Dynamics and Disinflation Plans </h2>
 				<h3>with <a href="https://sites.google.com/nyu.edu/rumenk/">Rumen Kostadinov</a>  [<a href="https://fqroldan.github.io/resources/cddp_draft.pdf">paper</a> | <a href="https://fqroldan.github.io/resources/cddp_slides.pdf">slides</a>]</h3>
 
-				<p>We study the optimal design of a disinflation plan by a planner who lacks commitment. Having announced a plan, the Central banker faces a tradeoff between surprise inflation and building reputation, defined as the private sector's belief that the Central bank is committed to the plan. Some plans are harder to sustain: the planner recognizes that paving out future grounds with temptation leads the way for a negative drift of reputation in equilibrium. Plans that create low inflationary expectations balance promises of low inflation with dynamic incentives that make them credible. When announcing the disinflation plan, the planner takes into account these anticipated interactions. We find that, even in the zero reputation limit, a gradual disinflation is preferred despite the absence of inflation inertia in the private economy.</p>
+				<p id="abstract_cddp"></p>
+				<script>
+					var txtFile = new XMLHttpRequest();
+			    var allText = "file not found";
+			    txtFile.onreadystatechange = function () {
+			        if (txtFile.readyState === XMLHttpRequest.DONE && txtFile.status == 200) {
+			            allText = txtFile.responseText;
+			            allText = allText.split("\n").join("<br>");
+			        }
+
+			        document.getElementById('abstract_cddp').innerHTML = allText;
+			    }
+			    txtFile.open("GET", 'https://fqroldan.github.io/resources/abstract_cddp.txt', true);
+			    txtFile.send(null);
+				</script>
+
 			</div>
 			<div class="welcome" style="padding:0px 20px">
 				<img src="https://lh3.googleusercontent.com/ayIcw0kEEEBGHTjN2asyQ5JGGReJe4Oq3yuRPdx7r40s5Ropuux4ZrdtdE6XSY2jXdD8CQ" style="width:100%;height:auto;">
