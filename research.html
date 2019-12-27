@@ -53,25 +53,19 @@
 
 
 			<p id="abstract_jmp"></p>
-			<script type="text/javascript">
-			// function load() {
-			// 	file.onreadystatechange = function() {
-			// 		if (file.readyState === 4) {  // Makes sure the document is ready to parse
-			// 			if (file.status === 200) {  // Makes sure it's found the file
-			// 				text = file.responseText;
-			// 			}
-			// 		}
-			// 	}
-			// }
-			var file = new XMLHttpRequest();
-			file.open("GET", "https://fqroldan.github.io/abstract_jmp.txt", true);
-			document.getElementById("abstract_jmp").innerHTML = text;
-			document.getElementById("abstract_jmp").innerHTML = "text";
-			var file = new XMLHttpRequest();
-			file.open("GET", "abstract_jmp.txt", true);
-			document.getElementById("abstract_jmp").innerHTML = text;
+			<script>
+				var txtFile = new XMLHttpRequest();
+		    var allText = "file not found";
+		    txtFile.onreadystatechange = function () {
+		        if (txtFile.readyState === XMLHttpRequest.DONE && txtFile.status == 200) {
+		            allText = txtFile.responseText;
+		            allText = allText.split("\n").join("<br>");
+		        }
 
-			// window.onLoad = load();
+		        document.getElementById('abstract_jmp').innerHTML = allText;
+		    }
+		    txtFile.open("GET", 'abstract_jmp.txt', true);
+		    txtFile.send(null);
 			</script>
 			<p>DSADS</p>
 
