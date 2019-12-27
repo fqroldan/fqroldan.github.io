@@ -54,18 +54,18 @@
 
 			<p id="abstract_jmp"></p>
 			<script>
-				var txtFile = new XMLHttpRequest();
+				var txtFile_jmp = new XMLHttpRequest();
 		    var allText_jmp = "file not found";
-		    txtFile.onreadystatechange = function () {
-		        if (txtFile.readyState === XMLHttpRequest.DONE && txtFile.status == 200) {
-		            allText_jmp = txtFile.responseText;
+		    txtFile_jmp.onreadystatechange = function () {
+		        if (txtFile_jmp.readyState === XMLHttpRequest.DONE && txtFile_jmp.status == 200) {
+		            allText_jmp = txtFile_jmp.responseText;
 		            allText_jmp = allText_jmp.split("\n").join("<br>");
 		        }
 
 		        document.getElementById('abstract_jmp').innerHTML = allText_jmp;
 		    }
-		    txtFile.open("GET", 'https://fqroldan.github.io/resources/abstract_jmp.txt', true);
-		    txtFile.send(null);
+		    txtFile_jmp.open("GET", 'https://fqroldan.github.io/resources/abstract_jmp.txt', true);
+		    txtFile_jmp.send(null);
 			</script>
 
 		</div>
@@ -81,18 +81,18 @@
 
 				<p id="abstract_cddp"></p>
 				<script>
-					var txtFile = new XMLHttpRequest();
+					var txtFile_cddp = new XMLHttpRequest();
 			    var allText_cddp = "file not found";
-			    txtFile.onreadystatechange = function () {
-			        if (txtFile.readyState === XMLHttpRequest.DONE && txtFile.status == 200) {
-			            allText_cddp = txtFile.responseText;
+			    txtFile_cddp.onreadystatechange = function () {
+			        if (txtFile_cddp.readyState === XMLHttpRequest.DONE && txtFile_cddp.status == 200) {
+			            allText_cddp = txtFile_cddp.responseText;
 			            allText_cddp = allText_cddp.split("\n").join("<br>");
 			        }
 
 			        document.getElementById('abstract_cddp').innerHTML = allText_cddp;
 			    }
-			    txtFile.open("GET", 'https://fqroldan.github.io/resources/abstract_cddp.txt', true);
-			    txtFile.send(null);
+			    txtFile_cddp.open("GET", 'https://fqroldan.github.io/resources/abstract_cddp.txt', true);
+			    txtFile_cddp.send(null);
 				</script>
 
 			</div>
