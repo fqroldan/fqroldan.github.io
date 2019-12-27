@@ -93,6 +93,10 @@ h2 {
 h3 {
 	font-weight: normal;
 }
+body {
+	font-family:Lato;
+	background-color: #fafafa;
+}
 
 .pic {
 	/*background-color:#e5e5e5;*/
