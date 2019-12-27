@@ -7,6 +7,11 @@
 	box-sizing: border-box;
 }
 
+* {
+	font-family:Lato, sans-serif;
+	background-color: #fafafa;
+}
+
 .button {
   background-color: #08282e; /* Green */
   border: none;
@@ -92,11 +97,6 @@ h2 {
 }
 h3 {
 	font-weight: normal;
-}
-
-html {
-	font-family:Lato, sans-serif;
-	background-color: #fafafa;
 }
 
 .pic {
