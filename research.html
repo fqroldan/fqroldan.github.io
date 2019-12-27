@@ -51,7 +51,26 @@
 			<h2>Aggregate Demand and Sovereign Debt Crises </h2>
 			<h3>Job Market paper  [<a href="https://fqroldan.github.io/resources/JMP_Roldan.pdf">paper</a> | <a href="https://fqroldan.github.io/resources/JMPslides_Roldan.pdf">slides</a>]</h3>
 
-			<p>Sovereign debt crises are associated with pronounced recessions. In the conventional view, poor economic conditions increase default incentives and hence bond spreads. I provide evidence suggesting that the reaction of consumption demand creates feedback from sovereign spreads to output. Because they ignore the savings behavior of private agents, existing models cannot capture this empirical feature of crises. I study the implications of this feedback mechanism in a model where the government of a small open economy borrows from foreign lenders but some of the debt is held by domestic savers who are heterogeneous in their wealth. This heterogeneity means that potential sovereign defaults carry redistributive effects in addition to aggregate income losses. Both of these effects introduce risk in private agents' expectations after bad news for repayment. Default risk then exacerbates the precautionary motive of households and depresses aggregate demand when spreads increase. The model is also consistent with facts about the timing of sovereign debt crises.</p>
+
+			<p id="abstract_jmp"></p>
+			<script type="text/javascript">
+			function load() {
+				var file = new XMLHttpRequest();
+				file.open("GET", "https://fqroldan.github.io/abstract_jmp.txt", true);
+				file.onreadystatechange = function() {
+					if (file.readyState === 4) {  // Makes sure the document is ready to parse
+						if (file.status === 200) {  // Makes sure it's found the file
+							text = file.responseText;
+							document.getElementById("div1").innerHTML = text;
+						}
+					}
+				}
+			}
+
+			window.onLoad = load();
+			</script>
+
+			<!-- <p>Sovereign debt crises are associated with pronounced recessions. In the conventional view, poor economic conditions increase default incentives and hence bond spreads. I provide evidence suggesting that the reaction of consumption demand creates feedback from sovereign spreads to output. Because they ignore the savings behavior of private agents, existing models cannot capture this empirical feature of crises. I study the implications of this feedback mechanism in a model where the government of a small open economy borrows from foreign lenders but some of the debt is held by domestic savers who are heterogeneous in their wealth. This heterogeneity means that potential sovereign defaults carry redistributive effects in addition to aggregate income losses. Both of these effects introduce risk in private agents' expectations after bad news for repayment. Default risk then exacerbates the precautionary motive of households and depresses aggregate demand when spreads increase. The model is also consistent with facts about the timing of sovereign debt crises.</p> -->
 		</div>
 		<div class="welcome" style="padding:0px 20px">
 			<img src="https://lh3.googleusercontent.com/Q05Gj9uWSj0HB3TSNhDUYk5MhgZ_LVlYjByX20Pi6EhwDMkCmAvZUUc7vKIf0GesD6rnCw" style="width:100%;height:auto;">
