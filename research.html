@@ -106,7 +106,23 @@
 				<h2>Distributional Effects in Sovereign Debt Policy</h2>
 				<h3>with <a href="https://sites.google.com/view/jmorelli">Juan Morelli</a>  [paper | slides]</h3>
 
-				<p>We study a closed economy in which heterogeneous households use sovereign debt as the vehicle for savings. A benevolent but discretionary government uses its public debt policy to influence the distribution of consumption through households' wealth. We perform default and taxation experiments that highlight the forces at play and their interaction. We find that the social value of public debt as a savings vehicle allows the government to sustain borrowing in the absence of explicit penalties, while at times the distribution of wealth may create an incentive for sovereign default.</p>
+				<p id="abstract_debtpol"></p>
+				<script>
+					var txtFile_debtpol = new XMLHttpRequest();
+			    var allText_debtpol = "file not found";
+			    txtFile_debtpol.onreadystatechange = function () {
+			        if (txtFile_debtpol.readyState === XMLHttpRequest.DONE && txtFile_debtpol.status == 200) {
+			            allText_debtpol = txtFile_debtpol.responseText;
+			            allText_debtpol = allText_debtpol.split("\n").join("<br>");
+			        }
+
+			        document.getElementById('abstract_debtpol').innerHTML = allText_debtpol;
+			    }
+			    txtFile_debtpol.open("GET", 'https://fqroldan.github.io/resources/abstract_debtpol.txt', true);
+			    txtFile_debtpol.send(null);
+				</script>
+
+
 			</div>
 			<div class="welcome" style="padding:0px 20px">
 				<img src="https://lh6.googleusercontent.com/z3nZb5xSqppWeZp721VKEJiVIDjNJ3q7ek6sqGfNYgzr2nCw_dtQLx4qxKW7WVATIfi1XA" style="width:100%;height:auto;">
