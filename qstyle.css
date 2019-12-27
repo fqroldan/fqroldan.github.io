@@ -93,7 +93,8 @@ h2 {
 h3 {
 	font-weight: normal;
 }
-body {
+
+html {
 	font-family:Lato;
 	background-color: #fafafa;
 }
