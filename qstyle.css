@@ -12,6 +12,8 @@
 	/*background-color: #fafafa;*/
 }
 
+@font-face { font-family: LatoLight; src: url('Fonts/Lato/Lato-Light.ttf'); } 
+
 .button {
   background-color: #08282e; /* Green */
   border: none;
@@ -87,12 +89,12 @@ a {
 
 h1 {
 	font-weight: normal;
-	font-family: Lato Light;
+	font-family: LatoLight;
 	font-size: 3em;
 }
 h2 {
 	text-align: left;
-	font-family: Lato Light;
+	font-family: LatoLight;
 	color: #08282e
 }
 h3 {
