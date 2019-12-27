@@ -14,8 +14,8 @@
 			<li class="right"><a href="teaching.html">Resources</a></li>
 			<li class="right"><a href="#cv">CV</a></li>
 			<li class="right"><a class="active" href="research.html">Research</a></li>
-			<li class="right"><a href="index2.html">Home</a></li>
-			<li style="float:left"><a href="index2.html"></a></li>
+			<li class="right"><a href="index.html">Home</a></li>
+			<li style="float:left"><a href="index.html"></a></li>
 		</ul>
 	</div>
 
