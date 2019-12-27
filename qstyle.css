@@ -142,6 +142,8 @@ h3 {
 	/* For mobile phones: */
 	.welcome, .about, .pic {
 		width:100%;
+		padding:0px;
+		font-family:Lato;
 	}
 	.topbar {
 		padding: 0px;
