@@ -1,0 +1,165 @@
+.marginauto {
+    margin: 10px auto 20px;
+    display: block;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.button {
+  background-color: #08282e; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-family:Lato;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 10px;
+  cursor: pointer;
+}
+
+
+body {margin:0;}
+
+ul.topnav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #08282e;
+	position: fixed;
+	top:0;
+	width: 100%;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+ul.topnav li a:hover {background-color: #111;}
+
+ul.topnav li a.active {font-weight:bold;}
+
+ul.topnav li.right {float: right;}
+
+.active {
+	/*background-color: #333;*/
+	font-weight:bold;
+}
+
+.footer {
+	display: block;
+	background-color:#e5e5e5;
+	position: fixed;
+	padding:10px 40px;
+	width: 100%;
+	bottom : 0;
+	/*height : 120px;*/
+}
+
+.vfill {
+	display: block;
+	background-color: #fafafa;
+	position: relative;
+	bottom: 0;
+	width: 100%;
+	height: 220px;
+	padding: 20px;
+}
+
+a {
+	color: #08282e;
+}
+
+h1 {
+	font-weight: normal;
+	font-family: Lato Light;
+	font-size: 3em;
+}
+h2 {
+	text-align: left;
+	font-family: Lato Light;
+	color: #08282e
+}
+h3 {
+	font-weight: normal;
+}
+
+.pic {
+	/*background-color:#e5e5e5;*/
+	float:left;
+	width:50%;
+	/*max-width: 500px;*/
+	padding:0px 20px 0px 20px;
+	/*margin-top:7px;*/
+	text-align:center;
+}
+
+.welcome {
+	float:left;
+	width:50%;
+	line-height: 25px;
+	/*padding:0px 20px;*/
+	/*padding-left: 15px;*/
+	/*padding-right: 15px;*/
+	/*background-color: gray;*/
+}
+
+.about{
+	background-color: #fafafa;
+	width:90%;
+	float:left;
+	height:500px"
+}
+
+.padder {
+	height:20px;
+}
+
+.papers {
+	width:100%;
+	max-width:1200px;
+	margin:0px auto;
+	line-height: 25px;
+}
+
+.topbar{
+	background-color:#08282e;
+	padding:30px;
+	text-align:center;
+}
+
+@media only screen and (max-width:620px) {
+	/* For mobile phones: */
+	.welcome, .about, .pic {
+		width:100%;
+	}
+	.topbar {
+		padding: 0px;
+		/*background-color: white*/
+	}
+}
+
+@media screen and (max-width: 600px) {
+  ul.topnav li.right, 
+  ul.topnav li {float: none;}
+  .button {width:100%; max-width:50%; margin:5px 0px;}
+  ul.topnav {
+  	position:relative;
+  }
+}
+
+@media only screen and (max-width:620px) {
+	.padder {
+		height:5px;
+	}
+}
