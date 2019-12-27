@@ -54,20 +54,20 @@
 
 			<p id="abstract_jmp"></p>
 			<script type="text/javascript">
-			function load() {
-				var file = new XMLHttpRequest();
-				file.open("GET", "https://fqroldan.github.io/abstract_jmp.txt", true);
-				file.onreadystatechange = function() {
-					if (file.readyState === 4) {  // Makes sure the document is ready to parse
-						if (file.status === 200) {  // Makes sure it's found the file
-							text = file.responseText;
-							document.getElementById("abstract_jmp").innerHTML = "text";
-						}
-					}
-				}
-			}
+			// function load() {
+			// 	file.onreadystatechange = function() {
+			// 		if (file.readyState === 4) {  // Makes sure the document is ready to parse
+			// 			if (file.status === 200) {  // Makes sure it's found the file
+			// 				text = file.responseText;
+			// 			}
+			// 		}
+			// 	}
+			// }
+			var file = new XMLHttpRequest();
+			file.open("GET", "https://fqroldan.github.io/abstract_jmp.txt", true);
+			document.getElementById("abstract_jmp").innerHTML = text;
 
-			window.onLoad = load();
+			// window.onLoad = load();
 			</script>
 			<p>dsa</p>
 
