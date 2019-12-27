@@ -55,14 +55,14 @@
 			<p id="abstract_jmp"></p>
 			<script>
 				var txtFile = new XMLHttpRequest();
-		    var allText = "file not found";
+		    var allText_jmp = "file not found";
 		    txtFile.onreadystatechange = function () {
 		        if (txtFile.readyState === XMLHttpRequest.DONE && txtFile.status == 200) {
-		            allText = txtFile.responseText;
-		            allText = allText.split("\n").join("<br>");
+		            allText_jmp = txtFile.responseText;
+		            allText_jmp = allText_jmp.split("\n").join("<br>");
 		        }
 
-		        document.getElementById('abstract_jmp').innerHTML = allText;
+		        document.getElementById('abstract_jmp').innerHTML = allText_jmp;
 		    }
 		    txtFile.open("GET", 'https://fqroldan.github.io/abstract_jmp.txt', true);
 		    txtFile.send(null);
@@ -82,14 +82,14 @@
 				<p id="abstract_cddp"></p>
 				<script>
 					var txtFile = new XMLHttpRequest();
-			    var allText = "file not found";
+			    var allText_cddp = "file not found";
 			    txtFile.onreadystatechange = function () {
 			        if (txtFile.readyState === XMLHttpRequest.DONE && txtFile.status == 200) {
-			            allText = txtFile.responseText;
-			            allText = allText.split("\n").join("<br>");
+			            allText_cddp = txtFile.responseText;
+			            allText_cddp = allText_cddp.split("\n").join("<br>");
 			        }
 
-			        document.getElementById('abstract_cddp').innerHTML = allText;
+			        document.getElementById('abstract_cddp').innerHTML = allText_cddp;
 			    }
 			    txtFile.open("GET", 'https://fqroldan.github.io/resources/abstract_cddp.txt', true);
 			    txtFile.send(null);
