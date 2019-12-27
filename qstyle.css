@@ -156,6 +156,9 @@ h3 {
 		padding: 0px;
 		/*background-color: white*/
 	}
+	.footer {
+		position: relative;
+	}
 }
 
 @media screen and (max-width: 600px) {
