@@ -16,7 +16,7 @@
   background-color: #08282e; /* Green */
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 10px 20px;
   text-align: center;
   text-decoration: none;
   font-family:Lato, sans-serif;
@@ -24,9 +24,17 @@
   font-size: 16px;
   margin: 4px 10px;
   cursor: pointer;
-  border-radius: 12px;
+  border-radius: 18px;
+  border: 2px solid #08282e;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
 }
 
+.button:hover {
+  background-color: #fafafa;
+  color: #08282e;
+}
 
 body {margin:0;}
 
