@@ -129,7 +129,6 @@
 			</div>
 		</div>
 
-
 </div>
 
 <div style="width:100%; background-color:#e5e5e5">
@@ -175,9 +174,24 @@
 <div class="papers">
 
 	<div style="overflow:auto;padding:10px 20px 30px 20px">
-		<div class="welcome" style="text-align: justify;padding: 0px 10px">
+		<div class="welcome" style="width:100%;text-align: justify;padding: 0px 10px">
 			<h2>Sudden Stops and Where to Find Them</h2>
 			<h3>with <a href="https://www.nicolasaragon.net/">Nicolás Aragón</a> and <a href="https://sites.google.com/view/hernanseoane">Hernán Seoane</a> [paper | slides]</h3>
+				<p id="abstract_ars"></p>
+				<script>
+					var txtFile_ars = new XMLHttpRequest();
+			    var allText_ars = "file not found";
+			    txtFile_ars.onreadystatechange = function () {
+			        if (txtFile_ars.readyState === XMLHttpRequest.DONE && txtFile_ars.status == 200) {
+			            allText_ars = txtFile_ars.responseText;
+			            allText_ars = allText_ars.split("\n").join("<br>");
+			        }
+
+			        document.getElementById('abstract_ars').innerHTML = allText_ars;
+			    }
+			    txtFile_ars.open("GET", 'https://raw.githubusercontent.com/fqroldan/ARS/master/Drafts/abstract_ars.txt?token=AFO5QWB4J3PTOXKUB4HONZS6A6KLE', true);
+			    txtFile_ars.send(null);
+				</script>
 
 		</div>
 		<div class="welcome" style="padding:0px 20px">
@@ -187,7 +201,7 @@
 	</div>
 
 	<div style="overflow:auto;padding:10px 20px 30px 20px">
-		<div class="welcome" style="text-align: justify;padding: 0px 10px">
+		<div class="welcome" style="width:100%;text-align: justify;padding: 0px 10px">
 			<h2>Wealth Redistribution and the Real Effects of Devaluations</h2>
 			<h3>with Santiago Cámara [paper | slides]</h3>
 
@@ -199,7 +213,7 @@
 	</div>
 
 	<div style="overflow:auto;padding:10px 20px 30px 20px">
-		<div class="welcome" style="text-align: justify;padding: 0px 10px">
+		<div class="welcome" style="width:100%;text-align: justify;padding: 0px 10px">
 			<h2>On the Cyclicality of Structural Reforms</h2>
 			<h3>with <a href="https://www.nicolasaragon.net/">Nicolás Aragón</a> and <a href="https://www.victoria-gregory.com/">Victoria Gregory</a> [paper | slides]</h3>
 
@@ -211,7 +225,7 @@
 	</div>
 
 	<div style="overflow:auto;padding:10px 20px 30px 20px">
-		<div class="welcome" style="text-align: justify;padding: 0px 10px">
+		<div class="welcome" style="width:100%;text-align: justify;padding: 0px 10px">
 			<h2>The Corridor and a Typology of Macroeconomic Crises</h2>
 			<h3>with Daniel Heymann [paper | slides]</h3>
 
@@ -223,7 +237,7 @@
 	</div>
 
 	<div style="overflow:auto;padding:10px 20px 30px 20px">
-		<div class="welcome" style="text-align: justify;padding: 0px 10px">
+		<div class="welcome" style="width:100%;text-align: justify;padding: 0px 10px">
 			<h2>On the Shortcomings of Direct Foreign Exchange Interventions</h2>
 			<h3>with <a href="http://www.gustavoadler.com/">Gustavo Adler</a> [paper | slides]</h3>
 

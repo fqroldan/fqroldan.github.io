@@ -5,12 +5,10 @@
 
 * {
 	box-sizing: border-box;
+	font-family:Lato, sans-serif;
+	/*line-height: 25px;*/
 }
 
-* {
-	font-family:Lato, sans-serif;
-	/*background-color: #fafafa;*/
-}
 
 @font-face { font-family: LatoLight; src: url('Fonts/Lato/Lato-Light.ttf'); } 
 
