@@ -140,15 +140,41 @@ h3 {
 	line-height: 25px;
 }
 
+.logos_center{
+	overflow:auto;
+	padding:10px 20px 30px 20px;
+	max-width:1000px;
+	margin:0px auto;
+}
 .topbar{
 	background-color:#08282e;
 	padding:30px;
 	text-align:center;
 }
 
+.horizontal-flex-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  /*background: #808080;*/
+  margin: 20px;
+}
+.vertical-flex-container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  /*background: #808080;*/
+  margin: 5px;
+}
+
+.afil_logo{
+	height:125px;
+	margin:0px 20px;
+}
+
 @media only screen and (max-width:620px) {
 	/* For mobile phones: */
-	.welcome, .about, .pic {
+	.welcome, .about, .pic, .logos_center {
 		width:100%;
 		padding:0px;
 		font-family:Lato;
@@ -159,6 +185,19 @@ h3 {
 	}
 	.footer {
 		position: relative;
+	}
+	.horizontal-flex-container{
+		flex-flow: column nowrap;
+	}
+	.vertical-flex-container{
+		flex-flow: row nowrap;
+		text-align: center;
+	}
+
+	.afil_logo{
+		width:60%;
+		height:auto;
+		margin:10px auto;
 	}
 }
 
