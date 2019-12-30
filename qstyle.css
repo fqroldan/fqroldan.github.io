@@ -13,7 +13,7 @@
 @font-face { font-family: LatoLight; src: url('Fonts/Lato/Lato-Light.ttf'); } 
 
 .button {
-  background-color: #08282e; /* Green */
+  background-color: #08282e;
   border: none;
   color: white;
   padding: 10px 20px;
