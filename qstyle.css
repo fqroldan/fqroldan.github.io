@@ -35,6 +35,12 @@
   color: #08282e;
 }
 
+.container-topnav{
+  position:fixed;
+  width:100%;
+  background-color: #08282e;
+}
+
 .topnav{
   float:right;
 }
@@ -89,7 +95,7 @@ ul.topnav li.right {float: right;}
 	position: relative;
 	bottom: 0;
 	width: 100%;
-	height: 220px;
+	height: 175px;
 	padding: 20px;
 }
 
