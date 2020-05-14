@@ -117,6 +117,11 @@ h3 {
 	font-weight: normal;
 }
 
+h4 {
+  font-weight: normal;
+  color: #08282e
+}
+
 .pic {
 	/*background-color:#e5e5e5;*/
 	float:left;
