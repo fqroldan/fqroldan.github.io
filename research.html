@@ -161,6 +161,34 @@ function myFunction() {
 			</div>
 		</div>
 
+	<div style="overflow:auto;padding:10px 20px 30px 20px">
+			<div class="welcome" style="text-align: justify;padding: 0px 10px">
+				<h2>Capital Controls and Misallocation</h2>
+				<h3>with <a href="https://sites.google.com/site/lianallub/" target="_blank">Lian Allub</a>, <a href="https://www.nicolasaragon.net/" target="_blank">Nicolás Aragón</a>, and <a href="https://sites.google.com/view/hernanseoane" target="_blank">Hernán Seoane</a> [paper | slides]</h3>
+
+				<p id="abstract_AARS"></p>
+				<script>
+					var txtFile_AARS = new XMLHttpRequest();
+			    var allText_AARS = "file not found";
+			    txtFile_AARS.onreadystatechange = function () {
+			        if (txtFile_AARS.readyState === XMLHttpRequest.DONE && txtFile_AARS.status == 200) {
+			            allText_AARS = txtFile_AARS.responseText;
+			            allText_AARS = allText_AARS.split("\n").join("<br>");
+			        }
+
+			        document.getElementById('abstract_AARS').innerHTML = allText_AARS;
+			    }
+			    txtFile_AARS.open("GET", 'https://fqroldan.github.io/resources/abstract_AARS.txt', true);
+			    txtFile_AARS.send(null);
+				</script>
+
+
+			</div>
+<!-- 			<div class="welcome" style="padding:0px 20px">
+				<img src="Images/AARS_fig.png" style="width:100%;height:auto;">
+			</div>
+ -->		</div>
+
 </div>
 
 <div style="width:100%; background-color:#e5e5e5">
