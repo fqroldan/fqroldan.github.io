@@ -111,10 +111,13 @@ h1 {
 h2 {
 	text-align: left;
 	font-family: LatoLight;
-	color: #08282e
+	color: #08282e;
+  line-height: 30px;
+  margin:20px 0px 0px;
 }
 h3 {
 	font-weight: normal;
+  padding: 0px;
 }
 
 highlight1 {
@@ -135,10 +138,6 @@ highlight1 {
 	float:left;
 	width:50%;
 	line-height: 25px;
-	/*padding:0px 20px;*/
-	/*padding-left: 15px;*/
-	/*padding-right: 15px;*/
-	/*background-color: gray;*/
 }
 
 .about{
