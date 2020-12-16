@@ -144,7 +144,8 @@ highlight1 {
 	background-color: #fafafa;
 	width:90%;
 	float:left;
-	height:500px"
+  text-align: justify;
+	height:500px";
 }
 
 .padder {
