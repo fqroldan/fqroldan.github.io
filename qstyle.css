@@ -140,6 +140,24 @@ highlight1 {
 	line-height: 25px;
 }
 
+.paper_desc{
+  float:left;
+  width:67%;
+  line-height: 25px;
+  text-align: justify;
+  padding: 0px 0px;
+
+}
+
+.paper_fig{
+  float:left;
+  width:33%;
+  line-height: 25px;
+  text-align:center;
+  padding:50px 20px;
+}
+
+
 .about{
 	background-color: #fafafa;
 	width:90%;
@@ -197,7 +215,7 @@ highlight1 {
 
 @media only screen and (max-width:620px) {
 	/* For mobile phones: */
-	.welcome, .about, .pic, .logos_center {
+	.welcome, .about, .pic, .logos_center, .paper_desc, .paper_fig {
 		width:100%;
 		padding:0px;
 		font-family:Lato;
