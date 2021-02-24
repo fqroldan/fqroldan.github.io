@@ -76,7 +76,7 @@ function myFunction() {
 
 
 <div class="papers">
-	<div style="overflow:auto;padding:10px 20px 10px 20px">
+	<div style="overflow:auto;padding:10px 20px 0px">
 		<h2>The Aggregate-Demand Doom Loop: Precautionary Motives and the Welfare Costs of Sovereign Risk </h2> 
 		<div class="paper_desc">
 			<h3>
@@ -86,27 +86,27 @@ function myFunction() {
 
 			<p id="abstract_jmp" style="font-size:90%;line-height:150%"></p>
 			<script>
-				var txtFile_jmp = new XMLHttpRequest();
-		    var allText_jmp = "file not found";
-		    txtFile_jmp.onreadystatechange = function () {
-		        if (txtFile_jmp.readyState === XMLHttpRequest.DONE && txtFile_jmp.status == 200) {
-		            allText_jmp = txtFile_jmp.responseText;
-		            allText_jmp = allText_jmp.split("\n").join("<br>");
+				var txtFile = new XMLHttpRequest();
+		    var allText = "file not found";
+		    txtFile.onreadystatechange = function () {
+		        if (txtFile.readyState === XMLHttpRequest.DONE && txtFile.status == 200) {
+		            allText = txtFile.responseText;
+		            allText = allText.split("\n").join("<br>");
 		        }
 
-		        document.getElementById('abstract_jmp').innerHTML = allText_jmp;
+		        document.getElementById('abstract_jmp').innerHTML = allText;
 		    }
-		    txtFile_jmp.open("GET", 'https://fqroldan.github.io/resources/abstract_jmp.txt', true);
-		    txtFile_jmp.send(null);
+		    txtFile.open("GET", 'https://fqroldan.github.io/resources/abstract_jmp.txt', true);
+		    txtFile.send(null);
 			</script>
 
 		</div>
-		<div class="paper_fig" style="text-align:center;padding:50px 20px">
+		<div class="paper_fig">
 			<img src="Images/JMP_fig_new.png" style="width:100%;height:auto;">
 		</div>
 	</div>
 
-	<div style="overflow:auto;padding:10px 20px 30px 20px">
+	<div style="overflow:auto;padding:10px 20px 0px">
 			<h2>Credibility Dynamics and Disinflation Plans </h2>
 			<div class="paper_desc">
 				<h3>
@@ -136,7 +136,7 @@ function myFunction() {
 			</div>
 		</div>
 	
-	<div style="overflow:auto;padding:10px 20px 30px 20px">
+	<div style="overflow:auto;padding:10px 20px 0px">
 		<h2>Uncertainty Premia, Sovereign Default Risk, and State-Contingent Debt</h2>
 		<div class="paper_desc">
 			<h3>with <a href="https://sites.google.com/site/franroch/" target="_blank">Francisco Roch</a> [<a href="https://fqroldan.github.io/resources/SCI_draft.pdf" target="_blank">paper</a> | <a href="https://fqroldan.github.io/resources/SCI_slides.pdf" target="_blank">slides</a>]
@@ -165,7 +165,7 @@ function myFunction() {
 	</div>
 
 	
-	<div style="overflow:auto;padding:10px 20px 30px 20px">
+	<div style="overflow:auto;padding:10px 20px 0px">
 			<h2>Distributional Effects in Sovereign Debt Policy</h2>
 			<div class="paper_desc">
 				<h3>with <a href="https://sites.google.com/view/jmorelli" target="_blank">Juan Morelli</a>  [<a href="https://fqroldan.github.io/resources/MorelliRoldan.pdf" target="_blank">paper</a> | <a href="https://www.dropbox.com/s/97cvhbuikbvvptz/debtpol.pdf?dl=0" target="_black">slides</a>]</h3>
@@ -203,7 +203,7 @@ function myFunction() {
 
 <div class="papers">
 
-	<div style="overflow:auto;padding:10px 20px 30px 20px">
+	<div style="overflow:auto;padding:10px 20px 0px">
 		<h2>On the Optimal Speed of Sovereign Deleveraging with Precautionary Savings</h2>
 		<div class="paper_desc">
 			<h3>with <a href="http://pages.stern.nyu.edu/~tphilipp/" target="_blank">Thomas Philippon</a>, 2018. <i>IMF Economic Review</i>, vol. 66(2), pp. 375–413, June. [<a href="https://fqroldan.github.io/resources/Deleveraging.pdf" target="_blank">paper</a> | <a href="https://fqroldan.github.io/resources/Delev_Arg_2017.pdf" target="_blank">slides</a>]</h3>
@@ -217,7 +217,7 @@ function myFunction() {
 		</div>
 	
 	</div>
-	<div style="overflow:auto;padding:10px 20px 30px 20px">
+	<div style="overflow:auto;padding:10px 20px 0px">
 		<h2>Markups Under Uncertainty: Variations on Price Decisions in High Inflation</h2>
 		<div class="paper_desc">
 			<h3>with Daniel Heymann, in <i>Macroeconomics and Development: Roberto Frenkel and the Economics of Latin America</i>, New York: Columbia University Press. 2016</h3>
@@ -241,7 +241,7 @@ function myFunction() {
 
 <div class="papers">
 
-	<div style="overflow:auto;padding:10px 20px 30px 20px">
+	<div style="overflow:auto;padding:10px 20px 0px">
 			<h2>Capital Controls and Misallocation</h2>
 			<div class="paper_desc">
 				<h3>with <a href="https://sites.google.com/site/lianallub/" target="_blank">Lian Allub</a>, <a href="https://www.nicolasaragon.net/" target="_blank">Nicolás Aragón</a>, and <a href="https://sites.google.com/view/hernanseoane" target="_blank">Hernán Seoane</a> [paper | slides]</h3>
@@ -269,7 +269,7 @@ function myFunction() {
 			</div>
  -->		</div>
 
-	<div style="overflow:auto;padding:10px 20px 30px 20px">
+	<div style="overflow:auto;padding:10px 20px 0px">
 			<h2>Sudden Stops and Where to Find Them</h2>
 			<div class="paper_desc">
 				<h3>with <a href="https://www.nicolasaragon.net/" target="_blank">Nicolás Aragón</a> and <a href="https://sites.google.com/view/hernanseoane" target="_blank">Hernán Seoane</a> [paper | slides]</h3>
@@ -297,7 +297,7 @@ function myFunction() {
 			</div>
  -->		</div>
 
-	<div style="overflow:auto;padding:10px 20px 30px 20px">
+	<div style="overflow:auto;padding:10px 20px 0px">
 		<h2>Wealth Redistribution and the Real Effects of Devaluations</h2>
 		<div class="welcome" style="width:100%;text-align: justify;padding: 0px 0px">
 			<h3>with Santiago Cámara [paper | slides]</h3>
@@ -309,7 +309,7 @@ function myFunction() {
 	
 	</div>
 
-<!-- 	<div style="overflow:auto;padding:10px 20px 30px 20px">
+<!-- 	<div style="overflow:auto;padding:10px 20px 0px">
 		<h2>On the Cyclicality of Structural Reforms</h2>
 		<div class="welcome" style="width:100%;text-align: justify;padding: 0px 0px">
 			<h3>with <a href="https://www.nicolasaragon.net/" target="_blank">Nicolás Aragón</a> and <a href="https://www.victoria-gregory.com/" target="_blank">Victoria Gregory</a> [paper | slides]</h3>
@@ -321,7 +321,7 @@ function myFunction() {
 	
 	</div>  -->
 
-	<div style="overflow:auto;padding:10px 20px 30px 20px">
+	<div style="overflow:auto;padding:10px 20px 0px">
 		<h2>The Corridor and a Typology of Macroeconomic Crises</h2>
 		<div class="welcome" style="width:100%;text-align: justify;padding: 0px 0px">
 			<h3>with Daniel Heymann [paper | slides]</h3>
@@ -333,7 +333,7 @@ function myFunction() {
 	
 	</div>
 
-	<div style="overflow:auto;padding:10px 20px 30px 20px">
+	<div style="overflow:auto;padding:10px 20px 0px">
 		<h2>On the Shortcomings of Direct Foreign Exchange Interventions</h2>
 		<div class="welcome" style="width:100%;text-align: justify;padding: 0px 0px">
 			<h3>with <a href="http://www.gustavoadler.com/" target="_blank">Gustavo Adler</a> [paper | slides]</h3>
