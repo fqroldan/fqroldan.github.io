@@ -142,7 +142,7 @@ highlight1 {
 
 .paper_desc{
   float:left;
-  width:67%;
+  width:70%;
   line-height: 25px;
   text-align: justify;
   padding: 0px 0px;
@@ -151,10 +151,10 @@ highlight1 {
 
 .paper_fig{
   float:left;
-  width:33%;
+  width:30%;
   line-height: 25px;
   text-align:center;
-  padding:10px 20px;
+  padding:50px 20px 0px;
 }
 
 
