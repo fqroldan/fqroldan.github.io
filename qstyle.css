@@ -113,7 +113,7 @@ h2 {
 	font-family: LatoLight;
 	color: #08282e;
   line-height: 30px;
-  margin:20px 0px 0px;
+  margin:0px;
 }
 h3 {
 	font-weight: normal;
@@ -146,7 +146,7 @@ highlight1 {
   width:70%;
   line-height: 25px;
   text-align: justify;
-  padding: 0px 0px;
+  padding: 0px 0px 20px;
 
 }
 
