@@ -70,7 +70,7 @@ function myFunction() {
 
 <div style="width:100%; background-color:#e5e5e5">
 	<div style="max-width:1200px;margin:0px auto 20px;padding:10px 20px;text-align:center">
-		<a id="Working papers"><h1 style="color=#08282e;text-align:left">Working papers</h1></a>
+		<a id="Working papers"><h1 style="color:#08282e;text-align:left">Working papers</h1></a>
 	</div>
 </div>
 
@@ -198,7 +198,7 @@ function myFunction() {
 
 <div style="width:100%; background-color:#e5e5e5">
 	<div style="max-width:1200px;margin:0px auto 20px;padding:10px 20px;text-align:center">
-		<a id="Publications"><h1 style="color=#08282e;text-align:left">Publications</h1></a>
+		<a id="Publications"><h1 style="color:#08282e;text-align:left">Publications</h1></a>
 	</div>
 </div>
 
@@ -236,7 +236,7 @@ function myFunction() {
 
 <div style="width:100%; background-color:#e5e5e5">
 	<div style="max-width:1200px;margin:0px auto 20px;padding:10px 20px;text-align:center">
-		<a id="Work in Progress"><h1 style="color=#08282e;text-align:left">Work in Progress</h1></a>
+		<a id="Work in Progress"><h1 style="color:#08282e;text-align:left">Work in Progress</h1></a>
 	</div>
 </div>
 
@@ -298,35 +298,7 @@ function myFunction() {
 		</div>
 	</div>
 
-	<div style="overflow:auto;padding:0px 20px">
-		<h2>Sudden Stops and Where to Find Them</h2>
-		<div class="paper_desc">
-			<h3>with <a href="https://www.nicolasaragon.net/" target="_blank">Nicolás Aragón</a> and <a href="https://sites.google.com/view/hernanseoane" target="_blank">Hernán Seoane</a> [paper | slides]</h3>
-
-			<p id="abstract_ars" style="font-size:85%;line-height:150%"></p>
-			<script>
-				var txtFile_ars = new XMLHttpRequest();
-		    var allText_ars = "file not found";
-		    txtFile_ars.onreadystatechange = function () {
-		        if (txtFile_ars.readyState === XMLHttpRequest.DONE && txtFile_ars.status == 200) {
-		            allText_ars = txtFile_ars.responseText;
-		            allText_ars = allText_ars.split("\n").join("<br>");
-		        }
-
-		        document.getElementById('abstract_ars').innerHTML = allText_ars;
-		    }
-		    txtFile_ars.open("GET", 'https://fqroldan.github.io/resources/abstract_ars.txt', true);
-		    txtFile_ars.send(null);
-			</script>
-
-
-		</div>
-		<div class="paper_fig">
-			<img src="" style="width:100%;height:auto;">
-		</div>
-	</div>
-
-	<div style="overflow:auto;padding:0px 20px">
+	<!-- <div style="overflow:auto;padding:0px 20px">
 		<h2>Wealth Redistribution and the Real Effects of Devaluations</h2>
 		<div class="paper_desc">
 			<h3>with Santiago Cámara [paper | slides]</h3>
@@ -347,8 +319,7 @@ function myFunction() {
 		<div class="paper_fig">
 			<img src="" style="width:100%;height:auto;">
 		</div>
-	
-	</div>
+	</div> -->
 
 	<div style="overflow:auto;padding:0px 20px">
 		<h2>On the Shortcomings of Direct Foreign Exchange Interventions</h2>
