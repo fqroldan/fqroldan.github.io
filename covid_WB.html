@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Covid-19 trackers</title>
+    <link rel='icon' href='Images/q_fav.png' type='image/x-icon' />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="qstyle.css">
+
+    <!-- Google Analytics 2 -->
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-144923322-1', 'auto');
+        ga('require', 'displayfeatures');
+        ga('send', 'pageview');
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- 
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-144923322-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-144923322-1');
+</script>
+ -->
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav2") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav2";
+            }
+        }
+    </script>
+
+</head>
+
+<body style="background-color: #fafafa;">
+    <div class=container-topnav>
+        <div class="topnav">
+            <div class="topnav2" id="myTopnav">
+                <a href="index.html">Home</a>
+                <a href="research.html">Research</a>
+                <a href="cv.html">CV</a>
+                <a class="active" href="teaching.html">Resources</a>
+                <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div style="padding:20px;margin-top:0px;background-color:#08282e;height:auto;">
+        <div style="background-color:#08282e;padding:0px;text-align:center;color: #fafafa">
+            <h1>Covid-19 Trackers <br> <small>Western Balkans</small></h1>
+        </div>
+    </div>
+
+    <div class="papers">
+        <div style="overflow:auto;padding:10px 20px 30px 20px">
+            <div class="about" style="text-align: justify;padding: 0px 10px">
+                <p>
+                    Tracker for Covid-19 cases, deaths, and vaccination rates in the Western Balkans
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div style="width:100%; background-color:#e5e5e5">
+        <div style="max-width:1200px;margin:0px auto;padding:1px 20px;text-align:center">
+            <h1 style="color:#08282e;text-align:left;">Daily cases</h1>
+        </div>
+    </div>
+
+
+    <div class="papers" style="max-width:50%">
+        <embed type="text/html" src="Images_html/dashboard_WB.html" width=100% height=600>
+    </div>
+    <div class="papers" style="max-width:50%">
+        <embed type="text/html" src="Images_html/dashboard_WB_d.html" width=100% height=600>
+    </div>
+
+    <div style="width:100%; background-color:#e5e5e5">
+        <div style="max-width:1200px;margin:0px auto;padding:1px 20px;text-align:center">
+            <h1 style="color:#08282e;text-align:left;">Vaccinations</h1>
+        </div>
+    </div>
+
+    <div class="papers" style="max-width:50%">
+        <embed type="text/html" src="Images_html/vax_balkans.html" width=100% height=750>
+    </div>
+
+
+</body>
+</html>
