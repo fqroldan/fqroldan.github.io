@@ -52,13 +52,13 @@ function u(c, mc::McCall)
 end
 
 function R(w, mc::McCall)
-	""" Valor de aceptar una oferta w: R(w) = u(w) + β R(w) """
+	## Valor de aceptar una oferta w: R(w) = u(w) + β R(w)
 	β = mc.β
 	return u(w, mc) / (1-β)
 end
 
 function E_v(mc::McCall)
-	""" Valor esperado de la función de valor integrando sobre la oferta de mañana """
+	## Valor esperado de la función de valor integrando sobre la oferta de mañana
 	Ev = 0.0
 	for jwp in eachindex(mc.wgrid)
 		Ev += mc.pw[jwp] * mc.v[jwp]
@@ -67,9 +67,9 @@ function E_v(mc::McCall)
 end
 
 function update_v(ac, re, EV)
-	""" Actualizar la función de valor con max(aceptar, rechazar) si EV es falso o usando la forma cerrada con el extreme value si EV es verdadero """
+	## Actualizar la función de valor con max(aceptar, rechazar) si EV es falso o usando la forma cerrada con el extreme value si EV es verdadero
 	if EV
-		χ = 10
+		χ = 1
 		# Probabilidad de aceptar
 		prob = exp(ac/χ)/(exp(ac/χ)+exp(re/χ))
 		return prob * ac + (1-prob) * re
@@ -78,8 +78,8 @@ function update_v(ac, re, EV)
 	end
 end
 
-function vf_iter!(new_v, mc::McCall, flag = 0; EV=false)
-	""" Una iteración de la ecuación de Bellman """
+function vf_iter!(new_v, mc::McCall, flag = 0; EV=true)
+	## Una iteración de la ecuación de Bellman
 
 	# El valor de rechazar la oferta es independiente del estado de hoy
 	rechazar = u(mc.b, mc) + mc.β * E_v(mc)
@@ -105,7 +105,7 @@ function vfi!(mc::McCall; maxiter = 2000, tol = 1e-8)
 		iter += 1
 		vf_iter!(new_v, mc)
 		dist = norm(mc.v - new_v)
-		mc.v = copy(new_v)
+		mc.v .= new_v
 	end
 	if iter == maxiter
 		print("Stopped after ")
@@ -117,11 +117,12 @@ end
 
 function simul(mc::McCall, flag = 0; maxiter = 2000, verbose::Bool=true)
 	t = 0
-	w = Weights(mc.pw)
+	PESOS = Weights(mc.pw)
 	while flag == 0 && t < maxiter
 		t += 1
-		wt = sample(mc.wgrid, w)
+		wt = sample(mc.wgrid, PESOS)
 		verbose && print("Salario en el período $t: $wt. ")
+		verbose && sleep(0.1)
 		wt >= mc.w_star ? flag = 1 : verbose && println("Sigo buscando")
 	end
 	
