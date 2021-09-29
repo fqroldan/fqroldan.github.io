@@ -22,9 +22,15 @@ function McCall(;
 	b = 1,
 	μw = 1,
 	σw = 0.05,
+	Nσ = 0,
 	wmin = 0.5,
 	wmax = 2,
 	Nw = 50)
+
+	if Nσ > 0
+		wmin = μw - Nσ * σw
+		wmax = μw + Nσ * σw
+	end
 
 	wgrid = range(wmin, wmax, length=Nw)
 
@@ -57,11 +63,18 @@ function R(w, mc::McCall)
 	return u(w, mc) / (1-β)
 end
 
-function E_v(mc::McCall)
+function E_v(mc::McCall, θ = 0)
 	## Valor esperado de la función de valor integrando sobre la oferta de mañana
 	Ev = 0.0
 	for jwp in eachindex(mc.wgrid)
-		Ev += mc.pw[jwp] * mc.v[jwp]
+		if θ == 0
+			Ev += mc.pw[jwp] * mc.v[jwp]
+		else
+			Ev += mc.pw[jwp] * exp(-θ * mc.v[jwp])
+		end
+	end
+	if θ > 0
+		Ev = -1/θ * log(Ev)
 	end
 	return Ev
 end
@@ -78,11 +91,11 @@ function update_v(ac, re, EV)
 	end
 end
 
-function vf_iter!(new_v, mc::McCall, flag = 0; EV=true)
+function vf_iter!(new_v, mc::McCall, θ = 0, flag = 0; EV=false)
 	## Una iteración de la ecuación de Bellman
 
 	# El valor de rechazar la oferta es independiente del estado de hoy
-	rechazar = u(mc.b, mc) + mc.β * E_v(mc)
+	rechazar = u(mc.b, mc) + mc.β * E_v(mc, θ)
 	for (jw, wv) in enumerate(mc.wgrid)
 		# El valor de aceptar la oferta sí depende de la oferta de hoy
 		aceptar = R(wv, mc)
@@ -98,21 +111,23 @@ function vf_iter!(new_v, mc::McCall, flag = 0; EV=true)
 	end
 end
 
-function vfi!(mc::McCall; maxiter = 2000, tol = 1e-8)
+function vfi!(mc::McCall, θ = 0; maxiter = 2000, tol = 1e-8, verbose=true)
 	dist, iter = 1+tol, 0
 	new_v = similar(mc.v)
 	while dist > tol && iter < maxiter
 		iter += 1
-		vf_iter!(new_v, mc)
+		vf_iter!(new_v, mc, θ)
 		dist = norm(mc.v - new_v)
 		mc.v .= new_v
 	end
-	if iter == maxiter
-		print("Stopped after ")
-	else
-		print("Finished in ")
+	if verbose
+		if iter == maxiter
+			print("Stopped after ")
+		else
+			print("Finished in ")
+		end
+		print("$iter iterations.\nDist = $dist\n")
 	end
-	print("$iter iterations.\nDist = $dist\n")
 end
 
 function simul(mc::McCall, flag = 0; maxiter = 2000, verbose::Bool=true)

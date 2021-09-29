@@ -47,7 +47,7 @@ struct CakeEating
 end
 function CakeEating(;β=0.96, r=0.02, γ=2, Nk = 20)
 	kgrid = range(0,1,length=Nk)
-	kgrid = max.(1e-2, kgrid)
+	kgrid = max.(1e-8, kgrid)
 
 	v = zeros(Nk)
 	gc = zeros(Nk)
