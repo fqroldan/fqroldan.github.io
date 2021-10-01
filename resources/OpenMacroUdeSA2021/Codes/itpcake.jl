@@ -27,17 +27,17 @@ function opt_value(jk, itp_v::AbstractInterpolation, ce::CakeEating)
 	kv = ce.kgrid[jk]
 	
 	k_min = minimum(ce.kgrid)
-	k_max = kv
+	k_max = kv * (1+ce.r) - 1e-8
 
 	# Función objetivo (con un menos porque voy a minimizar)
-	obj_f(kpv) = -eval_value(kpv, kv, itp_v, ce)[2]
+	obj_f(kpv) = eval_value(kpv, kv, itp_v, ce)[2]
 
 	# Optimizador, eligiendo k entre k_min y k_max, algoritmo de sección dorada
-	res = Optim.optimize(obj_f, k_min, k_max, GoldenSection())
+	res = Optim.maximize(obj_f, k_min, k_max, GoldenSection())
 
 	# Guardo la solución, mínimo (con un menos de nuevo), minimizador, y el consumo implicado
-	vp = -res.minimum
-	k_star = res.minimizer
+	vp = Optim.maximum(res)
+	k_star = Optim.maximizer(res)
 	c_star = budget_constraint(k_star, kv, ce.r)
 
 	return k_star, vp, c_star
