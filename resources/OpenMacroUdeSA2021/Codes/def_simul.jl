@@ -74,4 +74,3 @@ function simul(dd::Default; b0 = mean(dd.bgrid), y0 = mean(dd.ygrid), d0 = 1, T 
 
     return sample
 end
-
