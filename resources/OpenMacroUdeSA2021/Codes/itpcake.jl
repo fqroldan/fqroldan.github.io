@@ -27,7 +27,7 @@ function opt_value(jk, itp_v::AbstractInterpolation, ce::CakeEating)
 	kv = ce.kgrid[jk]
 	
 	k_min = minimum(ce.kgrid)
-	k_max = kv * (1+ce.r) - 1e-8
+	k_max = kv * (1+ce.r) - 1e-10 # dejando al menos 1e-10 para consumo
 
 	# Función objetivo (con un menos porque voy a minimizar)
 	obj_f(kpv) = eval_value(kpv, kv, itp_v, ce)[2]
