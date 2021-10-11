@@ -74,3 +74,29 @@ function simul(dd::Default; b0 = mean(dd.bgrid), y0 = mean(dd.ygrid), d0 = 1, T 
 
     return sample
 end
+
+
+function samples_comp()
+    dd_short = Arellano_params();
+    mpe!(dd_short)
+
+    dd_long = Default();
+    mpe!(dd_long)
+    T = 10_000
+    sample_short = simul(dd_short, T = T)
+    sample_long  = simul(dd_long,  T = T)
+
+    return sample_short, sample_long
+end
+
+function plots_comp(sample_short, sample_long)
+
+    plot([histogram(x=sample_short[:spread][sample_short[:d].==1], name="Short-term debt"), histogram(x=sample_long[:spread][sample_long[:d].==1], name="Long-term debt")], Layout(barmode="overlay"))
+
+   names = ["Short-term debt", "Long-term debt"]
+   plot([
+       [histogram(x=x[:b]./x[:y]*100, histnorm="probability density", name=names[jx], opacity=0.65) for (jx, x) in enumerate([sample_short, sample_long])]
+       scatter()
+       ],
+       Layout(barmode="overlay", title="Distribución de deuda/PBI"))
+end
