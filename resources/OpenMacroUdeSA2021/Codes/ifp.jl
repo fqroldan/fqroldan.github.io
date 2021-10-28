@@ -114,8 +114,8 @@ function vfi!(ce::IFP; tol = 1e-8, maxiter = 2000, verbose = true)
 		dist = norm(new_v - ce.v) / norm(ce.v)
 
 		ce.v .= new_v
+		verbose && print("Iteration $iter. Distance = $dist\n")
 	end
-	verbose && print("Iteration $iter. Distance = $dist\n")
 	dist < tol || print("✓")
 end
 

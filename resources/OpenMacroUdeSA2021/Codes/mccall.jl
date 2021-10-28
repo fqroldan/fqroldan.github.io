@@ -82,16 +82,25 @@ end
 function update_v(ac, re, EV)
 	## Actualizar la función de valor con max(aceptar, rechazar) si EV es falso o usando la forma cerrada con el extreme value si EV es verdadero
 	if EV
-		χ = 1
+		χ = 2
+		### Con Extreme Value type 1
 		# Probabilidad de aceptar
-		prob = exp(ac/χ)/(exp(ac/χ)+exp(re/χ))
-		return prob * ac + (1-prob) * re
+		# prob = exp(ac/χ)/(exp(ac/χ)+exp(re/χ))
+		# V = χ * log( exp(ac/χ) + exp(re/χ) )
+		# return prob * ac + (1-prob) * re
+
+		### Con Normal
+		d = Normal(0,χ)
+		prob = cdf(d, ac-re)
+		cond_χ = truncated(d, re-ac, Inf) |> mean
+		V = (1-prob) * re + prob * ac + cond_χ * prob
+		return V
 	else
 		return max(ac, re)
 	end
 end
 
-function vf_iter!(new_v, mc::McCall, θ = 0, flag = 0; EV=false)
+function vf_iter!(new_v, mc::McCall, θ = 0, flag = 0; EV=true)
 	## Una iteración de la ecuación de Bellman
 
 	# El valor de rechazar la oferta es independiente del estado de hoy

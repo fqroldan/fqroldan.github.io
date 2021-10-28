@@ -198,21 +198,27 @@ function vfi_iter!(new_v, itp_q, dd::Deuda)
 		vd = itp_vD((1-ℏ)*bv, yv)
 		
 		# Probabilidad de default
-		## Modo 1: valor extremo tipo X directo
-		# pr = exp(vd / χ) / ( exp(vd / χ) + exp(vr / χ) )
+		## Modo 1: valor extremo tipo 1 directo
+		pr = exp(vd / χ) / ( exp(vd / χ) + exp(vr / χ) )
+		V = χ * log( exp(vd/χ) + exp(vr/χ) )
 
 		## Modo 2: valor extremo tipo X evitando comparar exponenciales de cosas grandes
-		# lpr = vd / χ - logsumexp([vd/χ, vr/χ])
-		# pr = exp(lpr)
+		lse = logsumexp([vd/χ, vr/χ])
+		lpr = vd / χ - lse
+		pr = exp(lpr)
+		V = χ * lse
+		
 		# if isnan(pr) || !(0 <= pr <= 1)
 		# 	pr = ifelse(vd > vr, 1, 0)
 		# end
 
 		## Modo 3: evaluando una distribución en vd-vr
-		pr = cdf(Normal(0, χ), vd-vr)
+		# pr = cdf(Normal(0, χ), vd-vr)
+		# cond_χ = truncated(d, vr-vd, Inf) |> mean
+		# V = pr * vd + (1-pr) * vr + cond_χ * pr
 
 		# Guarda el valor y la probabilidad de default al llegar a (b,y)
-		new_v[jb, jy] = pr * vd + (1-pr) * vr
+		new_v[jb, jy] = V
 		dd.prob[jb, jy] = pr
 	end
 end

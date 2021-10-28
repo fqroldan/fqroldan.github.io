@@ -100,3 +100,47 @@ function plots_comp(sample_short, sample_long)
        ],
        Layout(barmode="overlay", title="Distribución de deuda/PBI"))
 end
+
+
+
+function iter_simul_ifp(kt, yt, itp_gc, itp_gk, ymin, ymax, ρ, σ)
+    ct = itp_gc(kt, yt)
+
+    kp = itp_gk(kt, yt)
+
+    ϵt = rand(Normal(0,1))
+	yp = exp(ρ * log(yt) + σ * ϵt)
+
+    yp = max(min(ymax, yp), ymin)
+
+    return kp, yp, ct
+end
+
+function simul(dd::IFP; k0 = mean(dd.kgrid), y0 = mean(dd.ygrid), T = 10_000)    
+    ymin, ymax = extrema(dd.ygrid)
+    ρ = 0.8
+    σ = 0.02
+    knots = (dd.kgrid, dd.ygrid)
+    
+    itp_gk = interpolate(knots, dd.gk, Gridded(Linear()))
+    itp_gc = interpolate(knots, dd.gc, Gridded(Linear()))
+
+    sample = Dict(sym => Vector{Float64}(undef, T) for sym in (:k, :y, :c))
+
+    sample[:y][1] = y0
+    sample[:k][1] = k0
+    
+    for jt in 1:T
+
+        k0, y0, c = iter_simul_ifp(k0, y0, itp_gc, itp_gk, ymin, ymax, ρ, σ)
+
+        sample[:c][jt] = c
+
+        if jt < T
+            sample[:k][jt+1] = k0
+            sample[:y][jt+1] = y0
+        end
+    end
+
+    return sample
+end
