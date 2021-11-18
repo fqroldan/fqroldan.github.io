@@ -44,7 +44,7 @@ function SOEwr(; β = 0.97, γ = 2, r = 0.02, ϖN = 0.55, η = 1/0.83-1, α = 0.
 	pN = ones(Na, Nz)
 	w = ones(Na, Nz)
 	Ap = [av for av in agrid, zv in zgrid]
-	Y  = [exp(zv) for av in agrid, zv in zgrid]
+	Y  = [zv for av in agrid, zv in zgrid]
 
 	return SOEwr(pars, agrid, zgrid, Pz, v, gc, ga, pN, w, Ap, Y)
 end
@@ -161,20 +161,23 @@ function find_w(zv, cT, wbar, sw::SOE)
 		wopt = wbar
 	else
 		f(w) = (labor_demand(zv, cT, w, sw).h - 1)^2
-		res = Optim.optimize(f, wbar, max(2*wbar, 3))
+		res = Optim.optimize(f, wbar, max(2*wbar, 5))
 		wopt = res.minimizer
 		dem = labor_demand(zv, cT, wbar, sw) 
-		hN, hT = dem.hN, dem.hT
+		hN, hT, h = dem.hN, dem.hT, dem.h
+		if h > 1
+			hN = hN / h
+			hT = hT / h
+		end
 	end
 
 	return hN, hT, wopt
 end
 
-function diff_pN(pNv, pcC, zv, sw::SOE)
+function diff_pN(pNv, C, zv, sw::SOE)
 	α, ϖN, ϖT, η, wbar = (sw.pars[sym] for sym in (:α, :ϖN, :ϖT, :η, :wbar))
 
 	pCv = price_index(pNv, sw)
-	C = pcC / pCv
 
 	cT = C * ϖT * (pCv)^η      # cᵢ = ϖᵢ (pᵢ/p)^(-η) C
 
@@ -182,10 +185,10 @@ function diff_pN(pNv, pcC, zv, sw::SOE)
 
 	yN = hN^α
 	yT = zv * hT^α
+	
+	output = pNv * yN + yT
 
 	pN_new = ϖN / ϖT * (cT/yN)^(1+η)
-
-	output = pN_new * yN + yT
 
 	return (F = (pN_new-pNv)^2, y = output, w = wopt)
 end
@@ -194,16 +197,15 @@ function iter_pN!(new_p, sw::SOE; upd_η = 1)
 	minp = 0.9 * minimum(sw.pN)
 	maxp = 1.1 * maximum(sw.pN)
 	for (jA, Av) in enumerate(sw.agrid), (jz, zv) in enumerate(sw.zgrid)
-		pNg = sw.pN[jA, jz]
-		pcC = sw.gc[jA, jA, jz] * price_index(pNg, sw)
-		obj_f(x) = diff_pN(x, pcC, zv, sw).F
+		C = sw.gc[jA, jA, jz]
+		obj_f(x) = diff_pN(x, C, zv, sw).F
 
 		res = Optim.optimize(obj_f, minp, maxp)
 
 		p = sw.pN[jA, jz] * (1-upd_η) + res.minimizer * upd_η
 		new_p[jA, jz] = p
 		
-		eq = diff_pN(p, pcC, zv, sw)
+		eq = diff_pN(p, C, zv, sw)
 		sw.Y[jA, jz] = eq.y
 		sw.w[jA, jz] = eq.w
 	end

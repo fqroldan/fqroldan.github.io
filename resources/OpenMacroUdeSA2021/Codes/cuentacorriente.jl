@@ -163,13 +163,17 @@ function find_w(zv, cT, wbar, sw::SOE)
 	H = hN + hT
 
 	if H < 1
-		wopt = wbar
+	    wopt = wbar
 	else
-		f(w) = (labor_demand(zv, cT, w, sw).h - 1)^2
-		res = Optim.optimize(f, wbar, 2*wbar)
-		wopt = res.minimizer
-		hN = labor_demand(zv, cT, wopt, sw).hN
-		hT = labor_demand(zv, cT, wopt, sw).hT
+	    f(w) = (labor_demand(zv, cT, w, sw).h - 1)^2
+	    res = Optim.optimize(f, wbar, max(2 * wbar, 5))
+	    wopt = res.minimizer
+	    dem = labor_demand(zv, cT, wbar, sw)
+	    hN, hT, h = dem.hN, dem.hT, dem.h
+	    if h > 1
+	        hN /= h
+	        hT /= h
+	    end
 	end
 
 	return hN, hT, wopt
