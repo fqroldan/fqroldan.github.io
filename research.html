@@ -134,6 +134,46 @@ function myFunction() {
 	</div>
 
 	<div style="overflow:auto;padding:0px 20px">
+		<h2>Uncertainty Premia, Sovereign Default Risk, and State-Contingent Debt</h2>
+		<div class="paper_desc">
+			<h3>with <a href="https://sites.google.com/site/franroch/" target="_blank">Francisco Roch</a> [<a
+					href="https://fqroldan.github.io/resources/SCI_draft.pdf" target="_blank">paper</a> | <a
+					href="https://fqroldan.github.io/resources/SCI_slides.pdf" target="_blank">slides</a>] <small><i><a
+							href="https://www.imf.org/en/Publications/WP/Issues/2021/03/12/Uncertainty-Premia-Sovereign-Default-Risk-and-State-Contingent-Debt-50163">IMF
+							Working Paper No. 2021/76</a></i></small> <i style="color:blue">Submitted</i>
+			</h3>
+			<p style="font-size:95%; margin:0px">Coverage: <a
+					href="https://focoeconomico.org/2021/03/17/bonos-atados-al-pbi-por-que-tan-caros-por-que-tan-pocos/">Foco
+					Económico</a> (in Spanish), <a
+					href="https://blogs.lse.ac.uk/businessreview/2021/04/23/gdp-linked-bonds-why-so-few-and-why-so-expensive/">LSE
+					Business Review</a>, <a
+					href="https://www.imf.org/external/Pubs/FT/irb/2021/springsummer/index.pdf#page=7">IMF Research
+					Perspectives</a></p>
+	
+			<p id="abstract_sci" style="font-size:85%;line-height:150%"></p>
+			<script>
+				var txtFile_sci = new XMLHttpRequest();
+				var allText_sci = "file not found";
+				txtFile_sci.onreadystatechange = function () {
+					if (txtFile_sci.readyState === XMLHttpRequest.DONE && txtFile_sci.status == 200) {
+						allText_sci = txtFile_sci.responseText;
+						allText_sci = allText_sci.split("\n").join("<br>");
+					}
+
+					document.getElementById('abstract_sci').innerHTML = allText_sci;
+				}
+				txtFile_sci.open("GET", 'https://fqroldan.github.io/resources/abstract_sci.txt', true);
+				txtFile_sci.send(null);
+			</script>
+		</div>
+		<div class="paper_fig">
+			<img src="Images/arrow_SCI.png" style="width:100%;height:auto;">
+		</div>
+	
+	</div>
+
+
+	<div style="overflow:auto;padding:0px 20px">
 			<h2>Credibility Dynamics and Inflation Expectations </h2>
 			<div class="paper_desc">
 				<h3>
@@ -163,35 +203,6 @@ function myFunction() {
 			</div>
 		</div>
 	
-	<div style="overflow:auto;padding:0px 20px">
-		<h2>Uncertainty Premia, Sovereign Default Risk, and State-Contingent Debt</h2>
-		<div class="paper_desc">
-			<h3>with <a href="https://sites.google.com/site/franroch/" target="_blank">Francisco Roch</a> [<a href="https://fqroldan.github.io/resources/SCI_draft.pdf" target="_blank">paper</a> | <a href="https://fqroldan.github.io/resources/SCI_slides.pdf" target="_blank">slides</a>] <small><i><a href="https://www.imf.org/en/Publications/WP/Issues/2021/03/12/Uncertainty-Premia-Sovereign-Default-Risk-and-State-Contingent-Debt-50163">IMF Working Paper No. 2021/76</a></i></small> <i style="color:blue">Submitted</i>
-			</h3>
-			<p style="font-size:95%; margin:0px">Coverage: <a href="https://focoeconomico.org/2021/03/17/bonos-atados-al-pbi-por-que-tan-caros-por-que-tan-pocos/">Foco Económico</a> (in Spanish), <a href="https://blogs.lse.ac.uk/businessreview/2021/04/23/gdp-linked-bonds-why-so-few-and-why-so-expensive/">LSE Business Review</a>, <a href="https://www.imf.org/external/Pubs/FT/irb/2021/springsummer/index.pdf#page=7">IMF Research Perspectives</a></p>
-
-			<p id="abstract_sci" style="font-size:85%;line-height:150%"></p>
-				<script>
-					var txtFile_sci = new XMLHttpRequest();
-			    var allText_sci = "file not found";
-			    txtFile_sci.onreadystatechange = function () {
-			        if (txtFile_sci.readyState === XMLHttpRequest.DONE && txtFile_sci.status == 200) {
-			            allText_sci = txtFile_sci.responseText;
-			            allText_sci = allText_sci.split("\n").join("<br>");
-			        }
-
-			        document.getElementById('abstract_sci').innerHTML = allText_sci;
-			    }
-			    txtFile_sci.open("GET", 'https://fqroldan.github.io/resources/abstract_sci.txt', true);
-			    txtFile_sci.send(null);
-				</script>
-		</div>
-		<div class="paper_fig">
-			<img src="Images/arrow_SCI.png" style="width:100%;height:auto;">
-		</div>
-	
-	</div>
-
 	<div style="overflow:auto;padding:0px 20px">
 		<h2>On the Optimal Speed of Sovereign Deleveraging with Precautionary Savings</h2>
 		<div class="paper_desc">
