@@ -82,7 +82,7 @@ function vfi_itp!(ce::CakeEating; tol = 1e-8, maxiter = 2000, verbose = true)
 		ce.v .= new_v
 	end
 	verbose && print("Iteration $iter. Distance = $dist\n")
-	dist < tol || print("✓")
+	dist < tol && print("✓")
 end
 
 print(" ✓\nSolver with interpolations: vfi_itp!(ce::CakeEating)\n")
