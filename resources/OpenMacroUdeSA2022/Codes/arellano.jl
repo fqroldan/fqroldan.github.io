@@ -27,6 +27,7 @@ function Arellano(;
 	χ = 0.01,
 
 	Δ = 0.1,
+	defcost_OG = 1,
 
 	ρy = 0.945,
 	σy = 0.025,
@@ -37,7 +38,7 @@ function Arellano(;
 	bmax = 0.6
 	)
 
-	pars = Dict(:β=>β, :γ=>γ, :r=>r, :ψ=>ψ, :χ=>χ, :Δ=>Δ, :ρy=>ρy, :σy=>σy)
+	pars = Dict(:β=>β, :γ=>γ, :r=>r, :ψ=>ψ, :χ=>χ, :Δ=>Δ, :ρy=>ρy, :σy=>σy, :defcost_OG => defcost_OG)
 
 	ychain = tauchen(Ny, ρy, σy, 0, 2)
 
@@ -64,8 +65,18 @@ function logsumexp(a::AbstractVector{<:Real})
 	return m + log.(sum(exp.(a .- m)))
 end
 
-defcost(yv, dd::Default) = defcost(yv, dd.pars[:Δ])
-defcost(yv, Δ::Number) = yv * (1-Δ)
+function defcost(yv, dd::Arellano)
+	if haskey(dd.pars, :defcost_OG) && dd.pars[:defcost_OG] == 1
+		return defcost_OG(yv)
+	else
+		return defcost_lineal(yv, dd)
+	end
+end
+
+defcost_OG(yv) = ifelse(yv <= 0.969, yv, 0.969)
+
+defcost_lineal(yv, dd::Default) = defcost_lineal(yv, dd.pars[:Δ])
+defcost_lineal(yv, Δ::Number) = yv * (1-Δ)
 
 debtprice(dd::Default, bpv, yv, itp_q) = itp_q(bpv, yv)
 
