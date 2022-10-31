@@ -65,13 +65,18 @@ function logsumexp(a::AbstractVector{<:Real})
 	return m + log.(sum(exp.(a .- m)))
 end
 
-function defcost(yv, dd::Arellano)
+function defcost(yv, dd::Default)
 	if haskey(dd.pars, :defcost_OG) && dd.pars[:defcost_OG] == 1
 		return defcost_OG(yv)
+	elseif haskey(dd.pars, :d0) && haskey(dd.pars, :d1)
+		return defcost_quad(yv, dd)
 	else
 		return defcost_lineal(yv, dd)
 	end
 end
+
+defcost_quad(yv, dd::Default) = defcost_quad(yv, dd.pars[:d0], dd.pars[:d1])
+defcost_quad(yv, d0::Number, d1::Number) = yv - d0*yv - d1*yv^2
 
 defcost_OG(yv) = ifelse(yv <= 0.969, yv, 0.969)
 
@@ -100,7 +105,7 @@ function value_default(jy, dd::Default)
 	return c, v
 end
 
-function vfi_iter!(new_v, itp_q, dd::Default)
+function vfi_iter!(new_v, itp_q, dd::Arellano)
 	# Reconstruye la interpolación de la función de valor
 	itp_v = make_itp(dd, dd.v)
 
@@ -218,7 +223,7 @@ function make_itp(dd::Default, y::Array{Float64,2})
 	interpolate(knts, y, Gridded(Linear()))
 end
 
-function mpe!(dd::Default; tol = 1e-8, maxiter = 500)
+function mpe!(dd::Default; tol = 1e-6, maxiter = 500, verbose=true)
 	new_v = similar(dd.v)
 	new_q = similar(dd.q)
 
@@ -228,7 +233,7 @@ function mpe!(dd::Default; tol = 1e-8, maxiter = 500)
 	while dist > tol && iter < maxiter
 		iter += 1
 
-		print("Iteration $iter: ")
+		verbose && print("Iteration $iter: ")
 
 		# Actualiza el precio de la deuda
 		q_iter!(new_q, dd)
@@ -242,13 +247,13 @@ function mpe!(dd::Default; tol = 1e-8, maxiter = 500)
 		dist_v = norm(new_v - dd.v) / max(1, norm(dd.v))
 
 		# Distancias
-		dist = max(dist_q, dist_v)
+		dist = max(dist_q/50, dist_v)
 
 		# Guardamos todo
 		dd.v .= new_v
 		dd.q .= new_q
 
-		print("dist (v,q) = ($(round(dist_v, sigdigits=2)), $(round(dist_q, sigdigits=2)))\n")
+		verbose && print("dist (v,q) = ($(round(dist_v, sigdigits=3)), $(round(dist_q, sigdigits=3)))\n")
 	end
 end
 
