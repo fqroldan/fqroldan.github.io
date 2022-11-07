@@ -190,6 +190,17 @@ highlight1 {
 	text-align:center;
 }
 
+.flex-container{
+  display: flex;
+  flex-direction: row;
+}
+@media (max-width: 800px) {
+  .flex-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .horizontal-flex-container {
   display: flex;
   flex-flow: row nowrap;
@@ -230,6 +241,7 @@ highlight1 {
 	}
 	.horizontal-flex-container{
 		flex-flow: column nowrap;
+    text-align:center;
 	}
 	.vertical-flex-container{
 		flex-flow: row nowrap;
@@ -366,3 +378,4 @@ body {margin:0;font-family:Lato}
     text-align: left;
   }
 }
+

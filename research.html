@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="utf-8"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://kit.fontawesome.com/be21541154.js" crossorigin="anonymous"></script>
 
 <!-- Google Analytics 2 -->
 <script>
@@ -43,6 +44,78 @@ function myFunction() {
 </script>
 
 <link rel="stylesheet" type="text/css" href="qstyle.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	* {
+		box-sizing: border-box
+	}
+
+	body {
+		font-family: "Lato", sans-serif;
+	}
+
+	/* Style the tab */
+	.tab {
+		float: left;
+		border: 0px solid #ccc;
+		background-color: #fafafa;
+		width: 25%;
+		height: auto;
+        padding: 10px 3%;
+        margin:0px;
+	}
+
+	/* Style the buttons inside the tab */
+	.tab button {
+		display: block;
+		background-color: inherit;
+		color: black;
+		padding: 22px 16px;
+        /* height: 90%; */
+		width: 100%;
+		border: 0px solid #08282e;
+        margin: 3%;
+		outline: none;
+		text-align: right;
+		cursor: pointer;
+		transition: 0.3s;
+		font-size: 17px;
+        border-radius: 18px;
+	}
+
+	/* Change background color of buttons on hover */
+	.tab button:hover {
+		background-color: #e5e5e575;
+	}
+
+	/* Create an active/current "tab button" class */
+	.tab button.active {
+		background-color: #e5e5e5;
+	}
+
+	/* Style the tab content */
+	.tabcontent {
+		float: left;
+		padding: 0px 12px;
+		border: 0px solid #e5e5e5;
+		width: 75%;
+		border-left: none;
+		height: auto;
+	}
+
+@media all and (min-width: 480px) {
+    .deskContent {display:block;}
+    .phoneContent {display:none;}
+}
+
+@media all and (max-width: 480px) {
+	.deskContent {display:none;}
+    .phoneContent {display:block;}
+	.tab {width: 10%; padding:0px}
+	.tabcontent {width:90%; }
+	.tab button {font-size:14px; padding:30px 10px; margin:0px 10px; text-align:center;}
+}
+</style>
 
 </head>
 
@@ -59,163 +132,180 @@ function myFunction() {
 		</div>
 	</div>
 
-
-
 <div style="padding:20px;margin-top:0px;background-color:#08282e;height:auto;">
-<div style="background-color:#08282e;padding:0px;text-align:center;color: #fafafa">
-	<h1>Research</h1>
-</div>
-</div>
-
-
-<div style="width:100%; background-color:#e5e5e5">
-	<div style="max-width:1200px;margin:0px auto 20px;padding:10px 20px;text-align:center">
-		<a id="Working papers"><h1 style="color:#08282e;text-align:left">Working Papers</h1></a>
-	</div>
+    <div style="background-color:#08282e;padding:0px;text-align:center;color: #fafafa">
+        <h1>Research</h1>
+    </div>
 </div>
 
-<div class="papers">
+<div style="color:#fafafa">
+    .
+</div>
 
-	<div style="overflow:auto;padding:0px 20px">
-		<h2>The Aggregate-Demand Doom Loop: Precautionary Motives and the Welfare Costs of Sovereign Risk </h2> 
-		<div class="paper_desc">
-			<h3>
-				[<a href="https://fqroldan.github.io/resources/JMP_Roldan.pdf" target="_blank">paper</a> | <a href="https://fqroldan.github.io/resources/JMPslides_Roldan.pdf" target="_blank">slides</a>]
-				<small><i><a href="https://www.imf.org/en/Publications/WP/Issues/2020/12/18/The-Aggregate-Demand-Doom-Loop-Precautionary-Motives-and-the-Welfare-Costs-of-Sovereign-Risk-49969">IMF Working Paper No. 2020/293</a></i></small> <i style="color:blue">Submitted</i>
-			</h3>
+<div class="tab">
+	<button class="tablinks" onclick="openCity(event, 'WPs')" id="defaultOpen"><h2 class="deskContent">Working Papers</h2>
+	<h2 class="phoneContent"><i class="fa-regular fa-pen-to-square"></i></h2></button>
+	<button class="tablinks" onclick="openCity(event, 'Publications')"><h2 class="deskContent"></i>Publications</h2>
+	<h3 class="phoneContent"><i class="fa-solid fa-book"></i></h3></button>
+	<button class="tablinks" onclick="openCity(event, 'WiP')"><h2 class="deskContent">Work in Progress</h2><h2 class="phoneContent"><i class="fa-solid fa-file-pen"></i></h2></button>
+</div>
 
-			<p id="abstract_jmp" style="font-size:85%;line-height:150%"></p>
-			<script>
-				var txtFile = new XMLHttpRequest();
-		    var allText = "file not found";
-		    txtFile.onreadystatechange = function () {
-		        if (txtFile.readyState === XMLHttpRequest.DONE && txtFile.status == 200) {
-		            allText = txtFile.responseText;
-		            allText = allText.split("\n").join("<br>");
-		        }
 
-		        document.getElementById('abstract_jmp').innerHTML = allText;
-		    }
-		    txtFile.open("GET", 'https://fqroldan.github.io/resources/abstract_jmp.txt', true);
-		    txtFile.send(null);
-			</script>
-
-		</div>
-		<div class="paper_fig">
-			<img src="Images/fig12.png" style="width:100%;height:auto;">
-		</div>
-	</div>
-
-	<div style="overflow:auto;padding:0px 20px">
-		<h2>Uncertainty Premia, Sovereign Default Risk, and State-Contingent Debt</h2>
-		<div class="paper_desc">
-			<h3>with <a href="https://sites.google.com/site/franroch/" target="_blank">Francisco Roch</a> [<a
-					href="https://fqroldan.github.io/resources/SCI_draft.pdf" target="_blank">paper</a> | <a
-					href="https://fqroldan.github.io/resources/SCI_slides.pdf" target="_blank">slides</a>] <small><i><a
-							href="https://www.imf.org/en/Publications/WP/Issues/2021/03/12/Uncertainty-Premia-Sovereign-Default-Risk-and-State-Contingent-Debt-50163">IMF
-							Working Paper No. 2021/76</a></i></small> <i style="color:blue">Revise-and-resubmit at JPE: Macro</i>
-			</h3>
-			<p style="font-size:95%; margin:0px">Coverage: <a
-					href="https://focoeconomico.org/2021/03/17/bonos-atados-al-pbi-por-que-tan-caros-por-que-tan-pocos/">Foco
-					Económico</a> (in Spanish), <a
-					href="https://blogs.lse.ac.uk/businessreview/2021/04/23/gdp-linked-bonds-why-so-few-and-why-so-expensive/">LSE
-					Business Review</a>, <a
-					href="https://www.imf.org/external/Pubs/FT/irb/2021/springsummer/index.pdf#page=7">IMF Research
-					Perspectives</a></p>
 	
-			<p id="abstract_sci" style="font-size:85%;line-height:150%"></p>
-			<script>
-				var txtFile_sci = new XMLHttpRequest();
-				var allText_sci = "file not found";
-				txtFile_sci.onreadystatechange = function () {
-					if (txtFile_sci.readyState === XMLHttpRequest.DONE && txtFile_sci.status == 200) {
-						allText_sci = txtFile_sci.responseText;
-						allText_sci = allText_sci.split("\n").join("<br>");
+<div id="WPs" class="tabcontent">
+	<div class="papers" style="margin:0px;width:100%;padding:0px 20px">
+		<h1 class="phoneContent" style="font-size:10vw">Working Papers</h1>
+		<div style="overflow:auto;">
+			<h2>The Aggregate-Demand Doom Loop: Precautionary Motives and the Welfare Costs of Sovereign Risk </h2>
+			<div class="paper_desc">
+				<h3>
+					[<a href="https://fqroldan.github.io/resources/JMP_Roldan.pdf" target="_blank">paper</a> | <a
+						href="https://fqroldan.github.io/resources/JMPslides_Roldan.pdf" target="_blank">slides</a>]
+					<small><i><a
+								href="https://www.imf.org/en/Publications/WP/Issues/2020/12/18/The-Aggregate-Demand-Doom-Loop-Precautionary-Motives-and-the-Welfare-Costs-of-Sovereign-Risk-49969">IMF
+								Working Paper No. 2020/293</a></i></small> <i style="color:blue">Submitted</i>
+				</h3>
+	
+				<p id="abstract_jmp" style="font-size:85%;line-height:150%"></p>
+				<script>
+					var txtFile = new XMLHttpRequest();
+					var allText = "file not found";
+					txtFile.onreadystatechange = function () {
+						if (txtFile.readyState === XMLHttpRequest.DONE && txtFile.status == 200) {
+							allText = txtFile.responseText;
+							allText = allText.split("\n").join("<br>");
+						}
+
+						document.getElementById('abstract_jmp').innerHTML = allText;
 					}
-
-					document.getElementById('abstract_sci').innerHTML = allText_sci;
-				}
-				txtFile_sci.open("GET", 'https://fqroldan.github.io/resources/abstract_sci.txt', true);
-				txtFile_sci.send(null);
-			</script>
-		</div>
-		<div class="paper_fig">
-			<img src="Images/arrow_SCI.png" style="width:100%;height:auto;">
+					txtFile.open("GET", 'https://fqroldan.github.io/resources/abstract_jmp.txt', true);
+					txtFile.send(null);
+				</script>
+	
+			</div>
+			<div class="paper_fig">
+				<img src="Images/fig12.png" style="width:100%;height:auto;">
+			</div>
 		</div>
 	
-	</div>
+		<div style="overflow:auto;">
+			<h2>Uncertainty Premia, Sovereign Default Risk, and State-Contingent Debt</h2>
+			<div class="paper_desc">
+				<h3>with <a href="https://sites.google.com/site/franroch/" target="_blank">Francisco Roch</a> [<a
+						href="https://fqroldan.github.io/resources/SCI_draft.pdf" target="_blank">paper</a> | <a
+						href="https://fqroldan.github.io/resources/SCI_slides.pdf" target="_blank">slides</a>] <small><i><a
+								href="https://www.imf.org/en/Publications/WP/Issues/2021/03/12/Uncertainty-Premia-Sovereign-Default-Risk-and-State-Contingent-Debt-50163">IMF
+								Working Paper No. 2021/76</a></i></small> <i style="color:blue">Revise-and-resubmit at JPE:
+						Macro</i>
+				</h3>
+				<p style="font-size:95%; margin:0px">Coverage: <a
+						href="https://focoeconomico.org/2021/03/17/bonos-atados-al-pbi-por-que-tan-caros-por-que-tan-pocos/">Foco
+						Económico</a> (in Spanish), <a
+						href="https://blogs.lse.ac.uk/businessreview/2021/04/23/gdp-linked-bonds-why-so-few-and-why-so-expensive/">LSE
+						Business Review</a>, <a
+						href="https://www.imf.org/external/Pubs/FT/irb/2021/springsummer/index.pdf#page=7">IMF Research
+						Perspectives</a></p>
+	
+				<p id="abstract_sci" style="font-size:85%;line-height:150%"></p>
+				<script>
+					var txtFile_sci = new XMLHttpRequest();
+					var allText_sci = "file not found";
+					txtFile_sci.onreadystatechange = function () {
+						if (txtFile_sci.readyState === XMLHttpRequest.DONE && txtFile_sci.status == 200) {
+							allText_sci = txtFile_sci.responseText;
+							allText_sci = allText_sci.split("\n").join("<br>");
+						}
 
-
-	<div style="overflow:auto;padding:0px 20px">
+						document.getElementById('abstract_sci').innerHTML = allText_sci;
+					}
+					txtFile_sci.open("GET", 'https://fqroldan.github.io/resources/abstract_sci.txt', true);
+					txtFile_sci.send(null);
+				</script>
+			</div>
+			<div class="paper_fig">
+				<img src="Images/arrow_SCI.png" style="width:100%;height:auto;">
+			</div>
+	
+		</div>
+	
+	
+		<div style="overflow:auto;">
 			<h2>Credibility Dynamics and Inflation Expectations </h2>
 			<div class="paper_desc">
 				<h3>
-					with <a href="https://sites.google.com/view/rumen-kostadinov" target="_blank">Rumen Kostadinov</a>  [<a href="https://fqroldan.github.io/resources/cddp_draft.pdf" target="_blank">paper</a> | <a href="https://fqroldan.github.io/resources/cddp_slides.pdf" target="_blank">slides</a>]
-					<small><i><a href="https://www.imf.org/en/Publications/WP/Issues/2020/06/05/Credibility-Dynamics-and-Disinflation-Plans-49375">IMF Working Paper No. 20/85</a></i></small> <i style="color:blue">Submitted</i>
+					with <a href="https://sites.google.com/view/rumen-kostadinov" target="_blank">Rumen Kostadinov</a> [<a
+						href="https://fqroldan.github.io/resources/cddp_draft.pdf" target="_blank">paper</a> | <a
+						href="https://fqroldan.github.io/resources/cddp_slides.pdf" target="_blank">slides</a>]
+					<small><i><a
+								href="https://www.imf.org/en/Publications/WP/Issues/2020/06/05/Credibility-Dynamics-and-Disinflation-Plans-49375">IMF
+								Working Paper No. 20/85</a></i></small> <i style="color:blue">Submitted</i>
 				</h3>
-
+	
 				<p id="abstract_cddp" style="font-size:85%;line-height:150%"></p>
 				<script>
 					var txtFile_cddp = new XMLHttpRequest();
-			    var allText_cddp = "file not found";
-			    txtFile_cddp.onreadystatechange = function () {
-			        if (txtFile_cddp.readyState === XMLHttpRequest.DONE && txtFile_cddp.status == 200) {
-			            allText_cddp = txtFile_cddp.responseText;
-			            allText_cddp = allText_cddp.split("\n").join("<br>");
-			        }
+					var allText_cddp = "file not found";
+					txtFile_cddp.onreadystatechange = function () {
+						if (txtFile_cddp.readyState === XMLHttpRequest.DONE && txtFile_cddp.status == 200) {
+							allText_cddp = txtFile_cddp.responseText;
+							allText_cddp = allText_cddp.split("\n").join("<br>");
+						}
 
-			        document.getElementById('abstract_cddp').innerHTML = allText_cddp;
-			    }
-			    txtFile_cddp.open("GET", 'https://fqroldan.github.io/resources/abstract_cddp.txt', true);
-			    txtFile_cddp.send(null);
+						document.getElementById('abstract_cddp').innerHTML = allText_cddp;
+					}
+					txtFile_cddp.open("GET", 'https://fqroldan.github.io/resources/abstract_cddp.txt', true);
+					txtFile_cddp.send(null);
 				</script>
-
+	
 			</div>
-		<div class="paper_fig">
+			<div class="paper_fig">
 				<img src="Images/cddp_fig.png" style="width:100%;height:auto;">
 			</div>
 		</div>
 	
-
-	<div style="overflow:auto;padding:0px 20px">
+	
+		<div style="overflow:auto;">
 			<h2>Distributional Effects in Sovereign Debt Policy</h2>
 			<div class="paper_desc">
-				<h3>with <a href="https://sites.google.com/view/jmorelli" target="_blank">Juan Morelli</a>  [<a href="https://fqroldan.github.io/resources/MorelliRoldan.pdf" target="_blank">paper</a> | <a href="https://www.dropbox.com/s/97cvhbuikbvvptz/debtpol.pdf?dl=0" target="_black">slides</a>]</h3>
-
+				<h3>with <a href="https://sites.google.com/view/jmorelli" target="_blank">Juan Morelli</a> [<a
+						href="https://fqroldan.github.io/resources/MorelliRoldan.pdf" target="_blank">paper</a> | <a
+						href="https://www.dropbox.com/s/97cvhbuikbvvptz/debtpol.pdf?dl=0" target="_black">slides</a>]</h3>
+	
 				<p id="abstract_debtpol" style="font-size:85%;line-height:150%"></p>
 				<script>
 					var txtFile_debtpol = new XMLHttpRequest();
-			    var allText_debtpol = "file not found";
-			    txtFile_debtpol.onreadystatechange = function () {
-			        if (txtFile_debtpol.readyState === XMLHttpRequest.DONE && txtFile_debtpol.status == 200) {
-			            allText_debtpol = txtFile_debtpol.responseText;
-			            allText_debtpol = allText_debtpol.split("\n").join("<br>");
-			        }
+					var allText_debtpol = "file not found";
+					txtFile_debtpol.onreadystatechange = function () {
+						if (txtFile_debtpol.readyState === XMLHttpRequest.DONE && txtFile_debtpol.status == 200) {
+							allText_debtpol = txtFile_debtpol.responseText;
+							allText_debtpol = allText_debtpol.split("\n").join("<br>");
+						}
 
-			        document.getElementById('abstract_debtpol').innerHTML = allText_debtpol;
-			    }
-			    txtFile_debtpol.open("GET", 'https://fqroldan.github.io/resources/abstract_debtpol.txt', true);
-			    txtFile_debtpol.send(null);
+						document.getElementById('abstract_debtpol').innerHTML = allText_debtpol;
+					}
+					txtFile_debtpol.open("GET", 'https://fqroldan.github.io/resources/abstract_debtpol.txt', true);
+					txtFile_debtpol.send(null);
 				</script>
-
-
+	
+	
 			</div>
-		<div class="paper_fig">
+			<div class="paper_fig">
 				<img src="Images/debtpol_fig.png" style="width:100%;height:auto;">
 			</div>
 		</div>
-
-</div>
-
-<div style="width:100%; background-color:#e5e5e5">
-	<div style="max-width:1200px;margin:0px auto 20px;padding:10px 20px;text-align:center">
-		<a id="Work in Progress">
-			<h1 style="color:#08282e;text-align:left">Publications</h1>
-		</a>
+	
 	</div>
+	
+
+
 </div>
-<div class="papers">
-	<div style="overflow:auto;padding:0px 20px">
+
+<div id="Publications" class="tabcontent">
+	
+	
+	<div class="papers" style="margin:0px;width:100%;padding:0px 20px">
+	<h1 class="phoneContent" style="font-size:10vw">Publications</h1>
+	<div style="overflow:auto;">
 		<h2>Sovereign Debt</h2>
 		<div class="paper_desc">
 			<h3>with <a href="http://works.bepress.com/leonardo_martinez/" target="_blank">Leonardo Martinez</a>, <a
@@ -223,21 +313,27 @@ function myFunction() {
 					Roch</a>, and <a href="https://www.piie.com/experts/senior-research-staff/jeromin-zettelmeyer"
 					target="_blank">Jeromin Zettelmeyer</a>, forthcoming in <i>The Research Handbook of Financial
 					Markets</i>,
-				2022. [paper | <a href="https://fqroldan.github.io/resources/MRRZ_slides.pdf" target="_blank">slides</a>]
-				
-				<small><i><a href="https://www.imf.org/en/Publications/WP/Issues/2022/06/17/Sovereign-Debt-519809">IMF 
+				2022. [paper | <a href="https://fqroldan.github.io/resources/MRRZ_slides.pdf"
+					target="_blank">slides</a>]
+
+				<small><i><a href="https://www.imf.org/en/Publications/WP/Issues/2022/06/17/Sovereign-Debt-519809">IMF
 							Working Paper No. 2022/122</a></i></small>
 			</h3>
-	
+
 			<p style="font-size:85%;line-height:150%">
-				This paper surveys the literature on sovereign debt from the perspective of understanding how sovereign debt
+				This paper surveys the literature on sovereign debt from the perspective of understanding how sovereign
+				debt
 				differs from privately issued debt, and why sovereign debt is deemed safe in some countries but risky in
-				others. The answers relate to the unique power of the sovereign. Control over its territory and most of its
-				assets can make debt enforcement difficult, while the power to tax serves as a substitute for collateral,
+				others. The answers relate to the unique power of the sovereign. Control over its territory and most of
+				its
+				assets can make debt enforcement difficult, while the power to tax serves as a substitute for
+				collateral,
 				making debt relatively safe. The paper discusses debt contracts and the sovereign debt market, sovereign
-				debt restructurings, and the empirical and theoretical literatures on the costs and causes of defaults. It
+				debt restructurings, and the empirical and theoretical literatures on the costs and causes of defaults.
+				It
 				describes the adverse impact of sovereign default risk on the issuing countries and what explains this
-				impact. The survey concludes with a discussion of policy options to reduce sovereign risk, including fiscal
+				impact. The survey concludes with a discussion of policy options to reduce sovereign risk, including
+				fiscal
 				frameworks that act as commitment devices, state-contingent debt, and independent and credible monetary
 				policy.
 			</p>
@@ -245,25 +341,30 @@ function myFunction() {
 		<div class="paper_fig">
 			<img src="Images/haircuts.png" style="width:100%;height:auto;">
 		</div>
-	
+
 	</div>
 
-	<div style="overflow:auto;padding:0px 20px">
+	<div style="overflow:auto;">
 		<h2>On the Optimal Speed of Sovereign Deleveraging with Precautionary Savings</h2>
 		<div class="paper_desc">
 			<h3>with <a href="http://pages.stern.nyu.edu/~tphilipp/" target="_blank">Thomas Philippon</a>, 2018. <i>IMF
 					Economic Review</i>, vol. 66(2), pp. 375–413, June. [<a
 					href="https://fqroldan.github.io/resources/Deleveraging.pdf" target="_blank">paper</a> | <a
 					href="https://fqroldan.github.io/resources/Delev_Arg_2017.pdf" target="_blank">slides</a>]</h3>
-	
+
 			<p style="font-size:85%;line-height:150%">
-				We study the interaction between sovereign risk and aggregate demand driven by the endogenous response of
+				We study the interaction between sovereign risk and aggregate demand driven by the endogenous response
+				of
 				savers to sovereign risk. We obtain two main results. First, this new sovereign risk / aggregate demand
-				channel creates a tradeoff between the recessionary impact of fiscal consolidation and the risk of a future
-				sovereign debt crisis. Risk aversion has a large impact on output losses and on welfare when sovereign debt
+				channel creates a tradeoff between the recessionary impact of fiscal consolidation and the risk of a
+				future
+				sovereign debt crisis. Risk aversion has a large impact on output losses and on welfare when sovereign
+				debt
 				is risky. Second, we find that savers and borrowers disagree about the optimal path of sovereign
-				deleveraging. The sovereign risk channel can therefore explain some of the rise in political disagreement
-				about fiscal policy. Using a version of the model calibrated to the Eurozone crisis, we find that sovereign
+				deleveraging. The sovereign risk channel can therefore explain some of the rise in political
+				disagreement
+				about fiscal policy. Using a version of the model calibrated to the Eurozone crisis, we find that
+				sovereign
 				risk justifies starting to deleverage about two years after the beginning of the recession. We also find
 				that, after 2012, the channel was weakened so that active deleveraging in a recession is no longer
 				justified.
@@ -272,17 +373,18 @@ function myFunction() {
 		<div class="paper_fig">
 			<img src="Images/delev_fig.png" style="width:100%;height:auto;">
 		</div>
-	
+
 	</div>
 
-	<div style="overflow:auto;padding:0px 20px">
+	<div style="overflow:auto;">
 		<h2>Markups Under Uncertainty: Variations on Price Decisions in High Inflation</h2>
 		<div class="paper_desc">
 			<h3>with Daniel Heymann, in <i>Macroeconomics and Development: Roberto Frenkel and the Economics of Latin
 					America</i>, New York: Columbia University Press. 2016</h3>
-	
+
 			<p style="font-size:85%;line-height:150%">
-				We revisit some of the contributions of Roberto Frenkel's (1979) classic paper in a modern setting. We are
+				We revisit some of the contributions of Roberto Frenkel's (1979) classic paper in a modern setting. We
+				are
 				interested in situations in which higher uncertainty about future inflation induces firms to increase
 				markups. It turns out that, although a simple CES model predicts the opposite, markups do increase in
 				response to uncertainty when minimum (or maximum) capacity and liquidity constraints are considered.
@@ -294,20 +396,19 @@ function myFunction() {
 	</div>
 </div>
 
-<div style="width:100%; background-color:#e5e5e5">
-	<div style="max-width:1200px;margin:0px auto 20px;padding:10px 20px;text-align:center">
-		<a id="Work in Progress"><h1 style="color:#08282e;text-align:left">Work in Progress</h1></a>
-	</div>
 </div>
 
-<div class="papers">
+<div id="WiP" class="tabcontent">
+	
+	<div class="papers" style="margin:0px;width:100%;padding:0px 20px">
+	<h1 class="phoneContent" style="font-size:10vw">In Progress</h1>
 
-	<div style="overflow:auto;padding:0px 20px">
+	<div style="overflow:auto;">
 		<h2>Reserve Accumulation and the Currency Composition of Sovereign Debt</h2>
 		<div class="paper_desc">
 			<h3>with <a href="https://sosapadilla.github.io" target="_blank">César Sosa-Padilla</a> [paper | slides]
 			</h3>
-	
+
 			<p id="abstract_Reserves" style="font-size:85%;line-height:150%"></p>
 			<script>
 				var txtFile_Reserves = new XMLHttpRequest();
@@ -323,8 +424,8 @@ function myFunction() {
 				txtFile_Reserves.open("GET", 'https://fqroldan.github.io/resources/abstract_rescurr.txt', true);
 				txtFile_Reserves.send(null);
 			</script>
-	
-	
+
+
 		</div>
 		<div class="paper_fig">
 			<img src="" style="width:100%;height:auto;">
@@ -332,12 +433,12 @@ function myFunction() {
 	</div>
 
 
-	<div style="overflow:auto;padding:0px 20px">
+	<div style="overflow:auto;">
 		<h2>On the Macroeconomic Implications of a Large Diaspora</h2>
 		<div class="paper_desc">
 			<h3>with Gabriel di Bella [paper | slides]
 			</h3>
-	
+
 			<!-- <p id="abstract_diaspora" style="font-size:85%;line-height:150%"></p>
 			<script>
 				var txtFile_diaspora = new XMLHttpRequest();
@@ -353,8 +454,8 @@ function myFunction() {
 				txtFile_diaspora.open("GET", 'https://fqroldan.github.io/resources/abstract_diaspora.txt', true);
 				txtFile_diaspora.send(null);
 			</script> -->
-	
-	
+
+
 		</div>
 		<div class="paper_fig">
 			<img src="" style="width:100%;height:auto;">
@@ -362,25 +463,28 @@ function myFunction() {
 	</div>
 
 
-	<div style="overflow:auto;padding:0px 20px">
+	<div style="overflow:auto;">
 		<h2>Capital Controls and Misallocation</h2>
 		<div class="paper_desc">
-			<h3>with <a href="https://sites.google.com/site/lianallub/" target="_blank">Lian Allub</a>, <a href="https://www.nicolasaragon.net/" target="_blank">Nicolás Aragón</a>, and <a href="https://sites.google.com/view/hernanseoane" target="_blank">Hernán Seoane</a> [paper | slides]</h3>
+			<h3>with <a href="https://sites.google.com/site/lianallub/" target="_blank">Lian Allub</a>, <a
+					href="https://www.nicolasaragon.net/" target="_blank">Nicolás Aragón</a>, and <a
+					href="https://sites.google.com/view/hernanseoane" target="_blank">Hernán Seoane</a> [paper | slides]
+			</h3>
 
 			<p id="abstract_AARS" style="font-size:85%;line-height:150%"></p>
 			<script>
 				var txtFile_AARS = new XMLHttpRequest();
-		    var allText_AARS = "file not found";
-		    txtFile_AARS.onreadystatechange = function () {
-		        if (txtFile_AARS.readyState === XMLHttpRequest.DONE && txtFile_AARS.status == 200) {
-		            allText_AARS = txtFile_AARS.responseText;
-		            allText_AARS = allText_AARS.split("\n").join("<br>");
-		        }
+				var allText_AARS = "file not found";
+				txtFile_AARS.onreadystatechange = function () {
+					if (txtFile_AARS.readyState === XMLHttpRequest.DONE && txtFile_AARS.status == 200) {
+						allText_AARS = txtFile_AARS.responseText;
+						allText_AARS = allText_AARS.split("\n").join("<br>");
+					}
 
-		        document.getElementById('abstract_AARS').innerHTML = allText_AARS;
-		    }
-		    txtFile_AARS.open("GET", 'https://fqroldan.github.io/resources/abstract_AARS.txt', true);
-		    txtFile_AARS.send(null);
+					document.getElementById('abstract_AARS').innerHTML = allText_AARS;
+				}
+				txtFile_AARS.open("GET", 'https://fqroldan.github.io/resources/abstract_AARS.txt', true);
+				txtFile_AARS.send(null);
 			</script>
 
 
@@ -390,25 +494,27 @@ function myFunction() {
 		</div>
 	</div>
 
-	<div style="overflow:auto;padding:0px 20px">
+	<div style="overflow:auto;">
 		<h2>Sudden Stops and Where to Find Them</h2>
 		<div class="paper_desc">
-			<h3>with <a href="https://www.nicolasaragon.net/" target="_blank">Nicolás Aragón</a> and <a href="https://sites.google.com/view/hernanseoane" target="_blank">Hernán Seoane</a> [paper | slides]</h3>
+			<h3>with <a href="https://www.nicolasaragon.net/" target="_blank">Nicolás Aragón</a> and <a
+					href="https://sites.google.com/view/hernanseoane" target="_blank">Hernán Seoane</a> [paper | slides]
+			</h3>
 
 			<p id="abstract_ars" style="font-size:85%;line-height:150%"></p>
 			<script>
 				var txtFile_ars = new XMLHttpRequest();
-		    var allText_ars = "file not found";
-		    txtFile_ars.onreadystatechange = function () {
-		        if (txtFile_ars.readyState === XMLHttpRequest.DONE && txtFile_ars.status == 200) {
-		            allText_ars = txtFile_ars.responseText;
-		            allText_ars = allText_ars.split("\n").join("<br>");
-		        }
+				var allText_ars = "file not found";
+				txtFile_ars.onreadystatechange = function () {
+					if (txtFile_ars.readyState === XMLHttpRequest.DONE && txtFile_ars.status == 200) {
+						allText_ars = txtFile_ars.responseText;
+						allText_ars = allText_ars.split("\n").join("<br>");
+					}
 
-		        document.getElementById('abstract_ars').innerHTML = allText_ars;
-		    }
-		    txtFile_ars.open("GET", 'https://fqroldan.github.io/resources/abstract_ars.txt', true);
-		    txtFile_ars.send(null);
+					document.getElementById('abstract_ars').innerHTML = allText_ars;
+				}
+				txtFile_ars.open("GET", 'https://fqroldan.github.io/resources/abstract_ars.txt', true);
+				txtFile_ars.send(null);
 			</script>
 
 
@@ -418,7 +524,7 @@ function myFunction() {
 		</div>
 	</div>
 
-	<!-- <div style="overflow:auto;padding:0px 20px">
+	<!-- <div style="overflow:auto;">
 		<h2>Wealth Redistribution and the Real Effects of Devaluations</h2>
 		<div class="paper_desc">
 			<h3>with Santiago Cámara [paper | slides]</h3>
@@ -430,7 +536,7 @@ function myFunction() {
 	
 	</div>
 
-	<div style="overflow:auto;padding:0px 20px">
+	<div style="overflow:auto;">
 		<h2>The Corridor and a Typology of Macroeconomic Crises</h2>
 		<div class="paper_desc">
 			<h3>with Daniel Heymann [paper | slides]</h3>
@@ -441,7 +547,7 @@ function myFunction() {
 		</div>
 	</div> -->
 
-	<div style="overflow:auto;padding:0px 20px">
+	<div style="overflow:auto;">
 		<h2>On the Shortcomings of Direct Foreign Exchange Interventions</h2>
 		<div class="paper_desc">
 			<h3>with <a href="http://www.gustavoadler.com/" target="_blank">Gustavo Adler</a> [paper | slides]</h3>
@@ -450,12 +556,37 @@ function myFunction() {
 		<div class="paper_fig">
 			<img src="" style="width:100%;height:auto;">
 		</div>
-	
+
 	</div>
 
 </div>
 
 
+
+</div>
+
+<script>
+	function openCity(evt, cityName) {
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		}
+		document.getElementById(cityName).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
+
+	// Get the element with id="defaultOpen" and click on it
+	document.getElementById("defaultOpen").click();
+</script>
+
+<div style="color:#fafafa">
+	.
+</div>
 
 <div class="vfill"></div>
 <div class="footer">
