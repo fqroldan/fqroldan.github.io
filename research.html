@@ -61,7 +61,7 @@ function myFunction() {
 		background-color: #fafafa;
 		width: 25%;
 		height: auto;
-        padding: 10px 3%;
+        padding: 0px 0px 10px 3%;
         margin:0px;
 	}
 
@@ -74,9 +74,9 @@ function myFunction() {
         /* height: 90%; */
 		width: 100%;
 		border: 0px solid #08282e;
-        margin: 3%;
+        margin: 10% 3%;
 		outline: none;
-		text-align: right;
+		text-align: center;
 		cursor: pointer;
 		transition: 0.3s;
 		font-size: 17px;
@@ -96,24 +96,24 @@ function myFunction() {
 	/* Style the tab content */
 	.tabcontent {
 		float: left;
-		padding: 0px 12px;
+		padding: 0px 12px 0px 0px;
 		border: 0px solid #e5e5e5;
 		width: 75%;
 		border-left: none;
 		height: auto;
 	}
 
-@media all and (min-width: 480px) {
+@media all and (min-width: 620px) {
     .deskContent {display:block;}
     .phoneContent {display:none;}
 }
 
-@media all and (max-width: 480px) {
+@media all and (max-width: 620px) {
 	.deskContent {display:none;}
     .phoneContent {display:block;}
-	.tab {width: 10%; padding:0px}
-	.tabcontent {width:90%; }
-	.tab button {font-size:14px; padding:30px 10px; margin:0px 10px; text-align:center;}
+	.tab {width: 10%; padding:0px; align-items: center;}
+	.tabcontent {width:90%; padding:0px}
+	.tab button {font-size:14px; padding:30px 10px; margin:0px 10px; text-align:left;}
 }
 </style>
 
