@@ -247,7 +247,7 @@ function mpe!(dd::Default; tol = 1e-6, maxiter = 500, verbose=true)
 		dist_v = norm(new_v - dd.v) / max(1, norm(dd.v))
 
 		# Distancias
-		dist = max(dist_q/50, dist_v)
+		dist = max(dist_q/300, dist_v)
 
 		# Guardamos todo
 		dd.v .= new_v
