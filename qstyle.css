@@ -125,6 +125,18 @@ highlight1 {
   color: #0000A0 ;
 }
 
+q1 {
+  font-size:smaller;
+}
+
+li {
+    margin-top: 2px;
+}
+
+li:last-child {
+    margin-bottom: 20px;
+}
+
 .pic {
 	/*background-color:#e5e5e5;*/
 	float:left;

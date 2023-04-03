@@ -93,6 +93,7 @@ function myFunction() {
 		width: 75%;
 		border-left: none;
 		height: auto;
+		min-height:500px;
 	}
 
 @media all and (min-width: 620px) {
@@ -135,6 +136,7 @@ function myFunction() {
 </div>
 
 <div class="tab">
+	<button class="tablinks" onclick="openCity(event, 'Ovw')" id="defaultOpen"><h2 class="deskContent">Overview</h2><h2 class="phoneContent"><i class="fa-regular fa-lightbulb"></i></h2></button>
 	<button class="tablinks" onclick="openCity(event, 'WPs')" id="defaultOpen"><h2 class="deskContent">Working Papers</h2>
 	<h2 class="phoneContent"><i class="fa-regular fa-pen-to-square"></i></h2></button>
 	<button class="tablinks" onclick="openCity(event, 'Publications')"><h2 class="deskContent"></i>Publications</h2>
@@ -142,6 +144,63 @@ function myFunction() {
 	<button class="tablinks" onclick="openCity(event, 'WiP')"><h2 class="deskContent">Work in Progress</h2><h2 class="phoneContent"><i class="fa-regular fa-lightbulb"></i></h2></button>
 </div>
 
+
+<div id="Ovw" class="tabcontent">
+	<div class="papers" style="margin:0px;width:100%;padding:0px 20px">
+
+		<h1 class="phoneContent" style="font-size:10vw;color:black ">Overview</h1>
+
+		<ul style="font-size:20px; color:#08282e;">
+			<li>
+				The Aggregate-Demand Doom Loop: Precautionary Motives and the Welfare Costs of Sovereign Risk
+				<ul style="font-size:smaller; color:black">
+					<li><a style="font-weight:700;">Revise & Resubmit</a> at AEJ Macroeconomics</li>
+					<li><a href="https://fqroldan.github.io/resources/JMP_Roldan.pdf" target="_blank">Latest version</a></li>
+					<li><a href="https://www.imf.org/en/Publications/WP/Issues/2020/12/18/The-Aggregate-Demand-Doom-Loop-Precautionary-Motives-and-the-Welfare-Costs-of-Sovereign-Risk-49969">IMF Working Paper No. 2020/293</a></li>
+				</ul>
+			</li>
+			<li>
+				Uncertainty Premia, Sovereign Default Risk, and State-Contingent Debt <q1>(with <a href="https://sites.google.com/site/franroch/" target="_blank">Francisco Roch</a>)</q1>
+				<ul style="font-size:smaller; color:black">
+					<li><a style="font-weight:700;">Accepted</a> at JPE Macroeconomics</li>
+					<li><a href="https://fqroldan.github.io/resources/SCI_draft.pdf" target="_blank">Latest version</a></li>
+					<li><a href="https://www.imf.org/en/Publications/WP/Issues/2021/03/12/Uncertainty-Premia-Sovereign-Default-Risk-and-State-Contingent-Debt-50163">IMF Working Paper No. 2021/76</a></li>
+				</ul>
+			</li>
+		
+			<li>
+				Sovereign Debt <q1>(with <a href="http://works.bepress.com/leonardo_martinez/" target="_blank">Leonardo Martinez</a>, <a href="https://sites.google.com/site/franroch/" target="_blank">Francisco Roch</a>, and <a href="https://www.bruegel.org/people/jeromin-zettelmeyer" target="_blank">Jeromin Zettelmeyer</a>)</q1>
+				<ul style="font-size:smaller; color:black">
+					<li><a style="font-weight:700;">Forthcoming</a> in <i>The Research Handbook of Financial Markets</i></li>
+					<li><a href="https://www.imf.org/en/Publications/WP/Issues/2022/06/17/Sovereign-Debt-519809">IMF Working Paper No. 2022/122</a></li>
+				</ul>
+			</li>
+			
+			<li>
+				Credibility Dynamics and Inflation Expectations <q1>(with <a href="https://sites.google.com/view/rumen-kostadinov" target="_blank">Rumen Kostadinov</a>)</q1>
+				<ul style="font-size:smaller; color:black"></ulstyle>
+					<li><a href="https://fqroldan.github.io/resources/cddp_draft.pdf" target="_blank">Latest version</a></li>
+					<li><a href="https://www.imf.org/en/Publications/WP/Issues/2020/06/05/Credibility-Dynamics-and-Disinflation-Plans-49375">IMF Working Paper No. 20/85</a></li>
+				</ul>
+			</li>
+			
+			<li>
+				On the Optimal Speed of Sovereign Deleveraging with Precautionary Savings <a style="font-size:smaller;">(with Thomas Philippon)</a>
+				<ul style="font-size:smaller; color:black">
+					<li>in <a style="font-weight:600;"><i>IMF Economic Review</i></a>, 2018</li>
+					<li><a href="https://fqroldan.github.io/resources/Deleveraging.pdf" target="_blank">Latest version</a></li>
+				</ul>
+			</li>
+
+			<li>
+				Markups under Uncertainty: Variations on Price Decisions in High Inflation <a style="font-size:smaller;">(with Daniel Heymann)</a>
+				<ul style="font-size:smaller; color:black">
+					<li>in <i>Macroeconomics and Development: Roberto Frenkel and the Economics of Latin America</i>, 2016</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>
 
 	
 <div id="WPs" class="tabcontent">
@@ -252,43 +311,10 @@ function myFunction() {
 			<div class="paper_fig">
 				<img src="Images/cddp_fig.png" style="width:100%;height:auto;">
 			</div>
-		</div>
+		</div>	
 	
-	
-		<div style="overflow:auto;">
-			<h2>Distributional Effects in Sovereign Debt Policy</h2>
-			<div class="paper_desc">
-				<h3>with <a href="https://sites.google.com/view/jmorelli" target="_blank">Juan Morelli</a> [<a
-						href="https://fqroldan.github.io/resources/MorelliRoldan.pdf" target="_blank">paper</a> | <a
-						href="https://www.dropbox.com/s/97cvhbuikbvvptz/debtpol.pdf?dl=0" target="_black">slides</a>]</h3>
-	
-				<p id="abstract_debtpol" style="font-size:85%;line-height:150%"></p>
-				<script>
-					var txtFile_debtpol = new XMLHttpRequest();
-					var allText_debtpol = "file not found";
-					txtFile_debtpol.onreadystatechange = function () {
-						if (txtFile_debtpol.readyState === XMLHttpRequest.DONE && txtFile_debtpol.status == 200) {
-							allText_debtpol = txtFile_debtpol.responseText;
-							allText_debtpol = allText_debtpol.split("\n").join("<br>");
-						}
-
-						document.getElementById('abstract_debtpol').innerHTML = allText_debtpol;
-					}
-					txtFile_debtpol.open("GET", 'https://fqroldan.github.io/resources/abstract_debtpol.txt', true);
-					txtFile_debtpol.send(null);
-				</script>
-	
-	
-			</div>
-			<div class="paper_fig">
-				<img src="Images/debtpol_fig.png" style="width:100%;height:auto;">
-			</div>
-		</div>
 	
 	</div>
-	
-
-
 </div>
 
 <div id="Publications" class="tabcontent">
@@ -301,7 +327,7 @@ function myFunction() {
 		<div class="paper_desc">
 			<h3>with <a href="http://works.bepress.com/leonardo_martinez/" target="_blank">Leonardo Martinez</a>, <a
 					href="https://sites.google.com/site/franroch/" target="_blank">Francisco
-					Roch</a>, and <a href="https://www.piie.com/experts/senior-research-staff/jeromin-zettelmeyer"
+					Roch</a>, and <a href="https://www.bruegel.org/people/jeromin-zettelmeyer"
 					target="_blank">Jeromin Zettelmeyer</a>, forthcoming in <i>The Research Handbook of Financial
 					Markets</i>,
 				2022. [paper | <a href="https://fqroldan.github.io/resources/MRRZ_slides.pdf"
@@ -423,36 +449,35 @@ function myFunction() {
 		</div>
 	</div>
 
-
 	<div style="overflow:auto;">
-		<h2>On the Macroeconomic Implications of a Large Diaspora</h2>
+		<h2>Distributional Effects in Sovereign Debt Policy</h2>
 		<div class="paper_desc">
-			<h3>with Gabriel di Bella [paper | slides]
-			</h3>
-
-			<!-- <p id="abstract_diaspora" style="font-size:85%;line-height:150%"></p>
+			<h3>with <a href="https://sites.google.com/view/jmorelli" target="_blank">Juan Morelli</a> [<a
+					href="https://fqroldan.github.io/resources/MorelliRoldan.pdf" target="_blank">paper</a> | <a
+					href="https://www.dropbox.com/s/97cvhbuikbvvptz/debtpol.pdf?dl=0" target="_black">slides</a>]</h3>
+	
+			<p id="abstract_debtpol" style="font-size:85%;line-height:150%"></p>
 			<script>
-				var txtFile_diaspora = new XMLHttpRequest();
-				var allText_diaspora = "file not found";
-				txtFile_diaspora.onreadystatechange = function () {
-					if (txtFile_diaspora.readyState === XMLHttpRequest.DONE && txtFile_diaspora.status == 200) {
-						allText_diaspora = txtFile_diaspora.responseText;
-						allText_diaspora = allText_diaspora.split("\n").join("<br>");
+				var txtFile_debtpol = new XMLHttpRequest();
+				var allText_debtpol = "file not found";
+				txtFile_debtpol.onreadystatechange = function () {
+					if (txtFile_debtpol.readyState === XMLHttpRequest.DONE && txtFile_debtpol.status == 200) {
+						allText_debtpol = txtFile_debtpol.responseText;
+						allText_debtpol = allText_debtpol.split("\n").join("<br>");
 					}
 
-					document.getElementById('abstract_diaspora').innerHTML = allText_diaspora;
+					document.getElementById('abstract_debtpol').innerHTML = allText_debtpol;
 				}
-				txtFile_diaspora.open("GET", 'https://fqroldan.github.io/resources/abstract_diaspora.txt', true);
-				txtFile_diaspora.send(null);
-			</script> -->
-
-
+				txtFile_debtpol.open("GET", 'https://fqroldan.github.io/resources/abstract_debtpol.txt', true);
+				txtFile_debtpol.send(null);
+			</script>
+	
+	
 		</div>
 		<div class="paper_fig">
-			<img src="" style="width:100%;height:auto;">
+			<img src="Images/debtpol_fig.png" style="width:100%;height:auto;">
 		</div>
 	</div>
-
 
 	<div style="overflow:auto;">
 		<h2>Capital Controls and Misallocation</h2>
@@ -479,6 +504,34 @@ function myFunction() {
 			</script>
 
 
+		</div>
+		<div class="paper_fig">
+			<img src="" style="width:100%;height:auto;">
+		</div>
+	</div>
+	<div style="overflow:auto;">
+		<h2>On the Macroeconomic Implications of a Large Diaspora</h2>
+		<div class="paper_desc">
+			<h3>with Gabriel di Bella [paper | slides]
+			</h3>
+	
+			<!-- <p id="abstract_diaspora" style="font-size:85%;line-height:150%"></p>
+				<script>
+					var txtFile_diaspora = new XMLHttpRequest();
+					var allText_diaspora = "file not found";
+					txtFile_diaspora.onreadystatechange = function () {
+						if (txtFile_diaspora.readyState === XMLHttpRequest.DONE && txtFile_diaspora.status == 200) {
+							allText_diaspora = txtFile_diaspora.responseText;
+							allText_diaspora = allText_diaspora.split("\n").join("<br>");
+						}
+	
+						document.getElementById('abstract_diaspora').innerHTML = allText_diaspora;
+					}
+					txtFile_diaspora.open("GET", 'https://fqroldan.github.io/resources/abstract_diaspora.txt', true);
+					txtFile_diaspora.send(null);
+				</script> -->
+	
+	
 		</div>
 		<div class="paper_fig">
 			<img src="" style="width:100%;height:auto;">
