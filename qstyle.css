@@ -35,6 +35,17 @@
   color: #08282e;
 }
 
+/* .btn {
+  background-color: #08282e;
+  border: none;
+  color: #08282e;
+  padding: 5px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+} */
+
 .container-topnav{
   position:fixed;
   width:100%;
