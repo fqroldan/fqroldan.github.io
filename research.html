@@ -105,7 +105,28 @@ function myFunction() {
 	.tabcontent {width:90%; padding:0px}
 	.tab button {font-size:14px; padding:30px 10px; margin:0px 10px; text-align:left;}
 }
+#more_addl {display: none;}
+#more_sci {display:none;}
 </style>
+
+<script>
+	function expand(x) {
+		var dots = document.getElementById(`dots_${x}`);
+		var moreText = document.getElementById(`abstract_${x}`);
+		var btnText = document.getElementById(`Btn_${x}`);
+
+		if (dots.style.display === "none") {
+			dots.style.display = "inline";
+			btnText.innerHTML = "More";
+			moreText.style.display = "none";
+		} else {
+			dots.style.display = "none";
+			btnText.innerHTML = "Less";
+			moreText.style.display = "inline";
+		}
+	}
+</script>
+
 
 </head>
 
@@ -153,7 +174,20 @@ function myFunction() {
 				<blockquote>
 					<p>
 					<strong>Revise & Resubmit</strong> at AEJ Macroeconomics
-					&nbsp; [<a href="resources/JMP_Roldan.pdf" target="_blank">pdf</a>] &nbsp; [<a href="https://www.imf.org/en/Publications/WP/Issues/2020/12/18/The-Aggregate-Demand-Doom-Loop-Precautionary-Motives-and-the-Welfare-Costs-of-Sovereign-Risk-49969" target="_blank">IMF_wp</a>]
+					&nbsp;
+					[<a href="resources/JMP_Roldan.pdf" target="_blank">pdf</a>]
+					&nbsp;
+					[<a href="https://www.imf.org/en/Publications/WP/Issues/2020/12/18/The-Aggregate-Demand-Doom-Loop-Precautionary-Motives-and-the-Welfare-Costs-of-Sovereign-Risk-49969" target="_blank">IMF_wp</a>]
+					&nbsp;
+					<object data="resources/abstract_jmp.txt"></object>
+					<button onclick="expand('addl')" id="Btn_addl">More</button>
+					<span id="dots_addl">
+						a
+					</span>
+					</p>
+					<p>
+					<span id="more_addl">
+					</span>
 					</p>
 				</blockquote>
 			</li>
@@ -178,6 +212,12 @@ function myFunction() {
 						[<a href="https://blogs.lse.ac.uk/businessreview/2021/04/23/gdp-linked-bonds-why-so-few-and-why-so-expensive/" target="_blank">LSE Business Review</a>]
 						&nbsp;
 						[<a href="https://www.imf.org/external/Pubs/FT/irb/2021/springsummer/index.pdf#page=7" target="_blank">IMF Research Perspectives</a>]
+						&nbsp;
+						<button onclick="expand('sci')" id="Btn_sci">More</button>
+						<span id="dots_sci"></span>
+					</p>
+					<p>
+						<span id="more_sci">erisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta.</span>
 					</p>
 					</blockquote>
 				</li>
@@ -248,7 +288,7 @@ function myFunction() {
 								Working Paper No. 2020/293</a></i></small> <i style="color:blue">Revise & Resubmit at AEJ: Macro</i>
 				</h3>
 	
-				<p id="abstract_jmp" style="font-size:85%;line-height:150%"></p>
+				<!-- <p id="abstract_jmp" style="font-size:85%;line-height:150%"></p> -->
 				<script>
 					var txtFile = new XMLHttpRequest();
 					var allText = "file not found";
