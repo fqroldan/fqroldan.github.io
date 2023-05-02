@@ -211,6 +211,10 @@ blockquote {
   color:black;
 }
 
+.blockquote p {
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
 
 .logos_center{
 	overflow:auto;
