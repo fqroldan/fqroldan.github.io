@@ -211,7 +211,7 @@ blockquote {
   color:black;
 }
 
-.p blockquote {
+blockquote p {
   margin-top: 7px;
   margin-bottom: 7px;
 }
