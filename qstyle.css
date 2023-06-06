@@ -417,3 +417,9 @@ body {margin:0;font-family:Lato}
   }
 }
 
+li.anchor {
+    display: block;
+    position: relative;
+    top: -250px;
+    visibility: hidden;
+}
