@@ -416,10 +416,3 @@ body {margin:0;font-family:Lato}
     text-align: left;
   }
 }
-
-li.anchor {
-    display: block;
-    position: relative;
-    top: -250px;
-    /* visibility: hidden; */
-}
