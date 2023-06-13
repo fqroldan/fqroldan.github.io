@@ -417,6 +417,9 @@ body {margin:0;font-family:Lato}
   }
 }
 
+li {
+  position: relative;
+}
 li span {
   position: absolute;
   top: -200px;
