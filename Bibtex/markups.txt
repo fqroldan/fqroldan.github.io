@@ -1,0 +1,10 @@
+@incollection{HeymannRoldan2016,
+  author    = {Daniel Heymann and Francisco Rold\'{a}n},
+  title     = {Markups under Uncertainty: Variations of Price Decisions in High Inflation},
+  editor    = {Mario Damill and Martín Rapetti and Guillermo Rozenwurcel},
+  booktitle = {Macroeconomics and Development: Roberto Frenkel and the Economics of Latin America},
+  publisher = {Columbia University Press},
+  year      = 2016,
+  pages     = {23-46},
+  chapter   = 2
+}
