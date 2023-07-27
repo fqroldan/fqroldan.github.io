@@ -1,0 +1,10 @@
+@incollection{DOI:10.4337/9781800375321.00026,
+  author    = {Leonardo Martinez and Francisco Roch and Francisco Rold\'{a}n and Jeromin Zettelmeyer},
+  title     = {Sovereign Debt},
+  editor    = {Refet S. Gürkaynak and Jonathan H. Wright},
+  booktitle = {The Research Handbook of Financial Markets},
+  publisher = {Edward Elgar Publishing},
+  year      = 2023,
+  pages     = {378–405},
+  chapter   = 17
+}

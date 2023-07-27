@@ -1,0 +1,14 @@
+@article{doi:10.1057/s41308-018-0054-8,
+  author={Thomas Philippon and Francisco Roldán},
+  title={{On the Optimal Speed of Sovereign Deleveraging with Precautionary Savings}},
+  journal={IMF Economic Review},
+  year=2018,
+  volume={66},
+  number={2},
+  pages={375-413},
+  month={June},
+  keywords={},
+  doi={10.1057/s41308-018-0054-8},
+  abstract={ We study the interaction between sovereign risk and aggregate demand. We obtain two main results. First, the aggregate demand channel creates a trade-off between the recessionary impact of fiscal consolidation and the risk of a future sovereign debt crisis. Risk aversion has a large impact on output losses and on welfare. Second, we find that savers and borrowers disagree about the optimal path of sovereign deleveraging. The sovereign risk channel can therefore explain some of the rise in political disagreement about fiscal policy. We use a calibrated version of the model to shed light on sovereign deleveraging in the Eurozone.},
+  url={https://ideas.repec.org/a/pal/imfecr/v66y2018i2d10.1057_s41308-018-0054-8.html}
+}
