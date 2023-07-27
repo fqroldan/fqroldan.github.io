@@ -1,0 +1,13 @@
+@article{doi:10.1086/723950,
+author = {Roch, Francisco and Rold\'{a}n, Francisco},
+title = {Uncertainty Premia, Sovereign Default Risk, and State-Contingent Debt},
+journal = {Journal of Political Economy Macroeconomics},
+volume = {1},
+number = {2},
+pages = {334-370},
+year = {2023},
+doi = {10.1086/723950},
+URL = {https://doi.org/10.1086/723950},
+eprint = {https://doi.org/10.1086/723950},
+abstract = { We study the pricing, design, and desirability of sovereign state-contingent debt instruments. Using a sovereign default model with lenders who fear model misspecification, we find that the commonly used threshold bond structure leads to welfare losses for the government. While this bond would be beneficial when facing rational expectations lenders, its threshold structure increases the variance of promised returns, which robust lenders dislike. Sovereign state-contingent debt instruments can still be welfare improving when facing robust lenders when designed optimally. Our findings tie the lack of popularity of sovereign state-contingent debt instruments to the particular design used thus far. }
+}
