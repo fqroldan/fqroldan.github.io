@@ -141,7 +141,12 @@ function make_plots(mc::McCall)
 
     opt = scatter(x=mc.wgrid, y=mc.v, line_color="#5aa800", line_width=3, name="v(w)")
 
-    traces = [at, rt, opt]
+	χ = 0.1
+	opt2 = [ χ * log( exp(aceptar_todo[jw] / χ) + exp(rechazar_todo[jw] / χ) ) for jw in eachindex(mc.wgrid)]
+
+	opts = scatter(x=mc.wgrid, y = opt2)
+
+    traces = [at, rt, opt, opts]
 
     shapes = [vline(mc.w_star, line_dash="dot", line_color="#818181")]
 
