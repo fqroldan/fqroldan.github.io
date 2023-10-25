@@ -1,7 +1,13 @@
 include("deuda.jl")
 abstract type Default <: Deuda end
 
-struct Arellano <: Default
+abstract type Costo end
+
+abstract type OG <: Costo end
+abstract type Lin <: Costo end
+abstract type Quad <: Costo end
+
+struct Arellano{T<:Costo} <: Default
 	pars::Dict{Symbol, Float64}
 
 	bgrid::Vector{Float64}
@@ -19,7 +25,7 @@ struct Arellano <: Default
 	q::Matrix{Float64}
 end
 
-function Arellano(;
+function Arellano(; T = OG,
 	β = 0.953,
 	γ = 2,
 	r = 0.017,
@@ -27,7 +33,8 @@ function Arellano(;
 	χ = 0.01,
 
 	Δ = 0.1,
-	defcost_OG = 1,
+	d0 = 0.1,
+	d1 = 0,
 
 	ρy = 0.945,
 	σy = 0.025,
@@ -38,7 +45,14 @@ function Arellano(;
 	bmax = 0.6
 	)
 
-	pars = Dict(:β=>β, :γ=>γ, :r=>r, :ψ=>ψ, :χ=>χ, :Δ=>Δ, :ρy=>ρy, :σy=>σy, :defcost_OG => defcost_OG)
+	pars = Dict(:β=>β, :γ=>γ, :r=>r, :ψ=>ψ, :χ=>χ, :ρy=>ρy, :σy=>σy)
+
+	if T == Lin
+		pars[:Δ] = Δ
+	elseif T == Quad
+		pars[:d0] = d0
+		pars[:d1] = d1
+	end
 
 	ychain = tauchen(Ny, ρy, σy, 0, 2)
 
@@ -57,7 +71,7 @@ function Arellano(;
 
 	q = ones(Nb, Ny)
 
-	return Arellano(pars, bgrid, ygrid, Py, v, vR, vD, prob, gc, gb, q)
+	return Arellano{T}(pars, bgrid, ygrid, Py, v, vR, vD, prob, gc, gb, q)
 end
 
 function logsumexp(a::AbstractVector{<:Real})
@@ -65,15 +79,33 @@ function logsumexp(a::AbstractVector{<:Real})
 	return m + log.(sum(exp.(a .- m)))
 end
 
-function defcost(yv, dd::Default)
-	if haskey(dd.pars, :defcost_OG) && dd.pars[:defcost_OG] == 1
-		return defcost_OG(yv)
-	elseif haskey(dd.pars, :d0) && haskey(dd.pars, :d1)
-		return defcost_quad(yv, dd)
-	else
-		return defcost_lineal(yv, dd)
-	end
+# function h(yv, dd::Default)
+# 	if haskey(dd.pars, :defcost_OG) && dd.pars[:defcost_OG] == 1
+# 		return defcost_OG(yv)
+# 	elseif haskey(dd.pars, :d0) && haskey(dd.pars, :d1)
+# 		return defcost_quad(yv, dd)
+# 	else
+# 		return defcost_lineal(yv, dd)
+# 	end
+# end
+
+function switch_Costo(dd::Arellano, T; Δ = 0.1, d0 = 0.1, d1 = 0)
+
+    d2 = Arellano{T}(copy(dd.pars), copy(dd.bgrid), copy(dd.ygrid), copy(dd.Py), copy(dd.v), copy(dd.vR), copy(dd.vD), copy(dd.prob), copy(dd.gc), copy(dd.gb), copy(dd.q))
+
+    if T == Lin
+        d2.pars[:Δ] = Δ
+    elseif T == Quad
+        d2.pars[:d0] = d0
+        d2.pars[:d1] = d1
+    end
+
+	return d2
 end
+
+h(yv, dd::Arellano{OG}) = defcost_OG(yv)
+h(yv, dd::Arellano{Lin}) = defcost_lineal(yv, dd)
+h(yv, dd::Arellano{Quad}) = defcost_quad(yv, dd)
 
 defcost_quad(yv, dd::Default) = defcost_quad(yv, dd.pars[:d0], dd.pars[:d1])
 defcost_quad(yv, d0::Number, d1::Number) = yv - d0*yv - d1*yv^2
@@ -91,7 +123,7 @@ function value_default(jy, dd::Default)
 	yv = dd.ygrid[jy]
 
 	# Consumo en default es el ingreso menos los costos de default
-	c = defcost(yv, dd)
+	c = h(yv, dd)
 
 	# Valor de continuación tiene en cuenta la probabilidad ψ de reacceder a mercados
 	Ev = 0.0
@@ -140,7 +172,7 @@ function vfi_iter!(new_v, itp_q, dd::Arellano)
 
 		## Modo 2: valor extremo tipo X evitando comparar exponenciales de cosas grandes
 		lse = logsumexp([vd/χ, vr/χ])
-		lpr = vd / χ - lse
+		lpr = vd / χ - lse # log(pr) = log(exp(vd/\chi)) - log( suma (exps))
 		pr = exp(lpr)
 		V = χ * lse
 
@@ -220,6 +252,13 @@ function make_itp(dd::Default, y::Array{Float64,2})
 	@assert size(y) == (length(dd.bgrid), length(dd.ygrid))
 
 	knts = (dd.bgrid, dd.ygrid)
+	interpolate(knts, y, Gridded(Linear()))
+end
+
+function make_itp(dd::Default, y::Array{Float64, 3})
+	@assert size(y) == (length(dd.bgrid), length(dd.ygrid), 2)
+
+	knts = (dd.bgrid, dd.ygrid, 1:2)
 	interpolate(knts, y, Gridded(Linear()))
 end
 
