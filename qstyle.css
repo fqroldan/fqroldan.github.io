@@ -1,3 +1,7 @@
+.strong {
+  text-emphasis-color: #08282e;
+}
+
 .marginauto {
     margin: 10px auto 20px;
     display: block;
