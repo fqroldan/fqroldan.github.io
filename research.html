@@ -43,7 +43,7 @@
 			const allhide = document.querySelectorAll('iframe');
 			// Hide all blockquotes
 			allhide.forEach(bq => {
-				// bq.style.display = 'none';
+				bq.style.display = 'none';
 			});
 		}
 	</script>
@@ -55,7 +55,7 @@
 
 		iframe {
 			width: 90%;
-			height:min-content;
+			height: min-content;
 			display: inline;
 		}
 
@@ -217,7 +217,6 @@
 							&nbsp;
 							[<a href="resources/CR_ARC_live.pdf" target="_blank">Slides</a>]
 							&nbsp;
-							&nbsp;
 							<button onclick="toggleInfo('abs_debttol')">Abstract</button>
 							&nbsp;
 							<button onclick="toggleInfo('bib_debttol')">BibTeX</button>
@@ -255,16 +254,15 @@
 								target="_blank">IMF
 								Research Perspectives</a>]
 							&nbsp;
-							&nbsp;
 							[<a href="https://twitter.com/fqroldan/status/1370765331283767296"
 								target="_blank">Twitter</a>]
-								&nbsp;
-								<button onclick="toggleInfo('abs_sci')">Abstract</button>
-								&nbsp;
-								<button onclick="toggleInfo('bib_sci')">BibTeX</button>
-								<iframe id="abs_sci" src="resources/abstract_sci.txt" frameborder="0"
-									onload="resizeIframe('abs_sci')"></iframe>
-								<iframe id="bib_sci" src="Bibtex/sci.txt" frameborder="0" onload="resizeIframe('bib_sci')"></iframe>
+							&nbsp;
+							<button onclick="toggleInfo('abs_sci')">Abstract</button>
+							&nbsp;
+							<button onclick="toggleInfo('bib_sci')">BibTeX</button>
+							<iframe id="abs_sci" src="resources/abstract_sci.txt" frameborder="0"
+								onload="resizeIframe('abs_sci')"></iframe>
+							<iframe id="bib_sci" src="Bibtex/sci.txt" frameborder="0" onload="resizeIframe('bib_sci')"></iframe>
 							<br>
 							<strong>JPE Macroeconomics</strong>, vol.1(2), pp.334-370, <strong>2023</strong>
 						</p>
