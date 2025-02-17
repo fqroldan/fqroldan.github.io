@@ -1,0 +1,11 @@
+@article{doi:10.1057/s41308-024-00260-z,
+  author={Marcos Chamon and Francisco Roldán},
+  title={{Sovereign Debt Tolerance with Potentially Permanent Costs of Default}},
+  journal={IMF Economic Review},
+  year=2024,
+  month={August},
+  keywords={},
+  doi={10.1057/s41308-024-00260-z},
+  abstract={We investigate the effect of uncertainty about the nature of output costs of sovereign default on debt tolerance. While the theoretical literature assumes output losses lasting until market access is restored, the empirical evidence points to persistent effects, and output may not return to its pre-default trend. We include such uncertainty in a model of sovereign default and find that it can significantly boost equilibrium debt levels. We also consider a government which is averse to this type of uncertainty and seeks robust decision rules. We calibrate the model to match evidence on the output trajectory around debt restructuring episodes and infer output costs of about the size found in the empirical literature, alongside significant uncertainty about their permanence and a strong desire for robustness. Uncertainty and robustness contribute about a quarter of observed debt tolerance.},
+  url={https://link.springer.com/article/10.1057/s41308-024-00260-z}
+}
