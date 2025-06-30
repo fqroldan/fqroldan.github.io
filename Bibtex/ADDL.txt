@@ -1,7 +1,12 @@
 @article{AggregateDemandDoomLoop,
-  title = {The Aggregate-Demand Doom Loop: Precautionary Motives and the Welfare Costs of Sovereign Risk},
-  author = {Francisco Roldán},
-  journal = {American Economic Journal: Macroeconomics},
-  year = {2025},
-  volume = {Forthcoming}
+  Author = {Roldán, Francisco},
+  Title = {The Aggregate-Demand Doom Loop: Precautionary Motives and the Welfare Costs of Sovereign Risk},
+  Journal = {American Economic Journal: Macroeconomics},
+  Volume = {17},
+  Number = {3},
+  Year = {2025},
+  Month = {July},
+  Pages = {160–204},
+  DOI = {10.1257/mac.20220248},
+  URL = {https://www.aeaweb.org/articles?id=10.1257/mac.20220248}
 }
