@@ -4,7 +4,7 @@
   journal={IMF Economic Review},
   year={2025},
   volume={73},
-  issue={1},
+  number={1},
   month={March},
   keywords={},
   doi={10.1057/s41308-024-00260-z},

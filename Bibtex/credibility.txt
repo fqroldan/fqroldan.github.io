@@ -1,0 +1,8 @@
+@article{KR_reputation,
+  Author = {Kostadinov, Rumen and Roldán, Francisco},
+  Title = {Reputation and the Credibility of Inflation Plans},
+  Journal = {Journal of Economic Theory},
+  Year = {2025},
+  DOI = {10.1016/j.jet.2025.106062},
+  URL = {https://www.sciencedirect.com/science/article/abs/pii/S0022053125001085}
+}
