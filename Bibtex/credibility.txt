@@ -1,8 +1,13 @@
 @article{KR_reputation,
-  Author = {Kostadinov, Rumen and Roldán, Francisco},
-  Title = {Reputation and the Credibility of Inflation Plans},
-  Journal = {Journal of Economic Theory},
-  Year = {2025},
-  DOI = {10.1016/j.jet.2025.106062},
-  URL = {https://www.sciencedirect.com/science/article/abs/pii/S0022053125001085}
+  author = {Rumen Kostadinov and Francisco Roldán},
+  title = {Reputation and the credibility of inflation plans},
+  journal = {Journal of Economic Theory},
+  volume = {229},
+  pages = {106062},
+  year = {2025},
+  issn = {0022-0531},
+  doi = {https://doi.org/10.1016/j.jet.2025.106062},
+  url = {https://www.sciencedirect.com/science/article/pii/S0022053125001085},
+  keywords = {Imperfect credibility, Reputation, Optimal monetary policy, Time inconsistency},
+  abstract = {We study the optimal design of inflation targets by a planner who lacks commitment and exerts imperfect control over inflation. By comparing realized inflation to the targets, the public forms beliefs about the government's commitment. Such reputation is valuable as it helps curb inflation expectations. However, plans that are more tempting to break lead to faster reputational losses in the ensuing equilibrium. The planner's optimal announcement balances low inflation promises with incentives to enhance credibility. We find that, despite the absence of private sources of inflation inertia, a gradual disinflation is preferred even in the zero-reputation limit.}
 }

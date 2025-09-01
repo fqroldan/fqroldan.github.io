@@ -3,6 +3,7 @@
   title={{Sovereign Debt Tolerance with Potentially Permanent Costs of Default}},
   journal={IMF Economic Review},
   year={2025},
+  pages={118-149},
   volume={73},
   number={1},
   month={March},
