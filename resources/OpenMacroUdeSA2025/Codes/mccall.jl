@@ -189,23 +189,3 @@ end
 
 print("✓\nConstructor mc = McCall(; β = 0.96, γ = 0, b = 1, μw = 1, σw = 0.05, wmin = 0.5, wmax = 2, Nw = 50)\n")
 print("Main loop vfi!(mc)\n")
-
-
-
-
-lista = ["Tomás Kairuz",
-"Luca Bentivenga",
-"Maximiliano Cucher",
-"Genaro Damiani",
-"Dolores Tognolotti",
-"Nina Di Costanzo Pereira",
-"Julia Nina Fazio",
-"Giulia Bellicoso",
-"Federico Ariel López",
-# "Sebastián Burgermeister",
-# "Mateo Filarent",
-"Luca Armelini",
-"Tomas Buscaglia",
-"Yago Cortondo",
-"Fernando Agustín Acosta",
-"Anabel Vitaliani"]
