@@ -21,9 +21,9 @@ struct IFP{T<:Preferencias}
     gk::Matrix{Float64}
 end
 
-function IFP(T::DataType=CRRA; β=0.96, γ=2, r=0.02, bmax=0.9, kmin=-0.5, kmax=1, Nk=200, Ny=25, μy=1, ρy=0.8, σy=0.02)
+function IFP(T::DataType=CRRA; β=0.96, γ=2, r=0.02, kmin=-0.5, kmax=1, Nk=200, Ny=25, μy=1, ρy=0.8, σy=0.02)
     # Límite de deuda natural
-    pars = Dict(:β => β, :γ => γ, :r => r, :ρy => ρy, :σy => σy, :Nk => Nk, :Ny => Ny, :bmax => bmax, :kmax => kmax)
+    pars = Dict(:β => β, :γ => γ, :r => r, :ρy => ρy, :σy => σy, :Nk => Nk, :Ny => Ny, :kmax => kmax)
 
     kgrid = range(kmin, kmax, length=Nk)
 
@@ -92,18 +92,20 @@ function opt_value(jk, jy, itp_v::AbstractInterpolation, ce::IFP)
     yv = ce.ygrid[jy]
 
     k_min = minimum(ce.kgrid)
+    k_min = findfirst( sum(isnan.(ce.v[jkp, :])) == 0 for jkp in eachindex(ce.kgrid)  )
+
     k_max = maximum(ce.kgrid)
     k_max = min(k_max, kv * (1 + r) + yv - 1e-5)
 
     if k_max < k_min
-        return k_min, -1e+14 * (k_min - k_max), NaN
+        return k_min, NaN, NaN
     end
 
     py = ce.Py[jy, :]
 
     obj_f(kpv) = eval_value(kpv, kv, yv, py, itp_v, ce)
 
-    res = Optim.maximize(obj_f, k_min, k_max, GoldenSection())
+    res = Optim.maximize(obj_f, k_min, k_max)
 
     vp = Optim.maximum(res)
     k_star = Optim.maximizer(res)

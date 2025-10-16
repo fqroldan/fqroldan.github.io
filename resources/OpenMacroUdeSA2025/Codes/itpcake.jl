@@ -33,7 +33,9 @@ function opt_value(jk, itp_v::AbstractInterpolation, ce::CakeEating)
     k_max = min(k_max, maximum(ce.kgrid))
 
 	# Función objetivo
-	obj_f(kpv) = eval_value(kpv, kv, itp_v, ce)
+	function obj_f(kpv)
+		return eval_value(kpv, kv, itp_v, ce)
+	end
 
 	# Optimizador, eligiendo k entre k_min y k_max, algoritmo de sección dorada
 	res = Optim.maximize(obj_f, k_min, k_max)
