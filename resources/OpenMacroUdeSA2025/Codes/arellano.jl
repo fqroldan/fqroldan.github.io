@@ -79,15 +79,6 @@ function logsumexp(a::AbstractVector{<:Real})
 	return m + log.(sum(exp.(a .- m)))
 end
 
-# function h(yv, dd::Default)
-# 	if haskey(dd.pars, :defcost_OG) && dd.pars[:defcost_OG] == 1
-# 		return defcost_OG(yv)
-# 	elseif haskey(dd.pars, :d0) && haskey(dd.pars, :d1)
-# 		return defcost_quad(yv, dd)
-# 	else
-# 		return defcost_lineal(yv, dd)
-# 	end
-# end
 
 function switch_Cost(dd::Arellano, T; Δ = 0.1, d0 = 0.1, d1 = 0)
 
@@ -192,7 +183,6 @@ function q_iter!(new_q, dd::Arellano)
 			prob = dd.Py[jy, jyp]
 			prob_def = dd.prob[jbp, jyp]
 
-			# Si el país tiene acceso a mercados, emite y puede hacer default mañana
 			rep_R = (1-prob_def) * 1 + prob_def * 0
 
 			Eq += prob * rep_R
@@ -248,11 +238,11 @@ function eqm!(dd::Default; tol = 1e-8, maxiter = 250, verbose=true)
 	end
 end
 
-function make_itp(dd::Default, y::Matrix)
-	@assert size(y) == (length(dd.bgrid), length(dd.ygrid))
+function make_itp(dd::Default, M::Matrix)
+	@assert size(M) == (length(dd.bgrid), length(dd.ygrid))
 
 	knts = (dd.bgrid, dd.ygrid)
-	interpolate(knts, y, Gridded(Linear()))
+	return interpolate(knts, M, Gridded(Linear()))
 end
 
 function mpe!(dd::Default; tol = 1e-6, maxiter = 500, verbose=true)

@@ -61,7 +61,7 @@ end
 budget_constraint(bpv, bv, yv, q, ::Deuda) = yv + q * bpv - bv
 
 # LA MAGIA DEL MULTIPLE DISPATCH
-debtprice(::NoDefault, _, _, q) = q
+debtprice(dd::NoDefault, _, _, _) = 1/(1+dd.pars[:r])
 
 function eval_value(jb, jy, bpv, q, itp_v, dd::Deuda)
     """ Evalúa la función de valor en (b,y) para una elección de b' """
@@ -155,3 +155,21 @@ function vfi!(dd::Deuda; tol::Float64=1e-8, maxiter=2000, verbose=true)
     dist < tol && print("✓")
 end
 
+
+
+lista = [
+    "Fernando Agustín Acosta",
+    "Luca Federico Armelini Salvaj",
+    "Giulia Bellicoso",
+    "Luca Octavio Bentivenga",
+    "Tomas Enrique Buscaglia",
+    "Yago Cortondo",
+    "Maximiliano Cucher",
+    "Genaro Martín Damiani",
+    "Nina Di Costanzo Pereira",
+    "Julia Nina Fazio",
+    "Tomás Kairuz",
+    "Federico Ariel López",
+    "Dolores Tognolotti",
+    "Anabel Vitaliani",
+]
