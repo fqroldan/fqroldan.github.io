@@ -61,15 +61,15 @@ end
 budget_constraint(bpv, bv, yv, q, ::Deuda) = yv + q * bpv - bv
 
 # LA MAGIA DEL MULTIPLE DISPATCH
-debtprice(::NoDefault, _, _, itp_q) = itp_q
+debtprice(::NoDefault, _, _, q) = q
 
-function eval_value(jb, jy, bpv, itp_q, itp_v, dd::Deuda)
+function eval_value(jb, jy, bpv, q, itp_v, dd::Deuda)
     """ Evalúa la función de valor en (b,y) para una elección de b' """
     β = dd.pars[:β]
     bv, yv = dd.bgrid[jb], dd.ygrid[jy]
 
     # Interpola el precio de la deuda para el nivel elegido
-    qv = debtprice(dd, bpv, yv, itp_q)
+    qv = debtprice(dd, bpv, yv, q)
 
     # Deduce consumo del estado, la elección de deuda nueva y el precio de la deuda nueva
     cv = budget_constraint(bpv, bv, yv, qv, dd)
@@ -90,14 +90,14 @@ function eval_value(jb, jy, bpv, itp_q, itp_v, dd::Deuda)
     return v, cv
 end
 
-function opt_value(jb, jy, itp_q, itp_v, dd::Deuda)
+function opt_value(jb, jy, q, itp_v, dd::Deuda)
     """ Elige b' en (b,y) para maximizar la función de valor """
 
     # b' ∈ bgrid
     b_min, b_max = extrema(dd.bgrid)
 
     # Función objetivo en términos de b'
-    obj_f(bpv) = eval_value(jb, jy, bpv, itp_q, itp_v, dd)[1]
+    obj_f(bpv) = eval_value(jb, jy, bpv, q, itp_v, dd)[1]
 
     # Resuelve el máximo
     res = Optim.maximize(obj_f, b_min, b_max)
@@ -106,19 +106,19 @@ function opt_value(jb, jy, itp_q, itp_v, dd::Deuda)
     b_star = Optim.maximizer(res)
 
     # Extrae v y c consistentes con b'
-    vp, c_star = eval_value(jb, jy, b_star, itp_q, itp_v, dd)
+    vp, c_star = eval_value(jb, jy, b_star, q, itp_v, dd)
 
     return vp, c_star, b_star
 end
 
-function vfi_iter!(new_v, itp_q, dd::NoDefault)
+function vfi_iter!(new_v, q, dd::NoDefault)
     # Reconstruye la interpolación de la función de valor
     knts = (dd.bgrid, dd.ygrid)
     itp_v = interpolate(knts, dd.v, Gridded(Linear()))
 
     for jy in eachindex(dd.ygrid), jb in eachindex(dd.bgrid)
 
-        vp, c_star, b_star = opt_value(jb, jy, itp_q, itp_v, dd)
+        vp, c_star, b_star = opt_value(jb, jy, q, itp_v, dd)
 
         # Guarda los valores para repago 
         new_v[jb, jy] = vp
@@ -127,8 +127,7 @@ function vfi_iter!(new_v, itp_q, dd::NoDefault)
     end
 end
 
-# LA MAGIA DE MULTIPLE DISPATCH
-make_itp(dd::NoDefault) = 1/(1+dd.pars[:r])
+make_q(dd::NoDefault) = 1/(1+dd.pars[:r])
 
 function vfi!(dd::Deuda; tol::Float64=1e-8, maxiter=2000, verbose=true)
     """ Itera sobre la ecuación de Bellman del país para encontrar la función de valor, probabilidad de default, consumo en repago y en default """
@@ -138,13 +137,13 @@ function vfi!(dd::Deuda; tol::Float64=1e-8, maxiter=2000, verbose=true)
     iter = 0
 
     # Interpolación del precio de la deuda (si hace falta)
-    itp_q = make_itp(dd)
+    q = make_q(dd)
 
     # Loop principal sobre la Bellman del país
     while dist > tol && iter < maxiter
         iter += 1
 
-        vfi_iter!(new_v, itp_q, dd)
+        vfi_iter!(new_v, q, dd)
 
         # Distancia entre la función de valor y el guess viejo 
         dist = norm(new_v - dd.v) / (1 + norm(dd.v))
