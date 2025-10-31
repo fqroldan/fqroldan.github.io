@@ -1,9 +1,12 @@
 include("arellano.jl")
 
-function simul(dd::Arellano; T = 1000, b0 = 0., y0 = 1., d0 = 0)
+get_spread(qt, dd::Default) = get_spread(qt, dd.pars[:κ])
+get_spread(qt, κ::Number) = (κ/qt - 1) * 10000
+
+function simul(dd::Default; T = 1000, b0 = 0., y0 = 1., d0 = 0)
     # d = 0 => repago, d = 1 => default
 
-    yvec, bvec, dvec, qvec, cvec = zeros(T), zeros(T), zeros(T), zeros(T), zeros(T)
+    yvec, bvec, dvec, qvec, cvec, svec = zeros(T), zeros(T), zeros(T), zeros(T), zeros(T), zeros(T)
 
     itp_q = make_itp(dd, dd.q)
     itp_gb = make_itp(dd, dd.gb)
@@ -19,10 +22,11 @@ function simul(dd::Arellano; T = 1000, b0 = 0., y0 = 1., d0 = 0)
         dvec[t] = dt
         cvec[t] = ct
         qvec[t] = qt
+        svec[t] = get_spread(qt, dd)
 
         yp = transicion_t(y0, dd)
 
-        b0, y0 = bp, yp
+        b0, y0, d0 = bp, yp, dt
     end
 
     return yvec, bvec, dvec, qvec, cvec
@@ -42,6 +46,11 @@ function transicion_t(y0, dd)
 end
 
 function acciones_t(itp_def, itp_gb, itp_q, d0, bt, yt, dd)
+    ψ = dd.pars[:ψ]
+    ℏ = ifelse(haskey(dd.pars, :ℏ), dd.pars[:ℏ], 1)
+
+    bp = bt
+
     sigo = 0
     if d0 == 1
         ϵ = rand()
@@ -49,7 +58,6 @@ function acciones_t(itp_def, itp_gb, itp_q, d0, bt, yt, dd)
             sigo = 1
         else
             sigo = 0
-            bt = 0
         end
     end
 
@@ -60,6 +68,7 @@ function acciones_t(itp_def, itp_gb, itp_q, d0, bt, yt, dd)
         ϵ = rand()
         if ϵ < prob
             dt = 1
+            bp = (1-ℏ) * bt
         else
             dt = 0
         end
@@ -67,16 +76,12 @@ function acciones_t(itp_def, itp_gb, itp_q, d0, bt, yt, dd)
 
     if dt == 1
         ct = h(yt, dd)
-        bp = 0.
         qt = NaN
     else
         bp = itp_gb(bt, yt)
         qt = itp_q(bp, yt)
-        ct = yt + qt * bp - bt
-        # ct = budget_constraint(bp, bt, yt, itp_q, dd)
+        ct = budget_constraint(bp, bt, yt, qt, dd)
     end
 
     return dt, bp, ct, qt
 end
-
-

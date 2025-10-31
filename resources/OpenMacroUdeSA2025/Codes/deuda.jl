@@ -154,22 +154,3 @@ function vfi!(dd::Deuda; tol::Float64=1e-8, maxiter=2000, verbose=true)
     end
     dist < tol && print("✓")
 end
-
-
-
-lista = [
-    "Fernando Agustín Acosta",
-    "Luca Federico Armelini Salvaj",
-    "Giulia Bellicoso",
-    "Luca Octavio Bentivenga",
-    "Tomas Enrique Buscaglia",
-    "Yago Cortondo",
-    "Maximiliano Cucher",
-    "Genaro Martín Damiani",
-    "Nina Di Costanzo Pereira",
-    "Julia Nina Fazio",
-    "Tomás Kairuz",
-    "Federico Ariel López",
-    "Dolores Tognolotti",
-    "Anabel Vitaliani",
-]

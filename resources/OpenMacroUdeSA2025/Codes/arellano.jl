@@ -101,7 +101,7 @@ h(yv, dd::Arellano{Quad}) = defcost_quad(yv, dd)
 defcost_quad(yv, dd::Default) = defcost_quad(yv, dd.pars[:d0], dd.pars[:d1])
 defcost_quad(yv, d0::Number, d1::Number) = yv - d0*yv - d1*yv^2
 
-defcost_OG(yv) = ifelse(yv <= 0.969, yv, 0.969)
+defcost_OG(yv; yh = 0.969) = ifelse(yv <= yh, yv, yh)
 
 defcost_linear(yv, dd::Default) = defcost_linear(yv, dd.pars[:Δ])
 defcost_linear(yv, Δ::Number) = yv * (1-Δ)
