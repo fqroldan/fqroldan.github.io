@@ -1,0 +1,16 @@
+@techreport{RoldanSosaPadilla2025Perils,
+	author = {Roldán, Francisco and Sosa-Padilla, César},
+	title = {The {Perils} of {Bilateral} {Sovereign} {Debt}},
+	year = {2025},
+	month = {11},
+	institution = {International Monetary Fund},
+  type        = {IMF Working Papers},
+  number      = {2025/235},
+  abstract = {
+    We study the interaction between private and official sovereign debts. We develop a quantitative sovereign default model featuring a senior lender with whom borrowing terms are negotiated. We use this model to evaluate implications of the emergence of new official creditors not bound by the Paris Club framework. The dynamics of bilateral bargaining lead the government to issue more market debt, raising default risk and creating welfare losses. This relational overborrowing effect arises due to an endogenous cross-elasticity of bilateral terms to market debt, which can be assessed in practice to evaluate new forms of bilateral sovereign debt.
+  },
+  keywords = {Sovereign debt, debt dilution, bilateral bargaining, official debt},
+	doi = {10.5089/9798229027878.001},
+	url = {http://dx.doi.org/10.5089/9798229027878.001},
+}
+
