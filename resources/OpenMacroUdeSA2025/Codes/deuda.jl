@@ -1,4 +1,4 @@
-using QuantEcon, Optim, Interpolations, LinearAlgebra, PlotlyJS, Distributions
+using QuantEcon, Optim, Interpolations, LinearAlgebra, PlotlyJS, Distributions, Random
 
 abstract type Deuda end
 
