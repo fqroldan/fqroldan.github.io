@@ -107,7 +107,11 @@ end
 function vf_iter!(new_v, sw::SOE)
 	itp_v = interpolate((sw.agrid, sw.agrid, sw.zgrid), sw.v, Gridded(Linear()))
 
+<<<<<<< HEAD
     for jA in eachindex(sw.agrid), jz in eachindex(sw.zgrid)
+=======
+	for jA in eachindex(sw.agrid), jz in eachindex(sw.zgrid)
+>>>>>>> 8715896fa89113a2f5496a0b0209776bf4031270
 		pNv = sw.pN[jA, jz]
 		pCv = price_index(pNv, sw)
 
@@ -286,8 +290,70 @@ function comp_eqm!(sw::SOE; tol = 1e-4, maxiter = 2000)
 	end
 end
 
+<<<<<<< HEAD
 include("simulSOE.jl")
 
 print(" ✓\n")
 print("Constructor sw = SOEwr(; β = 0.97, γ = 2, r = 0.02, ϖN = 0.55, η = 1/0.83-1, α = 0.67, wbar = 0.8, ρz = 0.945, σz = 0.025, Na = 40, Nz = 21, amin = -0.5, amax = 10)\n")
 print("Loop: comp_eqm!(sw; tol = 1e-3, maxiter = 2000)")
+=======
+function iter_simul!(tt, path, itp_ga, itp_w, itp_Y, itp_pN, At, zt, sw::SOE)
+
+	# ϖN, ϖT, η = (sw.pars[sym] for sym in (:ϖN, :ϖT, :η))
+    r, ρz, σz = (sw.pars[sym] for sym in (:r, :ρz, :σz))
+
+	w  = itp_w(At, zt)
+	Y  = itp_Y(At, zt)
+	pN = itp_pN(At, zt)
+	pC = price_index(pN, sw)
+	
+	Ap = itp_ga(At, At, zt)
+
+    C = budget_constraint(Ap, At, Y, r, pC)
+
+	# cT = C * ϖT * (pC)^η
+	# cN = C * ϖN * (pC/pN)^η
+
+	CA = Y - pC * C
+
+	path[:CA][tt] = CA
+	path[:pN][tt] = pN
+	path[:w][tt]  = w
+	path[:Y][tt]  = Y
+	path[:C][tt]  = C
+	path[:A][tt]  = At
+	path[:z][tt]  = zt
+
+
+	amin, amax = extrema(sw.agrid)
+	Ap = max(amin, min(amax, Ap))
+
+	ϵ_new = rand(Normal(0,1))
+	zp = exp(ρz * log(zt) + σz * ϵ_new)
+
+	zmin, zmax = extrema(sw.zgrid)
+	zp = max(zmin, min(zmax, zp))	
+
+	return Ap, zp
+end
+
+function simul(sw::SOE; T = 1000)
+	path = Dict(key => zeros(T) for key in [:w, :Y, :CA, :C, :pN, :A, :z])
+    itp_ga = interpolate((sw.agrid, sw.agrid, sw.zgrid), sw.ga, Gridded(Linear()))
+
+	itp_w = interpolate((sw.agrid, sw.zgrid), sw.w, Gridded(Linear()))
+    itp_Y = interpolate((sw.agrid, sw.zgrid), sw.Y, Gridded(Linear()))
+    itp_pN = interpolate((sw.agrid, sw.zgrid), sw.pN, Gridded(Linear()))
+
+	A0 = 0.0
+	z0 = 1.0
+	for tt in 1:T
+		A0, z0 = iter_simul!(tt, path, itp_ga, itp_w, itp_Y, itp_pN, A0, z0, sw)
+	end
+	return path
+end
+
+print(" ✓\n")
+print("Constructor sw = SOEwr(; β = 0.97, γ = 2, r = 0.02, ϖN = 0.55, η = 1/0.83-1, α = 0.67, wbar = 0.8, ρz = 0.945, σz = 0.025, Na = 40, Nz = 21, amin = -0.5, amax = 10)\n")
+print("Loop: comp_eqm!(sw; tol = 1e-3, maxiter = 2000)")
+>>>>>>> 8715896fa89113a2f5496a0b0209776bf4031270
