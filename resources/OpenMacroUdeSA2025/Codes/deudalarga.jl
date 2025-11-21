@@ -24,10 +24,7 @@ function switch_δ!(dd::DeudaLarga, δ)
     nothing
 end
 
-ChatterjeeEyigungor(; Nb=200, Ny=21, kwargs...) = DeudaLarga(T=Quad, γ=2, σy=0.027092, ρy=0.948503, ψ=0.0385, r=0.01, δ=0.05, bmax=1.5, χ=0.01, ℏ=1; Nb, Ny, kwargs...)
-
-# calib_gl() = DeudaLarga(; T = Quad, β = 0.959511, γ = 2, χ = 0.01, r = 0.01, δ = 0.05, d0 = -.247965, d1 = 0.296756, ψ = 0.0385, ℏ = 1)
-
+ChatterjeeEyigungor(; Nb=200, Ny=21, kwargs...) = DeudaLarga(T=Quad, γ=2, σy=0.027092, ρy=0.948503, ψ=0.0385, r=0.01, δ=0.05, bmax=1.5, χ=0.01, ℏ=1, β = 0.95402, d0 = -.18819, d1 = .24558; Nb, Ny, kwargs...)
 
 function DeudaLarga(; T = OG,
     β=0.953,
