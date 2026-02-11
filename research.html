@@ -489,10 +489,40 @@
 			}
 			const doc = iframe.contentDocument || iframe.contentWindow?.document;
 			if (!doc || !doc.body) {
+				scheduleResizeRetry(id, 0);
 				return;
 			}
 			const extraHeight = 24;
-			iframe.style.height = (doc.body.scrollHeight + extraHeight) + 'px';
+			const height = doc.body.scrollHeight;
+			if (height === 0) {
+				scheduleResizeRetry(id, 0);
+				return;
+			}
+			iframe.style.height = (height + extraHeight) + 'px';
+		}
+		function scheduleResizeRetry(id, attempt) {
+			const maxAttempts = 6;
+			if (attempt >= maxAttempts) {
+				return;
+			}
+			setTimeout(() => {
+				const iframe = document.getElementById(id);
+				if (!iframe || iframe.style.display === "none") {
+					return;
+				}
+				const doc = iframe.contentDocument || iframe.contentWindow?.document;
+				if (!doc || !doc.body) {
+					scheduleResizeRetry(id, attempt + 1);
+					return;
+				}
+				const extraHeight = 24;
+				const height = doc.body.scrollHeight;
+				if (height === 0) {
+					scheduleResizeRetry(id, attempt + 1);
+					return;
+				}
+				iframe.style.height = (height + extraHeight) + 'px';
+			}, 100);
 		}
 
 	</script>
