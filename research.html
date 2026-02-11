@@ -41,9 +41,10 @@
 		window.onload = function () {
 			// alert("Page has loaded!");
 			const allhide = document.querySelectorAll('iframe');
-			// Hide all blockquotes
-			allhide.forEach(bq => {
-				bq.style.display = 'none';
+			// Hide all iframe content blocks
+			allhide.forEach(frame => {
+				frame.style.display = 'none';
+				frame.style.height = '0px';
 			});
 		}
 	</script>
@@ -54,9 +55,14 @@
 		}
 
 		iframe {
-			width: 90%;
-			height: min-content;
-			display: inline;
+			width: 100%;
+			max-width: 900px;
+			height: 0;
+			display: none;
+			border: 0;
+			overflow: hidden;
+			padding: 10px 12px;
+			background: #fafafa;
 		}
 
 		body {
@@ -150,7 +156,6 @@
 				text-align: left;
 			}
 		}
-
 	</style>
 
 </head>
@@ -184,7 +189,9 @@
 			<h2>Publications</h2>
 			<ul style="font-size:18px; color:#08282e; padding-left:20px">
 				<li>
-					<span id="Reputation"></span><a href="https://doi.org/10.1016/j.jet.2025.106062" style="text-decoration:none" target="_blank">Reputation and the Credibility of Inflation Plans</a>
+					<span id="Reputation"></span><a href="https://doi.org/10.1016/j.jet.2025.106062"
+						style="text-decoration:none" target="_blank">Reputation and the Credibility of Inflation
+						Plans</a>
 					<blockquote>
 						<p>
 							with <a href="https://sites.google.com/view/rumen-kostadinov" target="_blank">Rumen
@@ -195,14 +202,16 @@
 							[<a href="https://www.imf.org/en/Publications/WP/Issues/2020/06/05/Credibility-Dynamics-and-Disinflation-Plans-49375"
 								target="_blank">IMF wp</a>]
 							&nbsp;
-							[<a href="https://twitter.com/fqroldan/status/1272979342767816705" target="_blank">Twitter</a>]
+							[<a href="https://twitter.com/fqroldan/status/1272979342767816705"
+								target="_blank">Twitter</a>]
 							&nbsp;
 							<button onclick="toggleInfo('abs_cddp')">Abstract</button>
 							&nbsp;
 							<button onclick="toggleInfo('bib_cddp')">BibTeX</button>
 							<iframe id="abs_cddp" src="resources/abstract_cddp.txt" frameborder="0"
 								onload="resizeIframe('abs_cddp')"></iframe>
-							<iframe id="bib_cddp" src="Bibtex/credibility.txt" frameborder="0" onload="resizeIframe('bib_cddp')"></iframe>
+							<iframe id="bib_cddp" src="Bibtex/credibility.txt" frameborder="0"
+								onload="resizeIframe('bib_cddp')"></iframe>
 							<br>
 							<strong>Journal of Economic Theory</strong>, vol. 229, October <strong>2025</strong>
 						</p>
@@ -216,7 +225,8 @@
 						<p>
 							[<a href="resources/JMP_Roldan.pdf" target="_blank">pdf</a>]
 							&nbsp;
-							[<a href="https://www.imf.org/en/Publications/WP/Issues/2020/12/18/The-Aggregate-Demand-Doom-Loop-Precautionary-Motives-and-the-Welfare-Costs-of-Sovereign-Risk-49969" target="_blank">IMF wp</a>]
+							[<a href="https://www.imf.org/en/Publications/WP/Issues/2020/12/18/The-Aggregate-Demand-Doom-Loop-Precautionary-Motives-and-the-Welfare-Costs-of-Sovereign-Risk-49969"
+								target="_blank">IMF wp</a>]
 							&nbsp;
 							<button onclick="toggleInfo('abs_jmp')">Abstract</button>
 							&nbsp;
@@ -231,7 +241,9 @@
 					</blockquote>
 				</li>
 				<li>
-					<span id="DebtTol"></span><a href="https://doi.org/10.1057/s41308-024-00260-z" style="text-decoration:none" target="_blank">Sovereign Debt Tolerance with Potentially Permanent Costs of Default</a>
+					<span id="DebtTol"></span><a href="https://doi.org/10.1057/s41308-024-00260-z"
+						style="text-decoration:none" target="_blank">Sovereign Debt Tolerance with Potentially Permanent
+						Costs of Default</a>
 					<blockquote>
 						<p>
 							with <a href="https://www.marcoschamon.com/">Marcos Chamon</a>
@@ -243,8 +255,10 @@
 							<button onclick="toggleInfo('abs_debttol')">Abstract</button>
 							&nbsp;
 							<button onclick="toggleInfo('bib_debttol')">BibTeX</button>
-							<iframe id="abs_debttol" src="resources/abstract_debttol.txt" frameborder="0" onload="resizeIframe('abs_debttol')"></iframe>
-							<iframe id="bib_debttol" src="Bibtex/debttol.txt" frameborder="0" onload="resizeIframe('bib_debttol')"></iframe>
+							<iframe id="abs_debttol" src="resources/abstract_debttol.txt" frameborder="0"
+								onload="resizeIframe('abs_debttol')"></iframe>
+							<iframe id="bib_debttol" src="Bibtex/debttol.txt" frameborder="0"
+								onload="resizeIframe('bib_debttol')"></iframe>
 							<br>
 							<strong>IMF Economic Review</strong>, vol.73(1), March <strong>2025</strong>
 						</p>
@@ -285,7 +299,8 @@
 							<button onclick="toggleInfo('bib_sci')">BibTeX</button>
 							<iframe id="abs_sci" src="resources/abstract_sci.txt" frameborder="0"
 								onload="resizeIframe('abs_sci')"></iframe>
-							<iframe id="bib_sci" src="Bibtex/sci.txt" frameborder="0" onload="resizeIframe('bib_sci')"></iframe>
+							<iframe id="bib_sci" src="Bibtex/sci.txt" frameborder="0"
+								onload="resizeIframe('bib_sci')"></iframe>
 							<br>
 							<strong>JPE Macroeconomics</strong>, vol.1(2), pp.334-370, June <strong>2023</strong>
 						</p>
@@ -308,15 +323,17 @@
 							&nbsp;
 							[<a href="https://twitter.com/fqroldan/status/1542288276236779520"
 								target="_blank">Twitter</a>]
-								&nbsp;
-								<button onclick="toggleInfo('abs_handbook')">Abstract</button>
-								&nbsp;
-								<button onclick="toggleInfo('bib_handbook')">BibTeX</button>
-								<iframe id="abs_handbook" src="resources/abstract_handbook.txt" frameborder="0"
-									onload="resizeIframe('abs_handbook')"></iframe>
-								<iframe id="bib_handbook" src="Bibtex/handbook.txt" frameborder="0" onload="resizeIframe('bib_handbook')"></iframe>
+							&nbsp;
+							<button onclick="toggleInfo('abs_handbook')">Abstract</button>
+							&nbsp;
+							<button onclick="toggleInfo('bib_handbook')">BibTeX</button>
+							<iframe id="abs_handbook" src="resources/abstract_handbook.txt" frameborder="0"
+								onload="resizeIframe('abs_handbook')"></iframe>
+							<iframe id="bib_handbook" src="Bibtex/handbook.txt" frameborder="0"
+								onload="resizeIframe('bib_handbook')"></iframe>
 							<br>
-							in <i>Gürkaynak and Wright (eds.), <strong>Research Handbook of Financial Markets</strong></i>, Edward Elgar Publishing, <strong>2023</strong>
+							in <i>Gürkaynak and Wright (eds.), <strong>Research Handbook of Financial
+									Markets</strong></i>, Edward Elgar Publishing, <strong>2023</strong>
 						</p>
 					</blockquote>
 				</li>
@@ -336,7 +353,8 @@
 							<button onclick="toggleInfo('bib_deleveraging')">BibTeX</button>
 							<iframe id="abs_deleveraging" src="resources/abstract_deleveraging.txt" frameborder="0"
 								onload="resizeIframe('abs_deleveraging')"></iframe>
-							<iframe id="bib_deleveraging" src="Bibtex/deleveraging.txt" frameborder="0" onload="resizeIframe('bib_deleveraging')"></iframe>
+							<iframe id="bib_deleveraging" src="Bibtex/deleveraging.txt" frameborder="0"
+								onload="resizeIframe('bib_deleveraging')"></iframe>
 							<br>
 							<strong>IMF Economic Review</strong>, vol.66(2), pp.375–413, June <strong>2018</strong>
 						</p>
@@ -382,8 +400,10 @@
 							<button onclick="toggleInfo('abs_perils')">Abstract</button>
 							&nbsp;
 							<button onclick="toggleInfo('bib_perils')">BibTeX</button>
-							<iframe id="abs_perils" src="resources/abstract_perils.txt" frameborder="0" onload="resizeIframe('abs_perils')"></iframe>
-							<iframe id="bib_perils" src="Bibtex/perils.txt" frameborder="0" onload="resizeIframe('bib_perils')"></iframe>
+							<iframe id="abs_perils" src="resources/abstract_perils.txt" frameborder="0"
+								onload="resizeIframe('abs_perils')"></iframe>
+							<iframe id="bib_perils" src="Bibtex/perils.txt" frameborder="0"
+								onload="resizeIframe('bib_perils')"></iframe>
 						</p>
 					</blockquote>
 				</li>
@@ -413,21 +433,21 @@
 					<strong style="color:#08282e">The Gibson Paradox</strong>
 					(with A. Neumeyer)
 				</li>
-				<!-- <li>
+				<li>
 					<strong style="color:#08282e">The Term Structure of Credit and Liquidity Risk Premia</strong>
 					(with L. Belmudes, J. Passadore, and Y. Xu)
-				</li> -->
-				<!-- <li>
-					<strong style="color:#08282e">The Domestic Share of Sovereign Debt as an Automatic Stabilizer</strong>
+				</li>
+				<li>
+					<strong style="color:#08282e">The Domestic Share of Sovereign Debt as an Automatic
+						Stabilizer</strong>
 					(with J.P. di Iorio)
-				</li> -->
+				</li>
 				<!-- <li>
 					<strong style="color:#08282e">Are Central Bank Swaps Hidden Debt?</strong> (with Gonzalo Huertas)
 				</li> -->
-				<li>
-					<strong style="color:#08282e;">Non-Homothetic Sudden Stops with Capital</strong> (with H.
-					Seoane)
-				</li>
+				<!-- <li>
+					<strong style="color:#08282e;">Non-Homothetic Sudden Stops with Capital</strong> (with H. Seoane)
+				</li> -->
 			</ul>
 		</div>
 	</div>
@@ -443,27 +463,39 @@
 		function toggleInfo(infoId) {
 
 			const infoElement = document.getElementById(infoId);
-			const thisdisp = infoElement.style.display;
 			const allhide = document.querySelectorAll('iframe');
 
-			// Hide all blockquotes
-			allhide.forEach(bq => {
-				bq.style.display = 'none';
+			allhide.forEach(frame => {
+				if (frame.id !== infoId) {
+					frame.style.display = 'none';
+					frame.style.height = '0px';
+				}
 			});
 
-			if (thisdisp === "none" || thisdisp === "") {
-				infoElement.style.display = "inline-block";
-			} else {
+			if (infoElement.style.display === "block") {
 				infoElement.style.display = "none";
+				infoElement.style.height = "0px";
+				return;
 			}
+
+			infoElement.style.display = "block";
+			infoElement.style.height = "0px";
+			setTimeout(() => resizeIframe(infoId), 0);
 		}
 		function resizeIframe(id) {
 			const iframe = document.getElementById(id);
-			iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+			if (!iframe) {
+				return;
+			}
+			const doc = iframe.contentDocument || iframe.contentWindow?.document;
+			if (!doc || !doc.body) {
+				return;
+			}
+			iframe.style.height = doc.body.scrollHeight + 'px';
 		}
-		
+
 	</script>
-	
+
 	<div style="color:#fafafa">
 		.
 	</div>
