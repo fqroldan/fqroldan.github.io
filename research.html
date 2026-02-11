@@ -452,7 +452,7 @@
 				infoElement.style.display = 'inline-block';
 				// Resize after making visible so scrollHeight is accurate
 				try {
-					infoElement.style.height = infoElement.contentWindow.document.body.scrollHeight + 'px';
+					infoElement.style.height = (infoElement.contentWindow.document.body.scrollHeight + 36) + 'px';
 				} catch (e) {}
 			}
 		}
