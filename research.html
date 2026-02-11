@@ -37,24 +37,26 @@
 		}
 	</script>
 
-
+	<script>
+		window.onload = function () {
+			const allhide = document.querySelectorAll('iframe');
+			allhide.forEach(bq => {
+				bq.style.display = 'none';
+			});
+		}
+	</script>
 
 	<style>
 		* {
 			box-sizing: border-box
 		}
 
-		.info-box {
+		iframe {
 			width: 90%;
 			display: none;
-			white-space: pre-wrap;
-			font-family: monospace;
-			font-size: 14px;
-			background-color: #f5f5f5;
-			border: 1px solid #ddd;
-			padding: 10px;
-			margin-top: 5px;
-			overflow-x: auto;
+			border: 0;
+			margin: 0;
+			padding: 0;
 		}
 
 		body {
@@ -200,8 +202,8 @@
 							<button onclick="toggleInfo('abs_cddp')">Abstract</button>
 							&nbsp;
 							<button onclick="toggleInfo('bib_cddp')">BibTeX</button>
-							<span id="abs_cddp" class="info-box" data-src="resources/abstract_cddp.txt"></span>
-							<span id="bib_cddp" class="info-box" data-src="Bibtex/credibility.txt"></span>
+							<iframe id="abs_cddp" src="resources/abstract_cddp.txt"></iframe>
+							<iframe id="bib_cddp" src="Bibtex/credibility.txt"></iframe>
 							<br>
 							<strong>Journal of Economic Theory</strong>, vol. 229, October <strong>2025</strong>
 						</p>
@@ -221,8 +223,8 @@
 							<button onclick="toggleInfo('abs_jmp')">Abstract</button>
 							&nbsp;
 							<button onclick="toggleInfo('bib_jmp')">BibTeX</button>
-							<span id="abs_jmp" class="info-box" data-src="resources/abstract_jmp.txt"></span>
-							<span id="bib_jmp" class="info-box" data-src="Bibtex/ADDL.txt"></span>
+							<iframe id="abs_jmp" src="resources/abstract_jmp.txt"></iframe>
+							<iframe id="bib_jmp" src="Bibtex/ADDL.txt"></iframe>
 							<br>
 							<strong>AEJ Macroeconomics</strong>, vol. 17(3), pp.160-204, July <strong>2025</strong>
 						</p>
@@ -243,8 +245,8 @@
 							<button onclick="toggleInfo('abs_debttol')">Abstract</button>
 							&nbsp;
 							<button onclick="toggleInfo('bib_debttol')">BibTeX</button>
-							<span id="abs_debttol" class="info-box" data-src="resources/abstract_debttol.txt"></span>
-							<span id="bib_debttol" class="info-box" data-src="Bibtex/debttol.txt"></span>
+							<iframe id="abs_debttol" src="resources/abstract_debttol.txt"></iframe>
+							<iframe id="bib_debttol" src="Bibtex/debttol.txt"></iframe>
 							<br>
 							<strong>IMF Economic Review</strong>, vol.73(1), March <strong>2025</strong>
 						</p>
@@ -283,8 +285,8 @@
 							<button onclick="toggleInfo('abs_sci')">Abstract</button>
 							&nbsp;
 							<button onclick="toggleInfo('bib_sci')">BibTeX</button>
-							<span id="abs_sci" class="info-box" data-src="resources/abstract_sci.txt"></span>
-							<span id="bib_sci" class="info-box" data-src="Bibtex/sci.txt"></span>
+							<iframe id="abs_sci" src="resources/abstract_sci.txt"></iframe>
+							<iframe id="bib_sci" src="Bibtex/sci.txt"></iframe>
 							<br>
 							<strong>JPE Macroeconomics</strong>, vol.1(2), pp.334-370, June <strong>2023</strong>
 						</p>
@@ -311,8 +313,8 @@
 							<button onclick="toggleInfo('abs_handbook')">Abstract</button>
 							&nbsp;
 							<button onclick="toggleInfo('bib_handbook')">BibTeX</button>
-							<span id="abs_handbook" class="info-box" data-src="resources/abstract_handbook.txt"></span>
-							<span id="bib_handbook" class="info-box" data-src="Bibtex/handbook.txt"></span>
+							<iframe id="abs_handbook" src="resources/abstract_handbook.txt"></iframe>
+							<iframe id="bib_handbook" src="Bibtex/handbook.txt"></iframe>
 							<br>
 							in <i>Gürkaynak and Wright (eds.), <strong>Research Handbook of Financial
 									Markets</strong></i>, Edward Elgar Publishing, <strong>2023</strong>
@@ -333,8 +335,8 @@
 							<button onclick="toggleInfo('abs_deleveraging')">Abstract</button>
 							&nbsp;
 							<button onclick="toggleInfo('bib_deleveraging')">BibTeX</button>
-							<span id="abs_deleveraging" class="info-box" data-src="resources/abstract_deleveraging.txt"></span>
-							<span id="bib_deleveraging" class="info-box" data-src="Bibtex/deleveraging.txt"></span>
+							<iframe id="abs_deleveraging" src="resources/abstract_deleveraging.txt"></iframe>
+							<iframe id="bib_deleveraging" src="Bibtex/deleveraging.txt"></iframe>
 							<br>
 							<strong>IMF Economic Review</strong>, vol.66(2), pp.375–413, June <strong>2018</strong>
 						</p>
@@ -350,7 +352,7 @@
 							with Daniel Heymann
 							&nbsp;
 							<button onclick="toggleInfo('bib_markups')">BibTeX</button>
-							<span id="bib_markups" class="info-box" data-src="Bibtex/markups.txt"></span>
+							<iframe id="bib_markups" src="Bibtex/markups.txt"></iframe>
 							<br>
 							in <i>Damill, Rapetti, and Rozenwurcel (eds.), <strong>Macroeconomics and Development:
 									Roberto Frenkel and the Economics of Latin America</strong></i>, Columbia University
@@ -379,8 +381,8 @@
 							<button onclick="toggleInfo('abs_perils')">Abstract</button>
 							&nbsp;
 							<button onclick="toggleInfo('bib_perils')">BibTeX</button>
-							<span id="abs_perils" class="info-box" data-src="resources/abstract_perils.txt"></span>
-							<span id="bib_perils" class="info-box" data-src="Bibtex/perils.txt"></span>
+							<iframe id="abs_perils" src="resources/abstract_perils.txt"></iframe>
+							<iframe id="bib_perils" src="Bibtex/perils.txt"></iframe>
 						</p>
 					</blockquote>
 				</li>
@@ -441,24 +443,17 @@
 			const infoElement = document.getElementById(infoId);
 			const isHidden = infoElement.style.display === 'none' || infoElement.style.display === '';
 
-			// Hide all info boxes
-			document.querySelectorAll('.info-box').forEach(box => {
-				box.style.display = 'none';
+			// Hide all iframes
+			document.querySelectorAll('iframe').forEach(bq => {
+				bq.style.display = 'none';
 			});
 
 			if (isHidden) {
-				// Fetch content if not yet loaded
-				if (!infoElement.dataset.loaded) {
-					fetch(infoElement.dataset.src)
-						.then(r => r.text())
-						.then(text => {
-							infoElement.textContent = text;
-							infoElement.dataset.loaded = 'true';
-							infoElement.style.display = 'block';
-						});
-				} else {
-					infoElement.style.display = 'block';
-				}
+				infoElement.style.display = 'inline-block';
+				// Resize after making visible so scrollHeight is accurate
+				try {
+					infoElement.style.height = infoElement.contentWindow.document.body.scrollHeight + 'px';
+				} catch (e) {}
 			}
 		}
 
