@@ -491,7 +491,8 @@
 			if (!doc || !doc.body) {
 				return;
 			}
-			iframe.style.height = doc.body.scrollHeight + 'px';
+			const extraHeight = 24;
+			iframe.style.height = (doc.body.scrollHeight + extraHeight) + 'px';
 		}
 
 	</script>
