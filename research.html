@@ -37,32 +37,24 @@
 		}
 	</script>
 
-	<script>
-		window.onload = function () {
-			// alert("Page has loaded!");
-			const allhide = document.querySelectorAll('iframe');
-			// Hide all iframe content blocks
-			allhide.forEach(frame => {
-				frame.style.display = 'none';
-				frame.style.height = '0px';
-			});
-		}
-	</script>
+
 
 	<style>
 		* {
 			box-sizing: border-box
 		}
 
-		iframe {
-			width: 100%;
-			max-width: 900px;
-			height: 0;
+		.info-box {
+			width: 90%;
 			display: none;
-			border: 0;
-			overflow: hidden;
-			padding: 10px 12px;
-			background: #fafafa;
+			white-space: pre-wrap;
+			font-family: monospace;
+			font-size: 14px;
+			background-color: #f5f5f5;
+			border: 1px solid #ddd;
+			padding: 10px;
+			margin-top: 5px;
+			overflow-x: auto;
 		}
 
 		body {
@@ -208,10 +200,8 @@
 							<button onclick="toggleInfo('abs_cddp')">Abstract</button>
 							&nbsp;
 							<button onclick="toggleInfo('bib_cddp')">BibTeX</button>
-							<iframe id="abs_cddp" src="resources/abstract_cddp.txt" frameborder="0"
-								onload="resizeIframe('abs_cddp')"></iframe>
-							<iframe id="bib_cddp" src="Bibtex/credibility.txt" frameborder="0"
-								onload="resizeIframe('bib_cddp')"></iframe>
+							<div id="abs_cddp" class="info-box" data-src="resources/abstract_cddp.txt"></div>
+							<div id="bib_cddp" class="info-box" data-src="Bibtex/credibility.txt"></div>
 							<br>
 							<strong>Journal of Economic Theory</strong>, vol. 229, October <strong>2025</strong>
 						</p>
@@ -231,10 +221,8 @@
 							<button onclick="toggleInfo('abs_jmp')">Abstract</button>
 							&nbsp;
 							<button onclick="toggleInfo('bib_jmp')">BibTeX</button>
-							<iframe id="abs_jmp" src="resources/abstract_jmp.txt" frameborder="0"
-								onload="resizeIframe('abs_jmp')"></iframe>
-							<iframe id="bib_jmp" src="Bibtex/ADDL.txt" frameborder="0"
-								onload="resizeIframe('bib_jmp')"></iframe>
+							<div id="abs_jmp" class="info-box" data-src="resources/abstract_jmp.txt"></div>
+							<div id="bib_jmp" class="info-box" data-src="Bibtex/ADDL.txt"></div>
 							<br>
 							<strong>AEJ Macroeconomics</strong>, vol. 17(3), pp.160-204, July <strong>2025</strong>
 						</p>
@@ -255,10 +243,8 @@
 							<button onclick="toggleInfo('abs_debttol')">Abstract</button>
 							&nbsp;
 							<button onclick="toggleInfo('bib_debttol')">BibTeX</button>
-							<iframe id="abs_debttol" src="resources/abstract_debttol.txt" frameborder="0"
-								onload="resizeIframe('abs_debttol')"></iframe>
-							<iframe id="bib_debttol" src="Bibtex/debttol.txt" frameborder="0"
-								onload="resizeIframe('bib_debttol')"></iframe>
+							<div id="abs_debttol" class="info-box" data-src="resources/abstract_debttol.txt"></div>
+							<div id="bib_debttol" class="info-box" data-src="Bibtex/debttol.txt"></div>
 							<br>
 							<strong>IMF Economic Review</strong>, vol.73(1), March <strong>2025</strong>
 						</p>
@@ -297,10 +283,8 @@
 							<button onclick="toggleInfo('abs_sci')">Abstract</button>
 							&nbsp;
 							<button onclick="toggleInfo('bib_sci')">BibTeX</button>
-							<iframe id="abs_sci" src="resources/abstract_sci.txt" frameborder="0"
-								onload="resizeIframe('abs_sci')"></iframe>
-							<iframe id="bib_sci" src="Bibtex/sci.txt" frameborder="0"
-								onload="resizeIframe('bib_sci')"></iframe>
+							<div id="abs_sci" class="info-box" data-src="resources/abstract_sci.txt"></div>
+							<div id="bib_sci" class="info-box" data-src="Bibtex/sci.txt"></div>
 							<br>
 							<strong>JPE Macroeconomics</strong>, vol.1(2), pp.334-370, June <strong>2023</strong>
 						</p>
@@ -327,10 +311,8 @@
 							<button onclick="toggleInfo('abs_handbook')">Abstract</button>
 							&nbsp;
 							<button onclick="toggleInfo('bib_handbook')">BibTeX</button>
-							<iframe id="abs_handbook" src="resources/abstract_handbook.txt" frameborder="0"
-								onload="resizeIframe('abs_handbook')"></iframe>
-							<iframe id="bib_handbook" src="Bibtex/handbook.txt" frameborder="0"
-								onload="resizeIframe('bib_handbook')"></iframe>
+							<div id="abs_handbook" class="info-box" data-src="resources/abstract_handbook.txt"></div>
+							<div id="bib_handbook" class="info-box" data-src="Bibtex/handbook.txt"></div>
 							<br>
 							in <i>Gürkaynak and Wright (eds.), <strong>Research Handbook of Financial
 									Markets</strong></i>, Edward Elgar Publishing, <strong>2023</strong>
@@ -351,10 +333,8 @@
 							<button onclick="toggleInfo('abs_deleveraging')">Abstract</button>
 							&nbsp;
 							<button onclick="toggleInfo('bib_deleveraging')">BibTeX</button>
-							<iframe id="abs_deleveraging" src="resources/abstract_deleveraging.txt" frameborder="0"
-								onload="resizeIframe('abs_deleveraging')"></iframe>
-							<iframe id="bib_deleveraging" src="Bibtex/deleveraging.txt" frameborder="0"
-								onload="resizeIframe('bib_deleveraging')"></iframe>
+							<div id="abs_deleveraging" class="info-box" data-src="resources/abstract_deleveraging.txt"></div>
+							<div id="bib_deleveraging" class="info-box" data-src="Bibtex/deleveraging.txt"></div>
 							<br>
 							<strong>IMF Economic Review</strong>, vol.66(2), pp.375–413, June <strong>2018</strong>
 						</p>
@@ -370,8 +350,7 @@
 							with Daniel Heymann
 							&nbsp;
 							<button onclick="toggleInfo('bib_markups')">BibTeX</button>
-							<iframe id="bib_markups" src="Bibtex/markups.txt" frameborder="0"
-								onload="resizeIframe('bib_markups')"></iframe>
+							<div id="bib_markups" class="info-box" data-src="Bibtex/markups.txt"></div>
 							<br>
 							in <i>Damill, Rapetti, and Rozenwurcel (eds.), <strong>Macroeconomics and Development:
 									Roberto Frenkel and the Economics of Latin America</strong></i>, Columbia University
@@ -400,10 +379,8 @@
 							<button onclick="toggleInfo('abs_perils')">Abstract</button>
 							&nbsp;
 							<button onclick="toggleInfo('bib_perils')">BibTeX</button>
-							<iframe id="abs_perils" src="resources/abstract_perils.txt" frameborder="0"
-								onload="resizeIframe('abs_perils')"></iframe>
-							<iframe id="bib_perils" src="Bibtex/perils.txt" frameborder="0"
-								onload="resizeIframe('bib_perils')"></iframe>
+							<div id="abs_perils" class="info-box" data-src="resources/abstract_perils.txt"></div>
+							<div id="bib_perils" class="info-box" data-src="Bibtex/perils.txt"></div>
 						</p>
 					</blockquote>
 				</li>
@@ -461,68 +438,28 @@
 
 	<script>
 		function toggleInfo(infoId) {
-
 			const infoElement = document.getElementById(infoId);
-			const allhide = document.querySelectorAll('iframe');
+			const isHidden = infoElement.style.display === 'none' || infoElement.style.display === '';
 
-			allhide.forEach(frame => {
-				if (frame.id !== infoId) {
-					frame.style.display = 'none';
-					frame.style.height = '0px';
-				}
+			// Hide all info boxes
+			document.querySelectorAll('.info-box').forEach(box => {
+				box.style.display = 'none';
 			});
 
-			if (infoElement.style.display === "block") {
-				infoElement.style.display = "none";
-				infoElement.style.height = "0px";
-				return;
-			}
-
-			infoElement.style.display = "block";
-			infoElement.style.height = "0px";
-			setTimeout(() => resizeIframe(infoId), 0);
-		}
-		function resizeIframe(id) {
-			const iframe = document.getElementById(id);
-			if (!iframe) {
-				return;
-			}
-			const doc = iframe.contentDocument || iframe.contentWindow?.document;
-			if (!doc || !doc.body) {
-				scheduleResizeRetry(id, 0);
-				return;
-			}
-			const extraHeight = 24;
-			const height = doc.body.scrollHeight;
-			if (height === 0) {
-				scheduleResizeRetry(id, 0);
-				return;
-			}
-			iframe.style.height = (height + extraHeight) + 'px';
-		}
-		function scheduleResizeRetry(id, attempt) {
-			const maxAttempts = 6;
-			if (attempt >= maxAttempts) {
-				return;
-			}
-			setTimeout(() => {
-				const iframe = document.getElementById(id);
-				if (!iframe || iframe.style.display === "none") {
-					return;
+			if (isHidden) {
+				// Fetch content if not yet loaded
+				if (!infoElement.dataset.loaded) {
+					fetch(infoElement.dataset.src)
+						.then(r => r.text())
+						.then(text => {
+							infoElement.textContent = text;
+							infoElement.dataset.loaded = 'true';
+							infoElement.style.display = 'block';
+						});
+				} else {
+					infoElement.style.display = 'block';
 				}
-				const doc = iframe.contentDocument || iframe.contentWindow?.document;
-				if (!doc || !doc.body) {
-					scheduleResizeRetry(id, attempt + 1);
-					return;
-				}
-				const extraHeight = 24;
-				const height = doc.body.scrollHeight;
-				if (height === 0) {
-					scheduleResizeRetry(id, attempt + 1);
-					return;
-				}
-				iframe.style.height = (height + extraHeight) + 'px';
-			}, 100);
+			}
 		}
 
 	</script>
