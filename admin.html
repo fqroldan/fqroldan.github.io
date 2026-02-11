@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Roldan Reading Group | Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="admin">
+  <header>
+    <nav class="nav">
+      <a href="rrg.html">Home</a>
+      <a href="submission.html">Submit a paper</a>
+      <a href="archive.html">Past meetings</a>
+    </nav>
+    <h1>Admin Review</h1>
+    <p>
+      Use your admin key to review submissions, update status and notes, and export the meeting CSV.
+    </p>
+  </header>
+
+  <main>
+    <section class="grid-2">
+      <div>
+        <h2>Admin access</h2>
+        <p class="helper">Your key is stored only in this browser session.</p>
+      </div>
+      <form id="admin-auth" aria-label="Admin authentication">
+        <label>
+          Admin key
+          <input id="admin-key" type="password" name="admin_key" placeholder="Enter admin key" required />
+        </label>
+        <label>
+          Meeting date
+          <input id="admin-meeting" type="date" name="meeting" />
+        </label>
+        <div class="button-row">
+          <button id="admin-load" type="submit">Load meeting</button>
+          <button id="admin-download" type="button" class="secondary">Download meeting CSV</button>
+          <button id="admin-clear" type="button" class="secondary">Clear submissions</button>
+        </div>
+      </form>
+    </section>
+
+    <section>
+      <h2>Meeting submissions</h2>
+      <div id="admin-status" class="status">Waiting for admin input.</div>
+      <div class="bulk-bar" aria-label="Bulk actions">
+        <label class="bulk-select">
+          <input id="admin-select-all" type="checkbox" />
+          Select pending
+        </label>
+        <div class="bulk-actions">
+          <span id="admin-selected-count" class="helper">0 selected</span>
+          <label>
+            Status
+            <select id="admin-bulk-status">
+              <option value="approved">Approved</option>
+              <option value="long">Long talk</option>
+              <option value="vetoed">Vetoed</option>
+              <option value="pending">Pending</option>
+            </select>
+          </label>
+          <label>
+            Admin note
+            <input id="admin-bulk-note" type="text" placeholder="Optional note" />
+          </label>
+          <button id="admin-bulk-apply" type="button">Apply to selected</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table id="admin-table" aria-label="Admin meeting submissions"></table>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <div>
+        <h2>Update a submission</h2>
+        <p class="helper">Find the submission by email or participant name.</p>
+      </div>
+      <form id="admin-update" aria-label="Admin update form">
+        <label>
+          Email
+          <input type="email" name="email" placeholder="name@domain.edu" required />
+        </label>
+        <label>
+          Participant
+          <input type="text" name="participant" placeholder="Participant name" />
+        </label>
+        <label>
+          Status
+          <select name="status">
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="vetoed">Vetoed</option>
+            <option value="long">Long talk</option>
+          </select>
+        </label>
+        <label>
+          Admin note
+          <textarea name="admin_note" placeholder="Reason or scheduling note."></textarea>
+        </label>
+        <button type="submit">Update entry</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      Admin updates write directly to the Google Sheet backing the reading group submissions.
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

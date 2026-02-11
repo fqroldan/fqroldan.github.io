@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Roldan Reading Group | Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="archive">
+  <header>
+    <nav class="nav">
+      <a href="rrg.html">Home</a>
+      <a href="submission.html">Submit a paper</a>
+    </nav>
+    <h1>Past Meetings Archive</h1>
+    <p>
+        This page hosts summaries and materials from past meetings.
+    </p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Current meeting submissions (<span id="archive-meeting-date">--</span>)</h2>
+      <div id="archive-meeting-status" class="status">Loading submissions</div>
+      <div class="table-wrap">
+        <table id="archive-meeting-table" aria-label="Current meeting submissions"></table>
+      </div>
+      <p class="helper">
+        Status: pending = awaiting review, approved = accepted, long = selected for a long talk,
+        vetoed = not selected.
+      </p>
+    </section>
+    <section>
+      <h2>Archive entries</h2>
+      <div id="archive-status" class="status">Archive ready.</div>
+      <div class="button-row">
+        <button id="sync-archive" type="button" class="secondary">Sync from admin sheet</button>
+      </div>
+      <div id="archive-accordion" class="archive-accordion" aria-label="Archive entries"></div>
+    </section>
+  </main>
+
+  <footer></footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

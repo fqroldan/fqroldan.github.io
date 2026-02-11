@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Roldan Reading Group | Submit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="submission">
+  <header>
+    <nav class="nav">
+      <a href="rrg.html">Home</a>
+      <a href="archive.html">Past meetings</a>
+    </nav>
+    <h1>Submit a Paper</h1>
+  </header>
+
+  <main>
+    <section>
+      <h2>Current meeting submissions (<span id="next-meeting-date">--</span>)</h2>
+      <div id="submission-status" class="status">Loading submissions</div>
+      <div class="table-wrap">
+        <table id="meeting-table" aria-label="Meeting submissions"></table>
+      </div>
+      <p class="helper">
+        Status: pending = awaiting review, approved = accepted, long = selected for a long talk,
+        vetoed = not selected.
+      </p>
+    </section>
+
+    <section>
+      <h2>Submit a paper</h2>
+      <p class="helper">Required fields: participant name, verified email, and paper title.</p>
+      <div class="grid-2">
+        <div>
+          <h3 id="verify-heading">Verify your email</h3>
+          <p class="helper">We will send a one-time verification code to your email.</p>
+          <form id="verification-form" aria-label="Email verification">
+            <div id="verification-status" class="status">Please verify your email before proceeding.</div>
+            <label>
+              Email
+              <input id="verify-email" type="email" name="verify_email" placeholder="name@domain.edu" required />
+            </label>
+            <div id="verify-code-row" class="is-hidden">
+              <label>
+                Verification code
+                <input id="verify-code" type="text" name="verify_code" placeholder="6-digit code" />
+              </label>
+            </div>
+            <div class="button-row">
+              <button id="send-code" type="button">Send code</button>
+              <button id="confirm-code" type="button" class="is-hidden">Verify code</button>
+              <button id="clear-verification" type="button" class="secondary">Clear verification</button>
+            </div>
+          </form>
+        </div>
+        <div>
+          <form id="submission-form" aria-label="Paper submission form">
+            <label>
+              Meeting date
+              <input id="meeting-date" type="date" name="meeting" />
+            </label>
+            <label class="inline-toggle">
+              <input id="meeting-override" type="checkbox" />
+              Override meeting date
+            </label>
+            <label>
+              Participant
+              <input type="text" name="participant" placeholder="Your name" required />
+            </label>
+            <div class="inline-field">
+              <label>
+                DOI (optional)
+                <input id="doi" type="text" name="doi" placeholder="10.xxxx/xxxxx" />
+              </label>
+              <button id="fetch-doi" type="button" class="secondary">Fetch from DOI</button>
+            </div>
+            <label>
+              Paper title
+              <input type="text" name="title" placeholder="Title of the paper" required />
+            </label>
+            <label>
+              Authors
+              <input type="text" name="authors" placeholder="Author list" />
+            </label>
+            <label>
+              Journal
+              <input type="text" name="journal" placeholder="Journal name" />
+            </label>
+            <label>
+              Paper link (direct pdf preferred)
+              <input type="url" name="link" placeholder="https://" />
+            </label>
+            <input id="submission-email" type="hidden" name="email" required />
+            <button type="submit">Submit paper</button>
+          </form>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div>
+          <h3>Attach slides</h3>
+          <p class="helper">Attach slides if you are selected for a long talk.</p>
+          <p id="slides-status" class="helper"></p>
+        </div>
+        <form id="slides-form" aria-label="Slides form">
+          <label>
+            Slides link
+            <input type="url" name="slides" placeholder="https://" required />
+          </label>
+          <button type="submit">Add slides</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
