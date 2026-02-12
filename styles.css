@@ -193,7 +193,7 @@ textarea {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  align-items: center;
+  align-items: flex-end;
 }
 
 button,
@@ -289,6 +289,10 @@ button:hover,
   color: var(--accent);
 }
 
+[data-admin-gated].is-locked {
+  opacity: 0.72;
+}
+
 .table-wrap {
   overflow-x: auto;
 }
@@ -347,7 +351,11 @@ button:hover,
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  align-items: center;
+  align-items: flex-end;
+}
+
+.meeting-date-field {
+  width: 220px;
 }
 
 .bulk-select {

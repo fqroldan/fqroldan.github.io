@@ -25,7 +25,7 @@
   <main>
     <section class="grid-2">
       <div>
-        <h2>Admin access</h2>
+        <h2>Admin login</h2>
         <p class="helper">Your key is stored only in this browser session.</p>
       </div>
       <form id="admin-auth" aria-label="Admin authentication">
@@ -33,21 +33,24 @@
           Admin key
           <input id="admin-key" type="password" name="admin_key" placeholder="Enter admin key" required />
         </label>
-        <label>
-          Meeting date
-          <input id="admin-meeting" type="date" name="meeting" />
-        </label>
         <div class="button-row">
-          <button id="admin-load" type="submit">Load meeting</button>
-          <button id="admin-download" type="button" class="secondary">Download meeting CSV</button>
-          <button id="admin-clear" type="button" class="secondary">Clear submissions</button>
+          <button id="admin-auth-submit" type="submit">Submit</button>
         </div>
+        <div id="admin-status" class="status">Submit your admin key to unlock controls.</div>
       </form>
     </section>
 
-    <section>
+    <section data-admin-gated>
       <h2>Meeting submissions</h2>
-      <div id="admin-status" class="status">Waiting for admin input.</div>
+      <div class="button-row" aria-label="Meeting actions">
+        <label class="meeting-date-field">
+          Meeting date
+          <input id="admin-meeting" type="date" name="meeting" />
+        </label>
+        <button id="admin-load" type="button">Load meeting</button>
+        <button id="admin-download" type="button" class="secondary">Download meeting CSV</button>
+        <button id="admin-clear" type="button" class="secondary">Clear submissions</button>
+      </div>
       <div class="bulk-bar" aria-label="Bulk actions">
         <label class="bulk-select">
           <input id="admin-select-all" type="checkbox" />
@@ -76,7 +79,21 @@
       </div>
     </section>
 
-    <section class="grid-2">
+    <section class="grid-2" data-admin-gated>
+      <div>
+        <h2>Allowlist</h2>
+        <p class="helper">Add an email to the verified submitter allowlist.</p>
+      </div>
+      <form id="admin-allowlist" aria-label="Admin allowlist form">
+        <label>
+          Email
+          <input type="email" name="email" placeholder="name@domain.edu" required />
+        </label>
+        <button type="submit">Add to allowlist</button>
+      </form>
+    </section>
+
+    <section class="grid-2" data-admin-gated>
       <div>
         <h2>Update a submission</h2>
         <p class="helper">Find the submission by email or participant name.</p>

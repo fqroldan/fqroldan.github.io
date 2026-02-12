@@ -1,5 +1,5 @@
 const CONFIG = {
-  APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbyrAf8JaXGEFBa4S752uekCFP2f_KNMYb5XggOovHy3eqltd8i9ZxCHHvEW_6-8ZP6ZyA/exec",
+  APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbznCrokySiyUNF9YsAsDGOUZ_aj4gWnZPwdyQpnU_gbHgHSWpaWC4jrBP778yxg3Bu0BQ/exec",
   ADMIN_KEY_STORAGE: "rrg_admin_key",
   VERIFIED_STORAGE: "rrg_verified"
 };
@@ -977,6 +977,7 @@ const initHomePage = () => {
 
 const initAdminPage = () => {
   const adminForm = document.getElementById("admin-auth");
+  const adminAuthSubmitButton = document.getElementById("admin-auth-submit");
   const adminKeyInput = document.getElementById("admin-key");
   const meetingInput = document.getElementById("admin-meeting");
   const loadButton = document.getElementById("admin-load");
@@ -985,11 +986,13 @@ const initAdminPage = () => {
   const table = document.getElementById("admin-table");
   const status = document.getElementById("admin-status");
   const updateForm = document.getElementById("admin-update");
+  const allowlistForm = document.getElementById("admin-allowlist");
   const selectAllInput = document.getElementById("admin-select-all");
   const bulkStatusSelect = document.getElementById("admin-bulk-status");
   const bulkNoteInput = document.getElementById("admin-bulk-note");
   const bulkApplyButton = document.getElementById("admin-bulk-apply");
   const selectedCount = document.getElementById("admin-selected-count");
+  const gatedSections = Array.from(document.querySelectorAll("[data-admin-gated]"));
 
   const columns = [
     { key: "participant", label: "Participant" },
@@ -1005,16 +1008,32 @@ const initAdminPage = () => {
 
   let meetingRows = [];
   let selectedEmails = new Set();
+  let isAdminVerified = false;
   meetingInput.value = meetingInput.value || getCutoffMeetingDate();
 
   const setLoading = (isLoading) => {
     status.classList.toggle("is-loading", isLoading);
+    if (adminAuthSubmitButton) {
+      adminAuthSubmitButton.disabled = isLoading;
+    }
+  };
+
+  const setGatedControlsEnabled = (enabled) => {
+    gatedSections.forEach((section) => {
+      section.classList.toggle("is-locked", !enabled);
+      const controls = section.querySelectorAll("input, select, textarea, button");
+      controls.forEach((control) => {
+        control.disabled = !enabled;
+      });
+    });
+    updateSelectedUi();
+    renderAdminTable();
   };
 
   const updateSelectedUi = () => {
     const count = selectedEmails.size;
     selectedCount.textContent = `${count} selected`;
-    bulkApplyButton.disabled = count === 0;
+    bulkApplyButton.disabled = !isAdminVerified || count === 0;
     if (count === 0) {
       selectAllInput.checked = false;
     }
@@ -1054,6 +1073,7 @@ const initAdminPage = () => {
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.checked = selectedEmails.has(row.email);
+      checkbox.disabled = !isAdminVerified;
       checkbox.addEventListener("change", () => {
         if (checkbox.checked) {
           selectedEmails.add(row.email);
@@ -1100,12 +1120,15 @@ const initAdminPage = () => {
       setStatus(status, "Set APPS_SCRIPT_URL in app.js to enable admin access.", true);
       return;
     }
+    if (!isAdminVerified) {
+      setStatus(status, "Submit a valid admin key to unlock controls.", true);
+      return;
+    }
     const adminKey = adminKeyInput.value.trim();
     if (!adminKey) {
       setStatus(status, "Admin key is required.", true);
       return;
     }
-    window.sessionStorage.setItem(CONFIG.ADMIN_KEY_STORAGE, adminKey);
     setLoading(true);
     try {
       const meeting = meetingInput.value;
@@ -1121,15 +1144,55 @@ const initAdminPage = () => {
     }
   };
 
+  const verifyAdminKey = async () => {
+    if (!isApiConfigured()) {
+      setStatus(status, "Set APPS_SCRIPT_URL in app.js to enable admin access.", true);
+      return;
+    }
+    const adminKey = adminKeyInput.value.trim();
+    if (!adminKey) {
+      setStatus(status, "Admin key is required.", true);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await postApi({ action: "adminList", meeting: "", adminKey });
+      isAdminVerified = true;
+      window.sessionStorage.setItem(CONFIG.ADMIN_KEY_STORAGE, adminKey);
+      setGatedControlsEnabled(true);
+      setStatus(status, "Admin key accepted. Controls unlocked.");
+    } catch (error) {
+      isAdminVerified = false;
+      setGatedControlsEnabled(false);
+      setStatus(status, error.message, true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const cachedKey = window.sessionStorage.getItem(CONFIG.ADMIN_KEY_STORAGE);
   if (cachedKey) {
     adminKeyInput.value = cachedKey;
   }
+  setGatedControlsEnabled(false);
+  setStatus(status, "Submit your admin key to unlock controls.");
   updateSelectedUi();
+  renderAdminTable();
 
   adminForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    loadMeeting().catch((error) => setStatus(status, error.message, true));
+    verifyAdminKey().catch((error) => setStatus(status, error.message, true));
+  });
+
+  adminKeyInput.addEventListener("input", () => {
+    if (!isAdminVerified) {
+      return;
+    }
+    isAdminVerified = false;
+    selectedEmails = new Set();
+    setGatedControlsEnabled(false);
+    setStatus(status, "Admin key changed. Submit again to unlock controls.");
   });
 
   downloadButton.addEventListener("click", () => {
@@ -1175,6 +1238,44 @@ const initAdminPage = () => {
       setLoading(false);
     }
   });
+
+  if (allowlistForm) {
+    allowlistForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const formData = new FormData(allowlistForm);
+      const email = formData.get("email")?.trim() || "";
+      const adminKey = adminKeyInput.value.trim();
+
+      if (!adminKey) {
+        setStatus(status, "Admin key is required.", true);
+        return;
+      }
+      if (!email) {
+        setStatus(status, "Email is required.", true);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const data = await postApi({
+          action: "adminAddAllowlist",
+          adminKey,
+          email
+        });
+        allowlistForm.reset();
+        const added = Array.isArray(data.added) ? data.added : [];
+        if (added.includes(email.toLowerCase())) {
+          setStatus(status, `Added ${email} to allowlist.`);
+        } else {
+          setStatus(status, `${email} is already in allowlist.`);
+        }
+      } catch (error) {
+        setStatus(status, error.message, true);
+      } finally {
+        setLoading(false);
+      }
+    });
+  }
 
   loadButton.addEventListener("click", (event) => {
     event.preventDefault();
