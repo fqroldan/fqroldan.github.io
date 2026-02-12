@@ -41,6 +41,18 @@ header {
   gap: 20px;
 }
 
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  flex-shrink: 0;
+  width: clamp(48px, 5vw, 60px);
+  height: clamp(48px, 5vw, 60px);
+}
+
 h1 {
   color: var(--ink);
   font-family: "Source Serif 4", "Times New Roman", serif;
