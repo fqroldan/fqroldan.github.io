@@ -374,6 +374,13 @@ const initSubmissionPage = () => {
     });
   };
 
+  const setSlidesLocked = (isLocked) => {
+    const controls = slidesForm.querySelectorAll("input, textarea, select, button");
+    controls.forEach((control) => {
+      control.disabled = isLocked;
+    });
+  };
+
   const applyVerifiedEmail = () => {
     const verified = getVerified();
     if (verified?.email && verified?.sessionToken) {
@@ -386,6 +393,7 @@ const initSubmissionPage = () => {
       }
       setVerificationLocked(true);
       setSubmissionLocked(false);
+      setSlidesLocked(false);
     } else if (verified?.email) {
       clearVerified();
       submissionEmailInput.value = "";
@@ -396,6 +404,7 @@ const initSubmissionPage = () => {
       }
       setVerificationLocked(false);
       setSubmissionLocked(true);
+      setSlidesLocked(true);
     } else {
       submissionEmailInput.value = "";
       verifyHeading.classList.remove("is-hidden");
@@ -405,6 +414,7 @@ const initSubmissionPage = () => {
       }
       setVerificationLocked(false);
       setSubmissionLocked(true);
+      setSlidesLocked(true);
     }
   };
 

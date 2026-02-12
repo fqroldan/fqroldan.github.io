@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RRG Font Compare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&family=Fraunces:wght@500;600&family=Literata:wght@500;600&family=Playfair+Display:wght@500;600&family=Source+Serif+4:wght@500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #08282e;
+      --muted: #555b63;
+      --paper: #f7f2ea;
+      --accent: #2f6f7a;
+      --panel: #fff9f1;
+      --shadow: 0 10px 22px rgba(21, 24, 28, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 32px 6vw 16px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+      padding: 0 6vw 40px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .card {
+      background: var(--panel);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(18, 20, 23, 0.12);
+    }
+
+    .pair-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .sample h1 {
+      margin: 0 0 8px;
+      font-size: 1.9rem;
+    }
+
+    .sample h2 {
+      margin: 0 0 10px;
+      font-size: 1.4rem;
+    }
+
+    .sample p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .controls {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .controls input {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(18, 20, 23, 0.2);
+      font: inherit;
+      background: #fff;
+    }
+
+    .controls button {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: #fff;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .pair-a h1,
+    .pair-a h2 {
+      font-family: "Fraunces", "Times New Roman", serif;
+    }
+
+    .pair-a {
+      font-family: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .pair-b h1,
+    .pair-b h2 {
+      font-family: "Playfair Display", "Times New Roman", serif;
+    }
+
+    .pair-b {
+      font-family: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .pair-c h1,
+    .pair-c h2 {
+      font-family: "Source Serif 4", "Times New Roman", serif;
+    }
+
+    .pair-c {
+      font-family: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .pair-d h1,
+    .pair-d h2 {
+      font-family: "Literata", "Times New Roman", serif;
+    }
+
+    .pair-d {
+      font-family: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Font Pair Comparisons</h1>
+    <p>Each column shows the same content with a different heading/body pairing.</p>
+  </header>
+
+  <div class="grid">
+    <section class="card sample pair-a">
+      <div class="pair-title">Fraunces + DM Sans</div>
+      <h1>Roldán Reading Group</h1>
+      <h2>Reading Group Updates</h2>
+      <p>Submit one paper for the next meeting and browse past discussions in the archive.</p>
+      <div class="controls">
+        <input type="text" placeholder="Paper title" />
+        <button type="button">Submit paper</button>
+      </div>
+    </section>
+
+    <section class="card sample pair-b">
+      <div class="pair-title">Playfair Display + DM Sans</div>
+      <h1>Roldán Reading Group</h1>
+      <h2>Reading Group Updates</h2>
+      <p>Submit one paper for the next meeting and browse past discussions in the archive.</p>
+      <div class="controls">
+        <input type="text" placeholder="Paper title" />
+        <button type="button">Submit paper</button>
+      </div>
+    </section>
+
+    <section class="card sample pair-c">
+      <div class="pair-title">Source Serif 4 + DM Sans</div>
+      <h1>Roldán Reading Group</h1>
+      <h2>Reading Group Updates</h2>
+      <p>Submit one paper for the next meeting and browse past discussions in the archive.</p>
+      <div class="controls">
+        <input type="text" placeholder="Paper title" />
+        <button type="button">Submit paper</button>
+      </div>
+    </section>
+
+    <section class="card sample pair-d">
+      <div class="pair-title">Literata + DM Sans</div>
+      <h1>Roldán Reading Group</h1>
+      <h2>Reading Group Updates</h2>
+      <p>Submit one paper for the next meeting and browse past discussions in the archive.</p>
+      <div class="controls">
+        <input type="text" placeholder="Paper title" />
+        <button type="button">Submit paper</button>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

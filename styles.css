@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&family=Source+Serif+4:wght@500;600&display=swap");
 
 :root {
   --ink: #08282e;
@@ -19,7 +19,7 @@ body {
   margin: 0;
   color: var(--ink);
   background: var(--paper);
-  font-family: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  font-family: "DM Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 15px;
   line-height: 1.6;
 }
@@ -33,7 +33,7 @@ header {
 }
 
 h1 {
-  font-family: "Playfair Display", "Times New Roman", serif;
+  font-family: "Source Serif 4", "Times New Roman", serif;
   font-size: clamp(2rem, 3.2vw, 3.2rem);
   letter-spacing: 0.02em;
   margin: 0;
@@ -61,6 +61,16 @@ header p {
 }
 
 nav.nav {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1320px;
+  z-index: 10;
+  background: var(--paper);
+  padding: 10px var(--gutter);
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
@@ -100,7 +110,7 @@ section {
 }
 
 h2 {
-  font-family: "Playfair Display", "Times New Roman", serif;
+  font-family: "Source Serif 4", "Times New Roman", serif;
   margin: 0 0 12px;
   font-size: 1.4rem;
 }
@@ -358,7 +368,7 @@ table {
 }
 
 .archive-date {
-  font-family: "DM Serif Display", "Times New Roman", serif;
+  font-family: "Source Serif 4", "Times New Roman", serif;
   font-size: 1.2rem;
 }
 
