@@ -481,6 +481,12 @@ const initSubmissionPage = () => {
   });
   const SUBMISSION_REFRESH_DELAY_MS = 2000;
 
+  const fallbackMeeting = getCutoffMeetingDate();
+  if (!meetingOverrideInput?.checked) {
+    meetingInput.value = fallbackMeeting;
+    nextMeetingDateLabel.textContent = formatReadableDate(fallbackMeeting);
+  }
+
   resolveNextMeeting()
     .then((meeting) => {
       nextMeetingDate = meeting;
@@ -829,6 +835,8 @@ const initArchivePage = () => {
       setStatus(meetingStatus, "Set APPS_SCRIPT_URL in app.js to enable submissions.", true);
       return;
     }
+    const fallbackMeeting = getCutoffMeetingDate();
+    meetingDateLabel.textContent = formatReadableDate(fallbackMeeting);
     setMeetingLoading(true);
     try {
       const meeting = await resolveNextMeeting();
