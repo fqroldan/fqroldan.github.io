@@ -987,7 +987,7 @@ const initAdminPage = () => {
 
   let meetingRows = [];
   let selectedEmails = new Set();
-  meetingInput.value = meetingInput.value || getNextWednesday();
+  meetingInput.value = meetingInput.value || getCutoffMeetingDate();
 
   const setLoading = (isLoading) => {
     status.classList.toggle("is-loading", isLoading);
