@@ -64,6 +64,7 @@ header {
   width: min(280px, 60vw);
   height: auto;
   display: block;
+  margin-right: 50px;
 }
 
 .hero-text {
