@@ -1,163 +1,97 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CV | Francisco Roldán</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&family=Source+Serif+4:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="research.html">Research</a>
+      <a href="cv.html"><strong>CV</strong></a>
+      <a href="resources.html">Resources</a>
+      <a href="rrg.html">RRG</a>
+    </nav>
 
-<title>Francisco Roldán's CV</title>
-<link rel='icon' href='Images/q_fav.png' type='image/x-icon'/ >
+    <header>
+      <h1>Curriculum Vitae</h1>
+    </header>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta charset="utf-8"/>
-<link rel="stylesheet" type="text/css" href="qstyle.css">
-<link rel="stylesheet" href="https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css">
+    <main>
+        <div class="button-row buttons-centered">
+            <a class="button-link" href="#">Download CV (PDF)</a>
+        </div>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTD7GM5L6D"></script>
-<script>
-	window.dataLayer = window.dataLayer || [];
-	function gtag() { dataLayer.push(arguments); }
-	gtag('js', new Date());
+      <section>
+        <h2>Employment</h2>
+        <div class="image-row">
+          <img src="data/images/IMF_logo_ENG_Blue.png" alt="IMF" />
+          <p>
+            International Monetary Fund </br>
+            Economist, Research and Strategy, Policy, and Review departments</br>
+            Economist Program, Research and European departments </br>
+            since 2019
+          </p>
+        </div>
+      </section>
 
-	gtag('config', 'G-FTD7GM5L6D');
-</script>
+      <section>
+        <h2>Education</h2>
+        <div class="image-row">
+          <img src="data/images/nyu_stacked_color.jpg" alt="New York University" />
+          <img src="data/images/udesa.png" alt="Universidad de San Andrés" />
+          <img src="data/images/uba_square.png" alt="Universidad de Buenos Aires" />
+        </div>
+      </section>
 
-<script>
-function myFunction() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav2") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav2";
-  }
-}
-</script>
+    <section>
+        <h2>Publications</h2>
+        <div class="image-row">
+            <a href="https://doi.org/10.1016/j.jet.2025.106062"><img src="data/images/pubs/JET229.gif" /></a>
+            <a href="https://www.aeaweb.org/articles?id=10.1257/mac.20220248"><img src="data/images/pubs/AEJM.png" /></a>
+            <a href="https://doi.org/10.1057/s41308-024-00260-z"><img src="data/images/pubs/IMFER_debttol.webp" /></a>
+            <a href="https://www.journals.uchicago.edu/doi/10.1086/723950"><img src="data/images/pubs/jpema.webp" /></a>
+            <a href="https://www.e-elgar.com/shop/usd/research-handbook-of-financial-markets-9781800375314.html"><img src="data/images/pubs/RHFM.jpg" /></a>
+            <a href="https://link.springer.com/article/10.1057/s41308-018-0054-8"><img src="data/images/pubs/imfer662.jpg" /></a>
+            <a href="http://cup.columbia.edu/book/macroeconomics-and-development/9780231175081"><img src="data/images/pubs/M&DFrenkel.avif" /></a>
+        </div>
+    </section>
 
-</head>
+    <section>
+        <h2>Referee</h2>
+        <div class="image-row">
+            <img src="data/images/referees/aer.jpeg" />
+            <img src="data/images/referees/restud.png" />
+            <img src="data/images/referees/jpema.webp" />
+            <img src="data/images/referees/JIE.jpg" />
+            <img src="data/images/referees/jet.jpg" />
+            <img src="data/images/referees/imfer.jpg" />
+            <img src="data/images/referees/jmcb.webp" />
+            <img src="data/images/referees/rev_econ_dynamics.gif" />
+            <img src="data/images/referees/jes.png" />
+            <img src="data/images/referees/macroeconomic_dynamics.jpg" />
+        </div>
+    </section>
 
-<body style="background-color: #fafafa;">
-	<div class=container-topnav>
-		<div class="topnav">
-			<div class="topnav2" id="myTopnav">
-				<a href="index.html">Home</a>
-			  <a href="research.html">Research</a>
-			  <a class="active" href="cv.html">CV</a>
-			  <a href="teaching.html">Resources</a>
-			  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
-			</div>
-		</div>
-	</div>
+    <section>
+        <h2>Awards and Fellowships</h2>
+        <div class="image-row">
+            <img src="data/images/fed_board.png" alt="Fed Board" />
+            <img src="data/images/IMF_logo_ENG_Blue.png" alt="IMF" />
+            <img src="data/images/nyu_stacked_color.jpg" alt="New York University" />
+            <img src="data/images/aaep.jpg" alt="AAEP" />
+        </div>
+    </section>
+</main>
 
-<div style="padding:20px;margin-top:0px;background-color:#08282e;height:auto;">
-<div style="background-color:#08282e;padding:0px;text-align:center;color: #fafafa">
-	<h1>CV</h1>
-</div>
-</div>
-
-<div style="width:100%">
-	<div style="max-width:1200px;margin:0px auto;padding: 1px 20px;text-align:center">
-		<p>View my <a href="resources/CV_Roldan.pdf" target="_blank">CV</a> in pdf format</p>
-	</div>
-</div>
-
-
-<div style="width:100%; background-color:#e5e5e5">
-	<div style="max-width:1200px;margin:0px auto;padding: 20px 20px">
-		<h2 style="color:#08282e;">Employment</h2>
-	</div>
-</div>
-
-<div class="papers">
-	<div style="overflow:auto;padding:10px 20px 10px 20px">
-		<div class="horizontal-flex-container">
-			<img class="afil_logo" src="Images/IMF_logo_ENG_Blue.png"/>
-			<div class="vertical-flex-container">
-				<p>
-					International Monetary Fund </br>
-					Economist, Research and Strategy, Policy, and Review departments</br>
-					Economist Program, Research and European departments </br>
-					since 2019
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div style="width:100%; background-color:#e5e5e5">
-	<div style="max-width:1200px;margin:0px auto;padding: 20px 20px;">
-		<h2 style="color:#08282e;">Education</h3>
-	</div>
-</div>
-
-<div class="horizontal-flex-container">
-  <img class="afil_logo" src="Images/nyu_stacked_color.jpg" alt="New York University PhD in Economics 2013--2019">
-  <!-- <div class="vl"></div>  -->
-  <img class="afil_logo" src="Images/udesa_blue.jpg" alt="Universidad de San Andrés MA in Economics 2010">
-  <!-- <div class="vl"></div>  -->
-  <img class="afil_logo" src="Images/uba_square.png" alt="Univesidad de Buenos Aires BA in Economics 2004--2009">
-
-	<!-- <img class="afil_logo" src="Images/exactas.jpg"/> -->
-  <!-- <img class="afil_logo" src="Images/fce.png"/> -->
-</div>
-
-<div style="width:100%; background-color:#e5e5e5">
-	<div style="max-width:1200px;margin:0px auto;padding: 20px 20px;">
-		<h2 style="color:#08282e;">Publications</h3>
-	</div>
-</div>
-
-<div class="horizontal-flex-container">
-	<a href="https://doi.org/10.1016/j.jet.2025.106062"><img class="afil_logo" src="Images/JET229.gif" /></a>
-	<a href="https://www.aeaweb.org/articles?id=10.1257/mac.20220248"><img class="afil_logo" src="Images/AEJ.png" /></a>
-	<a href="https://doi.org/10.1057/s41308-024-00260-z"><img class="afil_logo" src="Images/IMFER_debttol.webp" /></a>
-	<a href="https://www.journals.uchicago.edu/doi/10.1086/723950"><img class="afil_logo" src="Images/jpema.webp" /></a>
-	<a href="https://www.e-elgar.com/shop/usd/research-handbook-of-financial-markets-9781800375314.html"><img class="afil_logo" src="Images/RHFM.jpg"/></a>
-	<a href="https://link.springer.com/article/10.1057/s41308-018-0054-8"><img class="afil_logo" src="Images/imfer662.jpg"/></a>
-	<a href="http://cup.columbia.edu/book/macroeconomics-and-development/9780231175081"><img class="afil_logo" src="Images/M&DFrenkel.avif"/></a>
-</div>
-
-
-<div style="width:100%; background-color:#e5e5e5">
-	<div style="max-width:1200px;margin:0px auto;padding: 20px 20px;">
-		<h2 style="color:#08282e;">Referee</h3>
-	</div>
-</div>
-
-<div class="horizontal-flex-container">
-  <img class="afil_logo" src="Images/aer.jpeg" />
-  <img class="afil_logo" src="Images/restud.png" />
-  <img class="afil_logo" src="Images/jpema.webp" />
-  <img class="afil_logo" src="Images/JIE.jpg" />
-  <img class="afil_logo" src="Images/jet.jpg" />
-  <img class="afil_logo" src="Images/imfer.jpg" />
-  <img class="afil_logo" src="Images/jmcb.webp"/>
-  <img class="afil_logo" src="Images/rev_econ_dynamics.gif"/>
-  <img class="afil_logo" src="Images/jes.png" />
-  <img class="afil_logo" src="Images/macroeconomic_dynamics.jpg"/>
-</div>
-
-<div style="width:100%; background-color:#e5e5e5">
-	<div style="max-width:1200px;margin:0px auto;padding: 20px 20px;">
-		<h2 style="color:#08282e;">Awards and Fellowships</h3>
-	</div>
-</div>
-
-<div class="horizontal-flex-container">
-	<img class="afil_logo" src="Images/fed_board.png" alt="Dissertation Fellowship 2018">
-	<!-- <div class="vl"></div>  -->
-	<img class="afil_logo" src="Images/IMF_logo_ENG_Blue.png" alt="Fund Internship Program 2017">
-	<!-- <div class="vl"></div>  -->
-	<img class="afil_logo" src="Images/nyu_stacked_color.jpg" alt="Henry MacCracken fellowship 2013--2018">
-	<!-- <div class="vl"></div>  -->
-	<img class="afil_logo" src="Images/aaep.jpg" alt="Young Researcher Prize (Special Mention) 2010">
-</div>
-
-
-<div class="vfill"></div>
-<div class="footer">
-	<div style="background-color:#e5e5e5; width:100%;max-width: 1000px; margin:0px auto">
-		<h2>Disclaimer</h2>
-		<p>This is my own website. The views expressed herein are my own and do not necessarily reflect those of the International Monetary Fund, its Executive Board, or its management.</p>
-	</div>
-</div>
-
-</body>
+    <script src="site.js"></script>
+  </body>
 </html>

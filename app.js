@@ -476,17 +476,13 @@ const initSubmissionPage = () => {
     }
   };
 
-  const wait = (ms) => new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-  const SUBMISSION_REFRESH_DELAY_MS = 2000;
-
   const fallbackMeeting = getCutoffMeetingDate();
   if (!meetingOverrideInput?.checked) {
     meetingInput.value = fallbackMeeting;
     nextMeetingDateLabel.textContent = formatReadableDate(fallbackMeeting);
   }
 
+  setLoading(true);
   resolveNextMeeting()
     .then((meeting) => {
       nextMeetingDate = meeting;
@@ -557,7 +553,6 @@ const initSubmissionPage = () => {
       await postApi({ action: "submit", ...row, sessionToken: verified.sessionToken });
       submissionForm.reset();
       applyVerifiedEmail();
-      await wait(SUBMISSION_REFRESH_DELAY_MS);
       await loadMeeting();
       setStatus(status, "Submission sent to the admin sheet.");
     } catch (error) {
@@ -580,7 +575,6 @@ const initSubmissionPage = () => {
           });
           submissionForm.reset();
           applyVerifiedEmail();
-          await wait(SUBMISSION_REFRESH_DELAY_MS);
           await loadMeeting();
           setStatus(status, "Submission updated.");
         } catch (overwriteError) {
