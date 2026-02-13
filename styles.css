@@ -3,7 +3,7 @@
 :root {
   --ink: #08282e;
   --ink-soft: rgba(8, 40, 46, 0.82);
-  --muted: #555b63;
+  --muted: #2d2f31;
   --paper: #f7f2ea;
   --accent: #b86a2f;
   --accent-2: #2f6f7a;
@@ -35,7 +35,7 @@ main li,
 section p,
 section li,
 td {
-  color: var(--ink-soft);
+  color: var(--muted);
 }
 
 header {
