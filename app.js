@@ -1109,6 +1109,81 @@ const initAdminPage = () => {
     });
   };
 
+  const allowlistTable = document.getElementById("allowlist-table");
+  let allowlistRows = [];
+
+  const renderAllowlistTable = () => {
+    const thead = allowlistTable.querySelector("thead") || allowlistTable.createTHead();
+    const tbody = allowlistTable.querySelector("tbody") || allowlistTable.createTBody();
+    thead.innerHTML = "";
+    tbody.innerHTML = "";
+
+    const headerRow = document.createElement("tr");
+    const thEmail = document.createElement("th");
+    thEmail.textContent = "Email";
+    const thAdded = document.createElement("th");
+    thAdded.textContent = "Date Added";
+    headerRow.appendChild(thEmail);
+    headerRow.appendChild(thAdded);
+    thead.appendChild(headerRow);
+
+    if (allowlistRows.length === 0) {
+      const emptyRow = document.createElement("tr");
+      const td = document.createElement("td");
+      td.colSpan = 2;
+      td.textContent = "No emails in allowlist.";
+      emptyRow.appendChild(td);
+      tbody.appendChild(emptyRow);
+      return;
+    }
+
+    allowlistRows.forEach((row) => {
+      const tr = document.createElement("tr");
+      const emailTd = document.createElement("td");
+      emailTd.textContent = row.email || "";
+      const dateTd = document.createElement("td");
+      dateTd.textContent = row.date_added || "-";
+      tr.appendChild(emailTd);
+      tr.appendChild(dateTd);
+      tbody.appendChild(tr);
+    });
+  };
+
+  const loadAllowlist = async () => {
+    if (!isApiConfigured()) {
+      setStatus(status, "Set APPS_SCRIPT_URL in app.js to enable admin access.", true);
+      return;
+    }
+    if (!isAdminVerified) {
+      setStatus(status, "Submit a valid admin key to unlock controls.", true);
+      return;
+    }
+    const adminKey = adminKeyInput.value.trim();
+    if (!adminKey) {
+      setStatus(status, "Admin key is required.", true);
+      return;
+    }
+    setLoading(true);
+    try {
+      const data = await postApi({ action: "adminGetAllowlist", adminKey });
+      allowlistRows = data.rows || [];
+      renderAllowlistTable();
+      setStatus(status, `Allowlist loaded (${allowlistRows.length} emails).`);
+    } catch (error) {
+      setStatus(status, error.message, true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const allowlistLoadButton = document.getElementById("admin-allowlist-load");
+  if (allowlistLoadButton) {
+    allowlistLoadButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      loadAllowlist().catch((error) => setStatus(status, error.message, true));
+    });
+  }
+
   const loadMeeting = async () => {
     if (!isApiConfigured()) {
       setStatus(status, "Set APPS_SCRIPT_URL in app.js to enable admin access.", true);
