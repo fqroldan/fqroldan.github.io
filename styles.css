@@ -253,6 +253,14 @@ textarea {
   resize: vertical;
 }
 
+ul {
+  color: black;
+}
+
+ul li::marker {
+  color: black;
+}
+
 .button-row {
   display: flex;
   flex-wrap: wrap;
