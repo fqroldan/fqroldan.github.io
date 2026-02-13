@@ -1256,6 +1256,7 @@ const initAdminPage = () => {
       }
 
       try {
+        setStatus(status, `Adding ${email}…`);
         setLoading(true);
         const data = await postApi({
           action: "adminAddAllowlist",

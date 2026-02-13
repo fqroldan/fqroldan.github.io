@@ -41,6 +41,40 @@ header {
   gap: 20px;
 }
 
+.home-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 32px;
+}
+
+.portrait-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-portrait {
+  width: min(280px, 60vw);
+  height: auto;
+  display: block;
+}
+
+.hero-text {
+  display: grid;
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .home-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .portrait-wrap {
+    justify-content: flex-start;
+  }
+}
+
 .header-title {
   display: flex;
   align-items: center;
