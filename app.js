@@ -1022,6 +1022,8 @@ const initAdminPage = () => {
     });
     updateSelectedUi();
     renderAdminTable();
+    updateAllowlistSelectedUi();
+    renderAllowlistTable();
   };
 
   const updateSelectedUi = () => {
@@ -1110,7 +1112,24 @@ const initAdminPage = () => {
   };
 
   const allowlistTable = document.getElementById("allowlist-table");
+  const allowlistSelectAllInput = document.getElementById("allowlist-select-all");
+  const allowlistSelectedCount = document.getElementById("allowlist-selected-count");
+  const allowlistRemoveButton = document.getElementById("allowlist-remove");
   let allowlistRows = [];
+  let selectedAllowlistEmails = new Set();
+
+  const updateAllowlistSelectedUi = () => {
+    const count = selectedAllowlistEmails.size;
+    if (allowlistSelectedCount) {
+      allowlistSelectedCount.textContent = `${count} selected`;
+    }
+    if (allowlistRemoveButton) {
+      allowlistRemoveButton.disabled = !isAdminVerified || count === 0;
+    }
+    if (count === 0 && allowlistSelectAllInput) {
+      allowlistSelectAllInput.checked = false;
+    }
+  };
 
   const renderAllowlistTable = () => {
     const thead = allowlistTable.querySelector("thead") || allowlistTable.createTHead();
@@ -1119,6 +1138,9 @@ const initAdminPage = () => {
     tbody.innerHTML = "";
 
     const headerRow = document.createElement("tr");
+    const selectTh = document.createElement("th");
+    selectTh.classList.add("checkbox-cell");
+    headerRow.appendChild(selectTh);
     const thEmail = document.createElement("th");
     thEmail.textContent = "Email";
     const thAdded = document.createElement("th");
@@ -1130,7 +1152,7 @@ const initAdminPage = () => {
     if (allowlistRows.length === 0) {
       const emptyRow = document.createElement("tr");
       const td = document.createElement("td");
-      td.colSpan = 2;
+      td.colSpan = 3;
       td.textContent = "No emails in allowlist.";
       emptyRow.appendChild(td);
       tbody.appendChild(emptyRow);
@@ -1139,6 +1161,24 @@ const initAdminPage = () => {
 
     allowlistRows.forEach((row) => {
       const tr = document.createElement("tr");
+      
+      const selectTd = document.createElement("td");
+      selectTd.classList.add("checkbox-cell");
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = selectedAllowlistEmails.has(row.email);
+      checkbox.disabled = !isAdminVerified;
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+          selectedAllowlistEmails.add(row.email);
+        } else {
+          selectedAllowlistEmails.delete(row.email);
+        }
+        updateAllowlistSelectedUi();
+      });
+      selectTd.appendChild(checkbox);
+      tr.appendChild(selectTd);
+      
       const emailTd = document.createElement("td");
       emailTd.textContent = row.email || "";
       const dateTd = document.createElement("td");
@@ -1167,7 +1207,9 @@ const initAdminPage = () => {
     try {
       const data = await postApi({ action: "adminGetAllowlist", adminKey });
       allowlistRows = data.rows || [];
+      selectedAllowlistEmails = new Set();
       renderAllowlistTable();
+      updateAllowlistSelectedUi();
       setStatus(status, `Allowlist loaded (${allowlistRows.length} emails).`);
     } catch (error) {
       setStatus(status, error.message, true);
@@ -1181,6 +1223,57 @@ const initAdminPage = () => {
     allowlistLoadButton.addEventListener("click", (event) => {
       event.preventDefault();
       loadAllowlist().catch((error) => setStatus(status, error.message, true));
+    });
+  }
+
+  if (allowlistSelectAllInput) {
+    allowlistSelectAllInput.addEventListener("change", () => {
+      if (allowlistSelectAllInput.checked) {
+        const allEmails = allowlistRows.map((row) => row.email).filter(Boolean);
+        selectedAllowlistEmails = new Set(allEmails);
+      } else {
+        selectedAllowlistEmails = new Set();
+      }
+      updateAllowlistSelectedUi();
+      renderAllowlistTable();
+    });
+  }
+
+  if (allowlistRemoveButton) {
+    allowlistRemoveButton.addEventListener("click", async () => {
+      const adminKey = adminKeyInput.value.trim();
+      if (!adminKey) {
+        setStatus(status, "Admin key is required.", true);
+        return;
+      }
+      const emails = Array.from(selectedAllowlistEmails);
+      if (!emails.length) {
+        setStatus(status, "Select at least one email to remove.", true);
+        return;
+      }
+      
+      const confirmed = window.confirm(
+        `Remove ${emails.length} email(s) from the allowlist?\n\n${emails.join("\n")}`
+      );
+      if (!confirmed) {
+        return;
+      }
+      
+      try {
+        setLoading(true);
+        const data = await postApi({
+          action: "adminRemoveAllowlist",
+          adminKey,
+          emails: JSON.stringify(emails)
+        });
+        selectedAllowlistEmails = new Set();
+        await loadAllowlist();
+        setStatus(status, `Removed ${data.removed || 0} email(s) from allowlist.`);
+      } catch (error) {
+        setStatus(status, error.message, true);
+      } finally {
+        setLoading(false);
+      }
     });
   }
 
@@ -1338,6 +1431,10 @@ const initAdminPage = () => {
           setStatus(status, `Added ${email} to allowlist.`);
         } else {
           setStatus(status, `${email} is already in allowlist.`);
+        }
+        // Refresh the allowlist if it's been loaded
+        if (allowlistRows.length > 0) {
+          await loadAllowlist();
         }
       } catch (error) {
         setStatus(status, error.message, true);
