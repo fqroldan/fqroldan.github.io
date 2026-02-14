@@ -142,6 +142,11 @@ nav.nav a {
   border-bottom: 1px solid transparent;
 }
 
+nav.nav a strong {
+  box-shadow: inset 0 -2px 0 rgba(184, 106, 47, 0.45);
+  padding-bottom: 2px;
+}
+
 nav.nav a:hover {
   border-bottom-color: var(--ink);
 }
@@ -157,6 +162,7 @@ main {
 section {
   background: var(--panel);
   border: 1px solid rgba(18, 20, 23, 0.2);
+  /* border-top: 2px solid rgba(184, 106, 47, 0.25); */
   border-radius: 24px;
   padding: 26px;
   box-shadow: var(--shadow);
@@ -197,6 +203,11 @@ h3 {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 600;
+}
+
+.hero-text h3 {
+  margin-top: 16px;
+  margin-bottom: 6px;
 }
 
 blockquote {
