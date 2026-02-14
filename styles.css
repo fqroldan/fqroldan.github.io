@@ -200,7 +200,7 @@ h3 {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 600;
-  background: linear-gradient(transparent 65%, rgba(184, 106, 47, 0.12) 65%);
+  background: linear-gradient(transparent 65%, rgba(184, 106, 47, 0.1) 65%);
   display: inline-block;
   width: fit-content;
   justify-self: start;
