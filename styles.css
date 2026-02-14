@@ -147,9 +147,6 @@ nav.nav a strong {
   padding-bottom: 2px;
 }
 
-nav.nav a:hover {
-  border-bottom-color: var(--ink);
-}
 
 main {
   max-width: 1320px;
@@ -324,6 +321,15 @@ button.secondary {
 .icon-button {
   padding-left: 24px;
   padding-right: 24px;
+}
+
+.icon-button img {
+  display: block;
+  width: 1.6rem;
+  height: 1.6rem;
+  object-fit: contain;
+  -webkit-filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1);
 }
 
 iframe {
