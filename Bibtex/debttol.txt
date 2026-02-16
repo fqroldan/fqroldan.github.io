@@ -1,4 +1,4 @@
-@article{doi:10.1057/s41308-024-00260-z,
+@article{ChamonRoldan2025,
   author={Chamon, Marcos and Rold\'{a}n, Francisco},
   title={{Sovereign Debt Tolerance with Potentially Permanent Costs of Default}},
   journal={IMF Economic Review},

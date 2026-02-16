@@ -1,4 +1,4 @@
-@article{doi:10.1057/s41308-018-0054-8,
+@article{PhilipponRoldan2018Deleveraging,
   author={Thomas Philippon and Francisco Roldán},
   title={{On the Optimal Speed of Sovereign Deleveraging with Precautionary Savings}},
   journal={IMF Economic Review},

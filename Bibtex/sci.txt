@@ -1,4 +1,4 @@
-@article{doi:10.1086/723950,
+@article{RochRoldan2023SCI,
 author = {Roch, Francisco and Rold\'{a}n, Francisco},
 title = {Uncertainty Premia, Sovereign Default Risk, and State-Contingent Debt},
 journal = {Journal of Political Economy Macroeconomics},

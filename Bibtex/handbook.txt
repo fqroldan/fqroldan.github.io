@@ -1,4 +1,4 @@
-@incollection{DOI:10.4337/9781800375321.00026,
+@incollection{MRRZ2023Handbook,
   author    = {Leonardo Martinez and Francisco Roch and Francisco Rold\'{a}n and Jeromin Zettelmeyer},
   title     = {Sovereign Debt},
   editor    = {Refet S. Gürkaynak and Jonathan H. Wright},
