@@ -324,6 +324,7 @@ button.secondary {
   font-size: 0.75rem;
   padding: 4px 8px;
   vertical-align: middle;
+  transform: translateY(-2px);
 }
 
 .icon-button {
@@ -356,7 +357,7 @@ iframe {
 
 button:hover,
 .button-link:hover {
-  transform: translateY(-2px);
+  transform: translateY(-4px);
   box-shadow: 0 8px 18px rgba(18, 20, 23, 0.15);
 }
 
