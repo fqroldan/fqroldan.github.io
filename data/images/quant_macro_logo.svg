@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Quantitative Methods in International Macroeconomics logo">
+  <title>Quant Macro logo</title>
+  <desc>Abstract logo with bars and arc using ink and accent colors</desc>
+  <rect width="120" height="120" fill="none" />
+  <!-- soft accent circle -->
+  <circle cx="30" cy="30" r="18" fill="#b86a2f" fill-opacity="0.12" />
+  <!-- rising bars (ink) -->
+  <g transform="translate(34,52)">
+    <rect x="0" y="22" width="8" height="20" rx="1" fill="#08282e" />
+    <rect x="12" y="12" width="8" height="30" rx="1" fill="#08282e" />
+    <rect x="24" y="4" width="8" height="38" rx="1" fill="#08282e" />
+  </g>
+  <!-- subtle accent arc showing trend -->
+  <path d="M18 78 C40 56, 80 56, 102 36" stroke="#b86a2f" stroke-width="3" fill="none" stroke-linecap="round" stroke-opacity="0.9" />
+</svg>
