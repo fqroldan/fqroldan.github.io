@@ -1,16 +1,97 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Quantitative Methods in International Macroeconomics logo">
-  <title>Quant Macro logo</title>
-  <desc>Abstract logo with bars and arc using ink and accent colors</desc>
-  <rect width="120" height="120" fill="none" />
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 120 120"
+   width="120"
+   height="120"
+   role="img"
+   aria-label="Quantitative Methods in International Macroeconomics logo"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="quant_macro_logo.svg"
+   inkscape:version="1.4.3 (fcd0343856, 2026-01-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="namedview4"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="9.7166667"
+     inkscape:cx="60.102916"
+     inkscape:cy="51.766724"
+     inkscape:window-width="3440"
+     inkscape:window-height="1371"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <title
+     id="title1">Quant Macro logo</title>
+  <desc
+     id="desc1">Abstract logo with bars and arc using ink and accent colors</desc>
+  <rect
+     width="120"
+     height="120"
+     fill="none"
+     id="rect1" />
   <!-- soft accent circle -->
-  <circle cx="30" cy="30" r="18" fill="#b86a2f" fill-opacity="0.12" />
+  <circle
+     cx="41.629501"
+     cy="40.703262"
+     r="18"
+     fill="#b86a2f"
+     fill-opacity="0.12"
+     id="circle1"
+     style="fill:#2f6f7a;fill-opacity:0.77254903" />
   <!-- rising bars (ink) -->
-  <g transform="translate(34,52)">
-    <rect x="0" y="22" width="8" height="20" rx="1" fill="#08282e" />
-    <rect x="12" y="12" width="8" height="30" rx="1" fill="#08282e" />
-    <rect x="24" y="4" width="8" height="38" rx="1" fill="#08282e" />
+  <g
+     transform="matrix(1.2251287,0,0,0.91878406,42.953688,47.898205)"
+     id="g4"
+     style="fill:#08282f;fill-opacity:0.886275">
+    <rect
+       x="0"
+       y="22"
+       width="8"
+       height="20"
+       rx="1"
+       fill="#08282e"
+       id="rect2"
+       style="fill:#08282f;fill-opacity:0.886275" />
+    <rect
+       x="12"
+       y="12"
+       width="8"
+       height="30"
+       rx="1"
+       fill="#08282e"
+       id="rect3"
+       style="fill:#b86a2f;fill-opacity:0.88627452" />
+    <rect
+       x="24"
+       y="4"
+       width="8"
+       height="38"
+       rx="1"
+       fill="#08282e"
+       id="rect4"
+       style="fill:#08282f;fill-opacity:0.886275" />
   </g>
   <!-- subtle accent arc showing trend -->
-  <path d="M18 78 C40 56, 80 56, 102 36" stroke="#b86a2f" stroke-width="3" fill="none" stroke-linecap="round" stroke-opacity="0.9" />
+  <path
+     d="M 102,78 C 80,56 40,56 18,36"
+     stroke="#b86a2f"
+     stroke-width="3"
+     fill="none"
+     stroke-linecap="round"
+     stroke-opacity="0.9"
+     id="path4"
+     style="stroke:#b86a2f;stroke-opacity:0.88627452;stroke-width:4;stroke-dasharray:none" />
 </svg>
