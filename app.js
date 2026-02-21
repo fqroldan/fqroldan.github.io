@@ -975,6 +975,7 @@ const initAdminPage = () => {
   const adminKeyInput = document.getElementById("admin-key");
   const meetingInput = document.getElementById("admin-meeting");
   const loadButton = document.getElementById("admin-load");
+  const emailNextButton = document.getElementById("admin-email-next");
   const downloadButton = document.getElementById("admin-download");
   const clearButton = document.getElementById("admin-clear");
   const table = document.getElementById("admin-table");
@@ -1324,6 +1325,16 @@ const initAdminPage = () => {
       window.sessionStorage.setItem(CONFIG.ADMIN_KEY_STORAGE, adminKey);
       setGatedControlsEnabled(true);
       setStatus(status, "Admin key accepted. Controls unlocked.");
+      try {
+        await loadMeeting();
+      } catch (error) {
+        setStatus(status, error.message, true);
+      }
+      try {
+        await loadAllowlist();
+      } catch (error) {
+        setStatus(status, error.message, true);
+      }
     } catch (error) {
       isAdminVerified = false;
       setGatedControlsEnabled(false);
@@ -1448,6 +1459,27 @@ const initAdminPage = () => {
     event.preventDefault();
     loadMeeting().catch((error) => setStatus(status, error.message, true));
   });
+
+  if (emailNextButton) {
+    emailNextButton.addEventListener("click", async () => {
+      const adminKey = adminKeyInput.value.trim();
+      if (!adminKey) {
+        setStatus(status, "Admin key is required.", true);
+        return;
+      }
+      try {
+        setLoading(true);
+        const data = await postApi({ action: "adminEmailNextMeetingSubmitters", adminKey });
+        const sentCount = Number(data.sent || 0);
+        const meetingDate = data.meeting || "next meeting";
+        setStatus(status, `Sent ${sentCount} email(s) for ${meetingDate}.`);
+      } catch (error) {
+        setStatus(status, error.message, true);
+      } finally {
+        setLoading(false);
+      }
+    });
+  }
 
   clearButton.addEventListener("click", async () => {
     const adminKey = adminKeyInput.value.trim();
