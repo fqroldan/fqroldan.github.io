@@ -12,7 +12,10 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -26,13 +29,14 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="9.7166667"
      inkscape:cx="60.102916"
-     inkscape:cy="51.766724"
+     inkscape:cy="43.533448"
      inkscape:window-width="3440"
      inkscape:window-height="1371"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg4" />
+     inkscape:current-layer="svg4"
+     showgrid="false" />
   <title
      id="title1">Quant Macro logo</title>
   <desc
@@ -41,7 +45,9 @@
      width="120"
      height="120"
      fill="none"
-     id="rect1" />
+     id="rect1"
+     x="0"
+     y="0" />
   <!-- soft accent circle -->
   <circle
      cx="41.629501"
@@ -50,7 +56,7 @@
      fill="#b86a2f"
      fill-opacity="0.12"
      id="circle1"
-     style="fill:#2f6f7a;fill-opacity:0.77254903" />
+     style="fill:#2f6f7a;fill-opacity:0.772549" />
   <!-- rising bars (ink) -->
   <g
      transform="matrix(1.2251287,0,0,0.91878406,42.953688,47.898205)"
@@ -73,7 +79,7 @@
        rx="1"
        fill="#08282e"
        id="rect3"
-       style="fill:#b86a2f;fill-opacity:0.88627452" />
+       style="fill:#b86a2f;fill-opacity:0.886275" />
     <rect
        x="24"
        y="4"
@@ -93,5 +99,14 @@
      stroke-linecap="round"
      stroke-opacity="0.9"
      id="path4"
-     style="stroke:#b86a2f;stroke-opacity:0.88627452;stroke-width:4;stroke-dasharray:none" />
+     style="stroke:#b86a2f;stroke-width:4;stroke-dasharray:none;stroke-opacity:0.886275" />
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Quant Macro logo</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
 </svg>
