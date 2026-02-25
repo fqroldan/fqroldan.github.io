@@ -376,7 +376,7 @@
                 // Resize after making visible so scrollHeight is accurate
                 try {
                     applyIframeTheme(infoElement);
-                    infoElement.style.height = (infoElement.contentWindow.document.body.scrollHeight + 0) + 'px';
+                    infoElement.style.height = (infoElement.contentWindow.document.body.scrollHeight - 5) + 'px';
                 } catch (e) { }
             }
         }
