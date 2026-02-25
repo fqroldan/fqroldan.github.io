@@ -23,6 +23,7 @@ body {
   font-family: "DM Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 15px;
   line-height: 1.6;
+  padding-bottom: 44px;
 }
 
 a {
@@ -578,6 +579,28 @@ footer {
   padding: 24px var(--gutter) 56px;
   color: var(--muted);
   font-size: 0.85rem;
+}
+
+.site-disclaimer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 20;
+  margin: 0;
+  padding: 0;
+}
+
+.site-disclaimer p {
+  margin: 0;
+  padding: 8px 14px;
+  border-top: 1px solid rgba(8, 40, 46, 0.16);
+  background: rgba(247, 242, 234, 0.94);
+  color: var(--ink-soft);
+  font-size: 0.74rem;
+  line-height: 1.35;
+  text-align: center;
 }
 
 @media (max-width: 720px) {
