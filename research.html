@@ -337,6 +337,31 @@
 
 
     <script>
+        function applyIframeTheme(iframeEl) {
+            try {
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                const doc = iframeEl.contentWindow.document;
+                if (!doc || !doc.body) return;
+
+                const textColor = isDark ? '#e6edf2' : '#111111';
+                const bgColor = isDark ? '#10171d' : '#fff9f1';
+
+                doc.documentElement.style.backgroundColor = bgColor;
+                doc.body.style.backgroundColor = bgColor;
+                doc.body.style.color = textColor;
+                doc.body.style.fontFamily = 'DM Sans, Helvetica Neue, Arial, sans-serif';
+                doc.body.style.fontSize = '0.92rem';
+                doc.body.style.lineHeight = '1.45';
+                doc.body.style.margin = '0';
+                doc.body.style.padding = '12px 14px';
+
+                doc.querySelectorAll('*').forEach((el) => {
+                    el.style.color = textColor;
+                    el.style.backgroundColor = 'transparent';
+                });
+            } catch (e) { }
+        }
+
         function toggleInfo(infoId) {
             const infoElement = document.getElementById(infoId);
             const isHidden = infoElement.style.display === 'none' || infoElement.style.display === '';
@@ -350,6 +375,7 @@
                 infoElement.style.display = 'inline-block';
                 // Resize after making visible so scrollHeight is accurate
                 try {
+                    applyIframeTheme(infoElement);
                     infoElement.style.height = (infoElement.contentWindow.document.body.scrollHeight + 24) + 'px';
                 } catch (e) { }
             }
@@ -362,7 +388,19 @@
             const allhide = document.querySelectorAll('iframe');
             allhide.forEach(bq => {
                 bq.style.display = 'none';
+                try {
+                    bq.addEventListener('load', function () {
+                        applyIframeTheme(bq);
+                    });
+                } catch (e) { }
             });
+
+            try {
+                const observer = new MutationObserver(() => {
+                    document.querySelectorAll('iframe').forEach((frame) => applyIframeTheme(frame));
+                });
+                observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+            } catch (e) { }
         }
     </script>
 
