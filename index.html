@@ -18,6 +18,31 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <script>
+      (function () {
+        const key = "site_theme";
+        let theme = null;
+        try {
+          const saved = window.localStorage.getItem(key);
+          if (saved === "dark" || saved === "light") {
+            theme = saved;
+          }
+        } catch (error) {}
+        if (!theme) {
+          try {
+            const saved = window.sessionStorage.getItem(key);
+            if (saved === "dark" || saved === "light") {
+              theme = saved;
+            }
+          } catch (error) {}
+        }
+        if (!theme) {
+          const hour = new Date().getHours();
+          theme = hour >= 7 && hour < 19 ? "light" : "dark";
+        }
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
     <link rel="stylesheet" href="styles.css" />
     <!-- Google Analytics 2 -->
     <script>
