@@ -353,7 +353,7 @@
                 doc.body.style.fontSize = '0.86rem';
                 doc.body.style.lineHeight = '1.3';
                 doc.body.style.margin = '0';
-                doc.body.style.padding = '12px 14px';
+                doc.body.style.padding = '12px 1px';
 
                 doc.querySelectorAll('*').forEach((el) => {
                     el.style.color = textColor;
@@ -376,7 +376,7 @@
                 // Resize after making visible so scrollHeight is accurate
                 try {
                     applyIframeTheme(infoElement);
-                    infoElement.style.height = (infoElement.contentWindow.document.body.scrollHeight - 5) + 'px';
+                    infoElement.style.height = (infoElement.contentWindow.document.body.scrollHeight) + 'px';
                 } catch (e) { }
             }
         }
