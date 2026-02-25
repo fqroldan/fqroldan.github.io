@@ -450,6 +450,15 @@ iframe {
   border-left-color: rgba(207, 139, 83, 0.75);
 }
 
+:root[data-theme="dark"] .archive-accordion,
+:root[data-theme="dark"] .archive-group {
+  background: rgba(230, 237, 242, 0.05);
+}
+
+:root[data-theme="dark"] .archive-group {
+  border-color: rgba(230, 237, 242, 0.18);
+}
+
 :root[data-theme="dark"] .button-link.ghost,
 :root[data-theme="dark"] button.secondary {
   background: transparent;
