@@ -222,6 +222,14 @@ section {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
+body[data-page="submission"] .submission-grid {
+  grid-template-columns: 1fr;
+}
+
+body[data-page="submission"] .submission-grid > * {
+  min-width: 0;
+}
+
 .image-row {
   display: flex;
   justify-content: center;
