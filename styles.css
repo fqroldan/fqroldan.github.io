@@ -203,8 +203,13 @@ main {
   max-width: 1320px;
   margin: 0 auto;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 32px;
   padding: 0 var(--gutter) 72px;
+}
+
+main > * {
+  min-width: 0;
 }
 
 section {
