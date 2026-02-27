@@ -80,8 +80,8 @@ header {
 }
 
 :root[data-theme="dark"] .home-portrait {
-  filter: brightness(0.75) contrast(1.1);
-  /* filter: invert(1) hue-rotate(180deg) brightness(0.4) contrast(0.7); */
+  /* filter: brightness(0.75) contrast(1.1); */
+  filter: invert(1) hue-rotate(180deg) brightness(0.4) contrast(0.7);
 }
 
 .hero-text {
