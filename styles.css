@@ -80,7 +80,7 @@ header {
 }
 
 :root[data-theme="dark"] .home-portrait {
-  filter: invert(0.88) sepia(0.15) brightness(0.4) contrast(0.7);
+  filter: invert(0.88) sepia(0.15) brightness(0.4) contrast(0.7) opacity(0.8);
   /* filter: invert(1) hue-rotate(180deg) brightness(0.4) contrast(0.7); */
 }
 
