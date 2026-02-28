@@ -82,6 +82,7 @@ const MEETING_COLUMNS = [
   "email",
   "title",
   "authors",
+  "year",
   "journal",
   "doi",
   "link",
@@ -389,6 +390,7 @@ const initSubmissionPage = () => {
     { key: "participant", label: "Participant name" },
     { key: "title", label: "Paper title" },
     { key: "authors", label: "Authors" },
+    { key: "year", label: "Year" },
     { key: "journal", label: "Journal Name" },
     { key: "link", label: "Link to paper" },
     { key: "status", label: "Status" },
@@ -605,6 +607,7 @@ const initSubmissionPage = () => {
       email,
       title: formData.get("title")?.trim() || "",
       authors: formData.get("authors")?.trim() || "",
+      year: formData.get("year")?.trim() || "",
       journal: formData.get("journal")?.trim() || "",
       doi: formData.get("doi")?.trim() || "",
       link: formData.get("link")?.trim() || "",
@@ -816,6 +819,9 @@ const initSubmissionPage = () => {
       const journal = Array.isArray(message["container-title"])
         ? message["container-title"][0]
         : "";
+      const year = Array.isArray(message.issued?.["date-parts"])
+        ? message.issued["date-parts"]?.[0]?.[0]
+        : "";
       const link = message.URL || "";
 
       if (title) {
@@ -826,6 +832,9 @@ const initSubmissionPage = () => {
       }
       if (journal) {
         submissionForm.querySelector("input[name='journal']").value = journal;
+      }
+      if (year) {
+        submissionForm.querySelector("input[name='year']").value = String(year);
       }
       if (link) {
         submissionForm.querySelector("input[name='link']").value = link;
@@ -851,6 +860,7 @@ const initArchivePage = () => {
     { key: "participant", label: "Participant" },
     { key: "title", label: "Paper" },
     { key: "authors", label: "Authors" },
+    { key: "year", label: "Year" },
     { key: "journal", label: "Journal" },
     { key: "link", label: "Link" },
     { key: "status", label: "Status" },
@@ -861,6 +871,7 @@ const initArchivePage = () => {
     { key: "participant", label: "Participant name" },
     { key: "title", label: "Paper title" },
     { key: "authors", label: "Authors" },
+    { key: "year", label: "Year" },
     { key: "journal", label: "Journal Name" },
     { key: "link", label: "Link to paper" },
     { key: "status", label: "Status" },
@@ -1067,6 +1078,7 @@ const initAdminPage = () => {
     { key: "doi", label: "DOI" },
     { key: "title", label: "Paper" },
     { key: "authors", label: "Authors" },
+    { key: "year", label: "Year" },
     { key: "link", label: "Link" },
     { key: "status", label: "Status" },
     { key: "admin_note", label: "Admin note" },
