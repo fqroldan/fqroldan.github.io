@@ -1549,6 +1549,7 @@ const initAdminPage = () => {
   if (emailNextButton) {
     emailNextButton.addEventListener("click", async () => {
       const adminKey = adminKeyInput.value.trim();
+      const meetingDate = meetingInput.value;
       if (!isApiConfigured()) {
         setStatus(status, "Set APPS_SCRIPT_URL in app.js to enable admin access.", true);
         return;
@@ -1557,15 +1558,12 @@ const initAdminPage = () => {
         setStatus(status, "Admin key is required.", true);
         return;
       }
+      if (!meetingDate) {
+        setStatus(status, "Meeting date is required.", true);
+        return;
+      }
       try {
         setLoading(true);
-        const nextMeetingData = await fetchJson(apiUrl({ action: "nextMeeting" }));
-        const meetingDate = nextMeetingData.meeting || "";
-        if (!meetingDate) {
-          setStatus(status, "No upcoming meeting found.", true);
-          return;
-        }
-
         const submitterData = await postApi({ action: "adminList", meeting: meetingDate, adminKey });
         const submitterMap = new Map();
         (submitterData.rows || []).forEach((row) => {
@@ -1589,7 +1587,7 @@ const initAdminPage = () => {
         }
 
         const confirmationMessage = [
-          "Send next-meeting email?",
+          "Send meeting email?",
           "",
           `Meeting: ${formatReadableDate(meetingDate)} (${meetingDate})`,
           `Submitters (${submitterLines.length}):`,
@@ -1598,14 +1596,14 @@ const initAdminPage = () => {
 
         const confirmed = window.confirm(confirmationMessage);
         if (!confirmed) {
-          setStatus(status, "Cancelled next-meeting email.");
+          setStatus(status, "Cancelled meeting email.");
           return;
         }
 
-        const data = await postApi({ action: "adminEmailNextMeetingSubmitters", adminKey });
+        const data = await postApi({ action: "adminEmailNextMeetingSubmitters", adminKey, meeting: meetingDate });
         const sentCount = Number(data.sent || 0);
         const ccCount = Number(data.ccCount || 0);
-        const sentMeetingDate = data.meeting || meetingDate || "next meeting";
+        const sentMeetingDate = data.meeting || meetingDate;
         setStatus(status, `Sent ${sentCount} email to froldan@nyu.edu with ${ccCount} submitter(s) in CC for ${sentMeetingDate}.`);
       } catch (error) {
         setStatus(status, error.message, true);

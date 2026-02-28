@@ -82,7 +82,7 @@
           <input id="admin-meeting" type="date" name="meeting" />
         </label>
         <button id="admin-load" type="button">Load meeting</button>
-        <button id="admin-email-next" type="button" class="secondary">Email next-meeting submitters</button>
+        <button id="admin-email-next" type="button" class="secondary">Email meeting submitters</button>
         <button id="admin-download" type="button" class="secondary">Download meeting CSV</button>
         <button id="admin-clear" type="button" class="secondary">Clear submissions</button>
       </div>
@@ -132,6 +132,17 @@
       <div class="table-wrap">
         <table id="allowlist-table" aria-label="Verified submitter allowlist"></table>
       </div>
+      <div>
+        <h3>Add to Allowlist</h3>
+        <p class="helper">Add an email to the verified submitter allowlist.</p>
+      </div>
+      <form id="admin-allowlist" aria-label="Admin allowlist form">
+        <label>
+          Email
+          <input type="email" name="email" placeholder="name@domain.edu" required />
+        </label>
+        <button type="submit">Add to allowlist</button>
+      </form>
     </section>
 
     <section class="grid-2" data-admin-gated>
