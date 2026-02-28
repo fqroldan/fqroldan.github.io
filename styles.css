@@ -779,9 +779,9 @@ th {
   #admin-table th:nth-child(3),
   #admin-table td:nth-child(3) {
     width: 10%;
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    /* white-space: nowrap;
+    text-overflow: ellipsis; */
   }
 
   /* 4: Paper title */
