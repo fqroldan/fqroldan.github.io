@@ -360,6 +360,45 @@ ul li::marker {
   align-items: flex-end;
 }
 
+#admin-allowlist .button-row {
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+
+#admin-auth .button-row {
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+
+#admin-allowlist .button-row label {
+  margin: 0;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+#admin-auth .button-row label {
+  margin: 0;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+#admin-allowlist .button-row button,
+#admin-auth .button-row button {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 720px) {
+  #admin-allowlist .button-row {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  #admin-auth .button-row {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+}
+
 .buttons-centered {
   justify-content: center;
 }
