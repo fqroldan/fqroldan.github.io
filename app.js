@@ -1461,40 +1461,42 @@ const initAdminPage = () => {
     setStatus(status, "Meeting CSV downloaded.");
   });
 
-  updateForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const formData = new FormData(updateForm);
-    const email = formData.get("email")?.trim() || "";
-    const participant = formData.get("participant")?.trim() || "";
-    const statusValue = formData.get("status")?.trim() || "pending";
-    const adminNote = formData.get("admin_note")?.trim() || "";
-    const adminKey = adminKeyInput.value.trim();
+  if (updateForm) {
+    updateForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const formData = new FormData(updateForm);
+      const email = formData.get("email")?.trim() || "";
+      const participant = formData.get("participant")?.trim() || "";
+      const statusValue = formData.get("status")?.trim() || "pending";
+      const adminNote = formData.get("admin_note")?.trim() || "";
+      const adminKey = adminKeyInput.value.trim();
 
-    if (!email) {
-      setStatus(status, "Email is required to update a submission.", true);
-      return;
-    }
+      if (!email) {
+        setStatus(status, "Email is required to update a submission.", true);
+        return;
+      }
 
-    try {
-      setLoading(true);
-      await postApi({
-        action: "adminUpdate",
-        adminKey,
-        meeting: meetingInput.value,
-        email,
-        participant,
-        status: statusValue,
-        admin_note: adminNote
-      });
-      updateForm.reset();
-      await loadMeeting();
-      setStatus(status, "Submission updated.");
-    } catch (error) {
-      setStatus(status, error.message, true);
-    } finally {
-      setLoading(false);
-    }
-  });
+      try {
+        setLoading(true);
+        await postApi({
+          action: "adminUpdate",
+          adminKey,
+          meeting: meetingInput.value,
+          email,
+          participant,
+          status: statusValue,
+          admin_note: adminNote
+        });
+        updateForm.reset();
+        await loadMeeting();
+        setStatus(status, "Submission updated.");
+      } catch (error) {
+        setStatus(status, error.message, true);
+      } finally {
+        setLoading(false);
+      }
+    });
+  }
 
   if (allowlistForm) {
     allowlistForm.addEventListener("submit", async (event) => {
