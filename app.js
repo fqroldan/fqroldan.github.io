@@ -1555,8 +1555,9 @@ const initAdminPage = () => {
         setLoading(true);
         const data = await postApi({ action: "adminEmailNextMeetingSubmitters", adminKey });
         const sentCount = Number(data.sent || 0);
+        const ccCount = Number(data.ccCount || 0);
         const meetingDate = data.meeting || "next meeting";
-        setStatus(status, `Sent ${sentCount} email(s) for ${meetingDate}.`);
+        setStatus(status, `Sent ${sentCount} email to froldan@nyu.edu with ${ccCount} submitter(s) in CC for ${meetingDate}.`);
       } catch (error) {
         setStatus(status, error.message, true);
       } finally {

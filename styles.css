@@ -319,6 +319,17 @@ textarea {
   background: #fff;
 }
 
+input[name="year"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[name="year"]::-webkit-outer-spin-button,
+input[name="year"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 input:disabled,
 select:disabled,
 textarea:disabled {
