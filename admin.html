@@ -132,31 +132,19 @@
       <div class="table-wrap">
         <table id="allowlist-table" aria-label="Verified submitter allowlist"></table>
       </div>
-      <div>
-        <h3>Add to Allowlist</h3>
-        <p class="helper">Add an email to the verified submitter allowlist.</p>
+      <div class="grid-2">
+        <div>
+          <h3>Add to Allowlist</h3>
+          <p class="helper">Add an email to the verified submitter allowlist.</p>
+        </div>
+        <form id="admin-allowlist" aria-label="Admin allowlist form">
+          <label>
+            Email
+            <input type="email" name="email" placeholder="name@domain.edu" required />
+          </label>
+          <button type="submit">Add to allowlist</button>
+        </form>
       </div>
-      <form id="admin-allowlist" aria-label="Admin allowlist form">
-        <label>
-          Email
-          <input type="email" name="email" placeholder="name@domain.edu" required />
-        </label>
-        <button type="submit">Add to allowlist</button>
-      </form>
-    </section>
-
-    <section class="grid-2" data-admin-gated>
-      <div>
-        <h2>Add to Allowlist</h2>
-        <p class="helper">Add an email to the verified submitter allowlist.</p>
-      </div>
-      <form id="admin-allowlist" aria-label="Admin allowlist form">
-        <label>
-          Email
-          <input type="email" name="email" placeholder="name@domain.edu" required />
-        </label>
-        <button type="submit">Add to allowlist</button>
-      </form>
     </section>
 
   </main>
