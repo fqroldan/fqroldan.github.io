@@ -772,7 +772,7 @@ th {
   /* 2: Participant */
   #admin-table th:nth-child(2),
   #admin-table td:nth-child(2) {
-    width: 11%;
+    width: 10%;
   }
 
   /* 3: Email (censored/truncated style) */
@@ -817,7 +817,7 @@ th {
   /* 8: Status */
   #admin-table th:nth-child(8),
   #admin-table td:nth-child(8) {
-    width: 5%;
+    width: 6%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
