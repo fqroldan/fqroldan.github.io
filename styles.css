@@ -778,7 +778,7 @@ th {
   /* 3: Email (censored/truncated style) */
   #admin-table th:nth-child(3),
   #admin-table td:nth-child(3) {
-    width: 13%;
+    width: 10%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -787,7 +787,7 @@ th {
   /* 4: Paper title */
   #admin-table th:nth-child(4),
   #admin-table td:nth-child(4) {
-    width: 22%;
+    width: 24%;
   }
 
   /* 5: Authors */
@@ -805,7 +805,7 @@ th {
   /* 7: Link */
   #admin-table th:nth-child(7),
   #admin-table td:nth-child(7) {
-    width: 18%;
+    width: 22%;
   }
 
   /* Link anchors inside 7th column wrap long URLs. */
@@ -823,7 +823,7 @@ th {
   /* 9: Slides */
   #admin-table th:nth-child(9),
   #admin-table td:nth-child(9) {
-    width: 8%;
+    width: 5%;
   }
 }
 
