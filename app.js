@@ -1000,8 +1000,8 @@ const initArchivePage = () => {
       title.classList.add("archive-date");
       title.textContent = formatReadableDate(group.meeting);
 
-      const approvedCount = group.rows.filter(
-        (row) => String(row.status || "").toLowerCase() === "approved"
+      const okCount = group.rows.filter(
+        (row) => String(row.status || "").toLowerCase() === "ok"
       ).length;
       const longCount = group.rows.filter(
         (row) => String(row.status || "").toLowerCase() === "long"
@@ -1013,7 +1013,7 @@ const initArchivePage = () => {
         (row) => String(row.slides || "").startsWith("http")
       ).length;
       const summaryText =
-        `${group.rows.length} submissions | ${approvedCount} approved | ${longCount} long | ` +
+        `${group.rows.length} submissions | ${okCount} ok | ${longCount} long | ` +
         `${vetoedCount} vetoed | ${slidesCount} slides`;
       const meta = document.createElement("span");
       meta.classList.add("archive-meta");
@@ -1674,7 +1674,7 @@ const initAdminPage = () => {
         admin_note: bulkNoteInput.value.trim(),
         emails: JSON.stringify(emails)
       });
-      bulkStatusSelect.value = "approved";
+      bulkStatusSelect.value = "ok";
       bulkNoteInput.value = "";
       selectedEmails = new Set();
       selectAllInput.checked = false;

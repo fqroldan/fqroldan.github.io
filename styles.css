@@ -805,7 +805,7 @@ th {
   /* 7: Link */
   #admin-table th:nth-child(7),
   #admin-table td:nth-child(7) {
-    width: 22%;
+    width: 25%;
   }
 
   /* Link anchors inside 7th column wrap long URLs. */
@@ -817,7 +817,10 @@ th {
   /* 8: Status */
   #admin-table th:nth-child(8),
   #admin-table td:nth-child(8) {
-    width: 8%;
+    width: 5%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   /* 9: Slides */
