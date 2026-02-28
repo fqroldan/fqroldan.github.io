@@ -742,6 +742,91 @@ th {
   font-weight: 600;
 }
 
+@media (min-width: 1024px) {
+  /* Admin table desktop column map (includes leading checkbox column):
+     1 = Select checkbox
+     2 = Participant
+     3 = Email (truncated)
+     4 = Paper title
+     5 = Authors
+     6 = Year
+     7 = Link
+     8 = Status
+     9 = Slides */
+  #admin-table {
+    table-layout: fixed;
+  }
+
+  /* Default wrapping for all admin table cells (email is overridden below). */
+  #admin-table td {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  /* 1: Select checkbox */
+  #admin-table th:nth-child(1),
+  #admin-table td:nth-child(1) {
+    width: 36px;
+  }
+
+  /* 2: Participant */
+  #admin-table th:nth-child(2),
+  #admin-table td:nth-child(2) {
+    width: 11%;
+  }
+
+  /* 3: Email (censored/truncated style) */
+  #admin-table th:nth-child(3),
+  #admin-table td:nth-child(3) {
+    width: 13%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* 4: Paper title */
+  #admin-table th:nth-child(4),
+  #admin-table td:nth-child(4) {
+    width: 22%;
+  }
+
+  /* 5: Authors */
+  #admin-table th:nth-child(5),
+  #admin-table td:nth-child(5) {
+    width: 12%;
+  }
+
+  /* 6: Year */
+  #admin-table th:nth-child(6),
+  #admin-table td:nth-child(6) {
+    width: 6%;
+  }
+
+  /* 7: Link */
+  #admin-table th:nth-child(7),
+  #admin-table td:nth-child(7) {
+    width: 18%;
+  }
+
+  /* Link anchors inside 7th column wrap long URLs. */
+  #admin-table td:nth-child(7) a {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  /* 8: Status */
+  #admin-table th:nth-child(8),
+  #admin-table td:nth-child(8) {
+    width: 8%;
+  }
+
+  /* 9: Slides */
+  #admin-table th:nth-child(9),
+  #admin-table td:nth-child(9) {
+    width: 8%;
+  }
+}
+
 .accent {
   color: var(--accent-2);
   font-weight: 500;

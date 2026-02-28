@@ -1075,13 +1075,11 @@ const initAdminPage = () => {
   const columns = [
     { key: "participant", label: "Participant" },
     { key: "email", label: "Email" },
-    { key: "doi", label: "DOI" },
     { key: "title", label: "Paper" },
     { key: "authors", label: "Authors" },
     { key: "year", label: "Year" },
     { key: "link", label: "Link" },
     { key: "status", label: "Status" },
-    { key: "admin_note", label: "Admin note" },
     { key: "slides", label: "Slides" }
   ];
 
