@@ -17,7 +17,7 @@
   --ink-soft: rgba(230, 237, 242, 0.84);
   --muted: #b7c1c9;
   --paper: #0f1418;
-  --accent: #cf8b53;
+  --accent: #13100e;
   --accent-2: #79c2cd;
   --panel: #182027;
   --shadow: 0 14px 30px rgba(0, 0, 0, 0.42);
@@ -79,16 +79,9 @@ header {
   margin-right: 50px;
 }
 
-.portrait-dark {
-  display: none;
-}
-
-:root[data-theme="dark"] .portrait-light {
-  display: none;
-}
-
-:root[data-theme="dark"] .portrait-dark {
-  display: block;
+:root[data-theme="dark"] .home-portrait {
+  /* filter: invert(0.8) hue-rotate(180deg) brightness(0.86) contrast(0.92); */
+  filter: invert(0.2) brightness(0.9) contrast(0.9);
 }
 
 .hero-text {
