@@ -54,6 +54,13 @@ const initThemeToggle = () => {
       theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
     );
     toggleButton.title = theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+
+    const portrait = document.querySelector(".home-portrait");
+    if (portrait) {
+      portrait.src = theme === "dark"
+        ? "data/images/portrait_dark.svg"
+        : "data/images/portrait2.svg";
+    }
   };
 
   const toggleButton = document.createElement("button");
