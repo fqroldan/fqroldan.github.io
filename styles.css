@@ -79,9 +79,16 @@ header {
   margin-right: 50px;
 }
 
-:root[data-theme="dark"] .home-portrait {
-  /* filter: invert(0.8) hue-rotate(180deg) brightness(0.86) contrast(0.92); */
-  filter: invert(0.2) brightness(0.9) contrast(0.9);
+.portrait-dark {
+  display: none;
+}
+
+:root[data-theme="dark"] .portrait-light {
+  display: none;
+}
+
+:root[data-theme="dark"] .portrait-dark {
+  display: block;
 }
 
 .hero-text {
