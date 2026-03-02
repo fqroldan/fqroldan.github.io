@@ -59,7 +59,7 @@ const initThemeToggle = () => {
     if (portrait) {
       portrait.src = theme === "dark"
         ? "data/images/portrait_dark.svg"
-        : "data/images/portrait_light.svg";
+        : "data/images/portrait2.svg";
     }
   };
 
