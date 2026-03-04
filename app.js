@@ -300,8 +300,6 @@ const setStatus = (element, message, isError = false) => {
   element.classList.toggle("error", isError);
 };
 
-const NEXT_MEETING_CUTOFF = "2026-03-01";
-
 const friendlyMessage = (message) => {
   if (message === "Email not authorized.") {
     return "Email not authorized. Contact froldan@nyu.edu to be added.";
@@ -315,36 +313,79 @@ const friendlyMessage = (message) => {
   return message;
 };
 
-const getNextWednesday = () => {
-  const today = new Date();
-  const day = today.getDay();
-  const baseDiff = (3 - day + 7) % 7;
-  const diff = day <= 3 ? baseDiff + 7 : baseDiff;
+const formatDateInputValue = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
+const getDefaultNextMeetingDate = () => {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const weekday = today.getDay();
+  if (weekday === 3) {
+    return formatDateInputValue(today);
+  }
+  const diff = (3 - weekday + 7) % 7;
   const target = new Date(today);
   target.setDate(today.getDate() + diff);
-  return target.toISOString().slice(0, 10);
+  return formatDateInputValue(target);
 };
 
-const getFirstWednesdayOfMarch = () => {
-  const today = new Date();
-  let year = today.getFullYear();
-  const marchFirst = new Date(year, 2, 1);
-  const diff = (3 - marchFirst.getDay() + 7) % 7;
-  let target = new Date(year, 2, 1 + diff);
-  if (target < today) {
-    year += 1;
-    const nextMarchFirst = new Date(year, 2, 1);
-    const nextDiff = (3 - nextMarchFirst.getDay() + 7) % 7;
-    target = new Date(year, 2, 1 + nextDiff);
+const getPublicDefaultNextMeetingDate = () => {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const weekday = today.getDay();
+  let diff = (3 - weekday + 7) % 7;
+  if (diff === 0) {
+    diff = 7;
   }
-  return target.toISOString().slice(0, 10);
+  if (weekday === 0 || weekday === 1 || weekday === 2) {
+    diff += 7;
+  }
+  const target = new Date(today);
+  target.setDate(today.getDate() + diff);
+  return formatDateInputValue(target);
 };
 
-const getCutoffMeetingDate = () => {
-  if (!NEXT_MEETING_CUTOFF) {
-    return getNextWednesday();
+const getFallbackNextMeetingDate = (scope = "admin") =>
+  scope === "public" ? getPublicDefaultNextMeetingDate() : getDefaultNextMeetingDate();
+
+const resolveNextMeetingInfo = async (scope = "admin") => {
+  const fallbackMeeting = getFallbackNextMeetingDate(scope);
+  if (!isApiConfigured()) {
+    return {
+      meeting: fallbackMeeting,
+      isBreakOverride: false,
+      breakResumeMonth: "",
+      source: scope === "public" ? "public_schedule" : "admin_schedule",
+      scope
+    };
   }
-  return getFirstWednesdayOfMarch();
+  try {
+    const data = await fetchJson(apiUrl({ action: "nextMeeting", scope }));
+    return {
+      meeting: data.meeting || fallbackMeeting,
+      isBreakOverride: Boolean(data.isBreakOverride),
+      breakResumeMonth: String(data.breakResumeMonth || ""),
+      source: String(data.source || (scope === "public" ? "public_schedule" : "admin_schedule")),
+      scope: String(data.scope || scope)
+    };
+  } catch (error) {
+    return {
+      meeting: fallbackMeeting,
+      isBreakOverride: false,
+      breakResumeMonth: "",
+      source: scope === "public" ? "public_schedule" : "admin_schedule",
+      scope
+    };
+  }
+};
+
+const resolveNextMeetingDate = async (scope = "admin") => {
+  const nextMeetingInfo = await resolveNextMeetingInfo(scope);
+  return nextMeetingInfo.meeting;
 };
 
 const formatReadableDate = (value) => {
@@ -538,26 +579,14 @@ const initSubmissionPage = () => {
     }
   };
 
-  const resolveNextMeeting = async () => {
-    if (!isApiConfigured()) {
-      return getCutoffMeetingDate();
-    }
-    try {
-      const data = await fetchJson(apiUrl({ action: "nextMeeting" }));
-      return data.meeting || getCutoffMeetingDate();
-    } catch (error) {
-      return getCutoffMeetingDate();
-    }
-  };
-
-  const fallbackMeeting = getCutoffMeetingDate();
+  const fallbackMeeting = getFallbackNextMeetingDate("public");
   if (!meetingOverrideInput?.checked) {
     meetingInput.value = fallbackMeeting;
     nextMeetingDateLabel.textContent = formatReadableDate(fallbackMeeting);
   }
 
   setLoading(true);
-  resolveNextMeeting()
+  resolveNextMeetingDate("public")
     .then((meeting) => {
       nextMeetingDate = meeting;
       if (!meetingOverrideInput?.checked) {
@@ -892,18 +921,6 @@ const initArchivePage = () => {
     meetingStatus.classList.toggle("is-loading", isLoading);
   };
 
-  const resolveNextMeeting = async () => {
-    if (!isApiConfigured()) {
-      return getCutoffMeetingDate();
-    }
-    try {
-      const data = await fetchJson(apiUrl({ action: "nextMeeting" }));
-      return data.meeting || getCutoffMeetingDate();
-    } catch (error) {
-      return getCutoffMeetingDate();
-    }
-  };
-
   const loadCurrentMeeting = async () => {
     if (!meetingTable || !meetingStatus || !meetingDateLabel) {
       return;
@@ -912,11 +929,11 @@ const initArchivePage = () => {
       setStatus(meetingStatus, "Set APPS_SCRIPT_URL in app.js to enable submissions.", true);
       return;
     }
-    const fallbackMeeting = getCutoffMeetingDate();
+    const fallbackMeeting = getFallbackNextMeetingDate("public");
     meetingDateLabel.textContent = formatReadableDate(fallbackMeeting);
     setMeetingLoading(true);
     try {
-      const meeting = await resolveNextMeeting();
+      const meeting = await resolveNextMeetingDate("public");
       meetingDateLabel.textContent = formatReadableDate(meeting);
       const data = await fetchJson(apiUrl({ action: "meeting", meeting }));
       renderTable(meetingTable, data.rows || [], meetingColumns, "No submissions yet.");
@@ -1048,8 +1065,11 @@ const initHomePage = () => {
   if (!nextMeetingHome) {
     return;
   }
-  const meeting = getCutoffMeetingDate();
-  nextMeetingHome.textContent = formatReadableDate(meeting);
+  const fallbackMeeting = getDefaultNextMeetingDate();
+  nextMeetingHome.textContent = formatReadableDate(fallbackMeeting);
+  resolveNextMeetingDate().then((meeting) => {
+    nextMeetingHome.textContent = formatReadableDate(meeting);
+  });
 };
 
 const initAdminPage = () => {
@@ -1070,6 +1090,7 @@ const initAdminPage = () => {
   const bulkNoteInput = document.getElementById("admin-bulk-note");
   const bulkApplyButton = document.getElementById("admin-bulk-apply");
   const selectedCount = document.getElementById("admin-selected-count");
+  const breakHint = document.getElementById("admin-break-hint");
   const gatedSections = Array.from(document.querySelectorAll("[data-admin-gated]"));
 
   const columns = [
@@ -1086,7 +1107,44 @@ const initAdminPage = () => {
   let meetingRows = [];
   let selectedEmails = new Set();
   let isAdminVerified = false;
-  meetingInput.value = meetingInput.value || getCutoffMeetingDate();
+  const fallbackMeeting = getFallbackNextMeetingDate("admin");
+  const initialMeetingValue = meetingInput.value || fallbackMeeting;
+  meetingInput.value = initialMeetingValue;
+  const setBreakHint = (nextMeetingInfo) => {
+    if (!breakHint) {
+      return;
+    }
+    if (!nextMeetingInfo?.isBreakOverride) {
+      breakHint.textContent = "";
+      breakHint.classList.add("is-hidden");
+      return;
+    }
+    breakHint.textContent =
+      `Break override active (${nextMeetingInfo.breakResumeMonth}): ` +
+      `next meeting set to ${formatReadableDate(nextMeetingInfo.meeting)}.`;
+    breakHint.classList.remove("is-hidden");
+  };
+
+  let adminNextMeetingInfo = null;
+
+  const getAdminScheduleSourceLabel = () => {
+    if (!adminNextMeetingInfo) {
+      return "default schedule";
+    }
+    if (adminNextMeetingInfo.isBreakOverride) {
+      return `break override (${adminNextMeetingInfo.breakResumeMonth})`;
+    }
+    return "default schedule";
+  };
+
+  resolveNextMeetingInfo("admin").then((nextMeetingInfo) => {
+    adminNextMeetingInfo = nextMeetingInfo;
+    const meeting = nextMeetingInfo.meeting;
+    if (meetingInput.value === initialMeetingValue) {
+      meetingInput.value = meeting;
+    }
+    setBreakHint(nextMeetingInfo);
+  });
 
   const setLoading = (isLoading) => {
     status.classList.toggle("is-loading", isLoading);
@@ -1272,7 +1330,7 @@ const initAdminPage = () => {
     });
   };
 
-  const loadAllowlist = async () => {
+  const loadAllowlist = async ({ quietStatus = false } = {}) => {
     if (!isApiConfigured()) {
       setStatus(status, "Set APPS_SCRIPT_URL in app.js to enable admin access.", true);
       return;
@@ -1293,7 +1351,9 @@ const initAdminPage = () => {
       selectedAllowlistEmails = new Set();
       renderAllowlistTable();
       updateAllowlistSelectedUi();
-      setStatus(status, `Allowlist loaded (${allowlistRows.length} emails).`);
+      if (!quietStatus) {
+        setStatus(status, `Allowlist loaded (${allowlistRows.length} emails).`);
+      }
     } catch (error) {
       setStatus(status, error.message, true);
     } finally {
@@ -1360,7 +1420,7 @@ const initAdminPage = () => {
     });
   }
 
-  const loadMeeting = async () => {
+  const loadMeeting = async ({ quietStatus = false } = {}) => {
     if (!isApiConfigured()) {
       setStatus(status, "Set APPS_SCRIPT_URL in app.js to enable admin access.", true);
       return;
@@ -1383,7 +1443,9 @@ const initAdminPage = () => {
       selectAllInput.checked = false;
       updateSelectedUi();
       renderAdminTable();
-      setStatus(status, "Admin submissions loaded.");
+      if (!quietStatus) {
+        setStatus(status, "Admin submissions loaded.");
+      }
     } finally {
       setLoading(false);
     }
@@ -1406,17 +1468,20 @@ const initAdminPage = () => {
       isAdminVerified = true;
       window.sessionStorage.setItem(CONFIG.ADMIN_KEY_STORAGE, adminKey);
       setGatedControlsEnabled(true);
-      setStatus(status, "Admin key accepted. Controls unlocked.");
       try {
-        await loadMeeting();
+        await loadMeeting({ quietStatus: true });
       } catch (error) {
         setStatus(status, error.message, true);
       }
       try {
-        await loadAllowlist();
+        await loadAllowlist({ quietStatus: true });
       } catch (error) {
         setStatus(status, error.message, true);
       }
+      setStatus(
+        status,
+        `Admin key accepted. Controls unlocked. Next-meeting source: ${getAdminScheduleSourceLabel()}.`
+      );
     } catch (error) {
       isAdminVerified = false;
       setGatedControlsEnabled(false);
