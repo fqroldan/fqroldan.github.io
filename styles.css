@@ -469,6 +469,25 @@ iframe {
   padding: 0;
 }
 
+.expandable-text {
+  display: none;
+  width: 90%;
+  font-family: 'Source Code Pro', 'Fira Code', 'Cascadia Code', 'Consolas', 'Monaco', monospace;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  padding: 10px 14px;
+  margin: 8px 0;
+  white-space: pre-wrap;
+  background: var(--paper, #fff9f1);
+  color: var(--ink, #111);
+  border-radius: 0 4px 4px 0;
+}
+
+:root[data-theme="dark"] .expandable-text {
+  background: var(--paper, #10171d);
+  color: var(--ink, #e6edf2);
+}
+
 
 .button-link.invert {
   background: var(--paper);
