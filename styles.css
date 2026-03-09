@@ -484,7 +484,7 @@ iframe {
 }
 
 :root[data-theme="dark"] .expandable-text {
-  background: var(--paper, #10171d);
+  background: var(--paper, #182027);
   color: var(--ink, #e6edf2);
 }
 
