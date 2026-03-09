@@ -478,13 +478,13 @@ iframe {
   padding: 10px 14px;
   margin: 8px 0;
   white-space: pre-wrap;
-  background: var(--paper);
+  background: #ebe6df;
   color: var(--ink, #111);
   border-radius: 0 4px 4px 0;
 }
 
 :root[data-theme="dark"] .expandable-text {
-  background: var(--paper);
+  background: var(--panel);
   color: var(--ink, #e6edf2);
 }
 
