@@ -1,5 +1,5 @@
 @techreport{RoldanSosaPadilla2025Perils,
-  author = {Roldán, Francisco and Sosa-Padilla, César},
+  author = {Rold\'{a}n, Francisco and Sosa-Padilla, César},
   title = {The {Perils} of {Bilateral} {Sovereign} {Debt}},
   year = {2025},
   month = {11},

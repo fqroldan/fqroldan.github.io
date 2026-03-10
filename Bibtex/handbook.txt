@@ -1,5 +1,5 @@
 @incollection{MRRZ2023Handbook,
-  author    = {Leonardo Martinez and Francisco Roch and Francisco Rold\'{a}n and Jeromin Zettelmeyer},
+  author    = {Martinez, Leonardo and Roch, Francisco and Rold\'{a}n, Francisco and Zettelmeyer, Jeromin},
   title     = {Sovereign Debt},
   editor    = {Refet S. Gürkaynak and Jonathan H. Wright},
   booktitle = {The Research Handbook of Financial Markets},
