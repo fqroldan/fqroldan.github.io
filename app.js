@@ -1,6 +1,5 @@
 const CONFIG = {
   APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbznCrokySiyUNF9YsAsDGOUZ_aj4gWnZPwdyQpnU_gbHgHSWpaWC4jrBP778yxg3Bu0BQ/exec",
-  ADMIN_KEY_STORAGE: "rrg_admin_key",
   VERIFIED_STORAGE: "rrg_verified"
 };
 
@@ -1466,7 +1465,6 @@ const initAdminPage = () => {
       setLoading(true);
       await postApi({ action: "adminList", meeting: "", adminKey });
       isAdminVerified = true;
-      window.sessionStorage.setItem(CONFIG.ADMIN_KEY_STORAGE, adminKey);
       setGatedControlsEnabled(true);
       try {
         await loadMeeting({ quietStatus: true });
@@ -1491,10 +1489,6 @@ const initAdminPage = () => {
     }
   };
 
-  const cachedKey = window.sessionStorage.getItem(CONFIG.ADMIN_KEY_STORAGE);
-  if (cachedKey) {
-    adminKeyInput.value = cachedKey;
-  }
   setGatedControlsEnabled(false);
   setStatus(status, "Submit your admin key to unlock controls.");
   updateSelectedUi();
@@ -1644,18 +1638,21 @@ const initAdminPage = () => {
           .map(([email, participant]) => `${participant} (${email})`)
           .sort((left, right) => left.localeCompare(right));
 
-        if (!submitterLines.length) {
-          setStatus(status, `No submitters found for ${meetingDate}.`, true);
-          return;
-        }
-
-        const confirmationMessage = [
-          "Send meeting email?",
-          "",
-          `Meeting: ${formatReadableDate(meetingDate)} (${meetingDate})`,
-          `Submitters (${submitterLines.length}):`,
-          ...submitterLines
-        ].join("\n");
+        const confirmationMessage = submitterLines.length
+          ? [
+              "Send meeting email?",
+              "",
+              `Meeting: ${formatReadableDate(meetingDate)} (${meetingDate})`,
+              `Submitters (${submitterLines.length}):`,
+              ...submitterLines
+            ].join("\n")
+          : [
+              "Send meeting email?",
+              "",
+              `Meeting: ${formatReadableDate(meetingDate)} (${meetingDate})`,
+              "Warning: No submitters found.",
+              "This email will only be sent to froldan@nyu.edu."
+            ].join("\n");
 
         const confirmed = window.confirm(confirmationMessage);
         if (!confirmed) {
