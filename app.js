@@ -579,20 +579,26 @@ const initSubmissionPage = () => {
   };
 
   const fallbackMeeting = getFallbackNextMeetingDate("public");
+  nextMeetingDate = fallbackMeeting;
   if (!meetingOverrideInput?.checked) {
     meetingInput.value = fallbackMeeting;
     nextMeetingDateLabel.textContent = formatReadableDate(fallbackMeeting);
   }
 
-  setLoading(true);
+  loadMeeting().catch((error) => setStatus(status, error.message, true));
+
   resolveNextMeetingDate("public")
     .then((meeting) => {
-      nextMeetingDate = meeting;
+      const changed = meeting && meeting !== nextMeetingDate;
+      nextMeetingDate = meeting || nextMeetingDate;
       if (!meetingOverrideInput?.checked) {
-        meetingInput.value = meeting;
-        nextMeetingDateLabel.textContent = formatReadableDate(meeting);
+        meetingInput.value = nextMeetingDate;
+        nextMeetingDateLabel.textContent = formatReadableDate(nextMeetingDate);
       }
-      return loadMeeting();
+      if (changed && !meetingOverrideInput?.checked) {
+        return loadMeeting();
+      }
+      return null;
     })
     .catch((error) => setStatus(status, error.message, true));
   applyVerifiedEmail();
@@ -932,10 +938,16 @@ const initArchivePage = () => {
     meetingDateLabel.textContent = formatReadableDate(fallbackMeeting);
     setMeetingLoading(true);
     try {
+      const fallbackData = await fetchJson(apiUrl({ action: "meeting", meeting: fallbackMeeting }));
+      renderTable(meetingTable, fallbackData.rows || [], meetingColumns, "No submissions yet.");
+
       const meeting = await resolveNextMeetingDate("public");
-      meetingDateLabel.textContent = formatReadableDate(meeting);
-      const data = await fetchJson(apiUrl({ action: "meeting", meeting }));
-      renderTable(meetingTable, data.rows || [], meetingColumns, "No submissions yet.");
+      if (meeting && meeting !== fallbackMeeting) {
+        meetingDateLabel.textContent = formatReadableDate(meeting);
+        const data = await fetchJson(apiUrl({ action: "meeting", meeting }));
+        renderTable(meetingTable, data.rows || [], meetingColumns, "No submissions yet.");
+      }
+      meetingDateLabel.textContent = formatReadableDate(meeting || fallbackMeeting);
     } catch (error) {
       setStatus(meetingStatus, error.message, true);
     } finally {
@@ -1054,7 +1066,9 @@ const initArchivePage = () => {
 
   loadCurrentMeeting();
 
-  syncArchive();
+  if (!archiveRows.length) {
+    setStatus(archiveStatus, "Archive not loaded yet. Click Sync from admin sheet.");
+  }
 
   syncButton.addEventListener("click", syncArchive);
 };
