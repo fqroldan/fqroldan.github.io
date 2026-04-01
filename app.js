@@ -358,6 +358,7 @@ const resolveNextMeetingInfo = async (scope = "admin") => {
       meeting: fallbackMeeting,
       isBreakOverride: false,
       breakResumeMonth: "",
+      breakResumeDate: "",
       source: scope === "public" ? "public_schedule" : "admin_schedule",
       scope
     };
@@ -368,6 +369,7 @@ const resolveNextMeetingInfo = async (scope = "admin") => {
       meeting: data.meeting || fallbackMeeting,
       isBreakOverride: Boolean(data.isBreakOverride),
       breakResumeMonth: String(data.breakResumeMonth || ""),
+      breakResumeDate: String(data.breakResumeDate || ""),
       source: String(data.source || (scope === "public" ? "public_schedule" : "admin_schedule")),
       scope: String(data.scope || scope)
     };
@@ -376,6 +378,7 @@ const resolveNextMeetingInfo = async (scope = "admin") => {
       meeting: fallbackMeeting,
       isBreakOverride: false,
       breakResumeMonth: "",
+      breakResumeDate: "",
       source: scope === "public" ? "public_schedule" : "admin_schedule",
       scope
     };
@@ -1132,8 +1135,9 @@ const initAdminPage = () => {
       breakHint.classList.add("is-hidden");
       return;
     }
+    const resumeTarget = nextMeetingInfo.breakResumeDate || nextMeetingInfo.breakResumeMonth;
     breakHint.textContent =
-      `Break override active (${nextMeetingInfo.breakResumeMonth}): ` +
+      `Break override active (${resumeTarget}): ` +
       `next meeting set to ${formatReadableDate(nextMeetingInfo.meeting)}.`;
     breakHint.classList.remove("is-hidden");
   };
@@ -1145,7 +1149,7 @@ const initAdminPage = () => {
       return "default schedule";
     }
     if (adminNextMeetingInfo.isBreakOverride) {
-      return `break override (${adminNextMeetingInfo.breakResumeMonth})`;
+      return `break override (${adminNextMeetingInfo.breakResumeDate || adminNextMeetingInfo.breakResumeMonth})`;
     }
     return "default schedule";
   };
