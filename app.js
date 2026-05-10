@@ -1,7 +1,78 @@
 const CONFIG = {
   APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbznCrokySiyUNF9YsAsDGOUZ_aj4gWnZPwdyQpnU_gbHgHSWpaWC4jrBP778yxg3Bu0BQ/exec",
-  ADMIN_KEY_STORAGE: "rrg_admin_key",
   VERIFIED_STORAGE: "rrg_verified"
+};
+
+const THEME_STORAGE_KEY = "site_theme";
+const MOON_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>';
+const SUN_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.7 4.7l1.6 1.6M17.7 17.7l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.7 19.3l1.6-1.6M17.7 6.3l1.6-1.6"/></svg>';
+
+const getTimeBasedTheme = () => {
+  const hour = new Date().getHours();
+  return hour >= 7 && hour < 19 ? "light" : "dark";
+};
+
+const readThemePreference = () => {
+  try {
+    const theme = window.localStorage.getItem(THEME_STORAGE_KEY);
+    if (theme === "dark" || theme === "light") {
+      return theme;
+    }
+  } catch (error) {
+  }
+  try {
+    const theme = window.sessionStorage.getItem(THEME_STORAGE_KEY);
+    if (theme === "dark" || theme === "light") {
+      return theme;
+    }
+  } catch (error) {
+  }
+  return null;
+};
+
+const writeThemePreference = (theme) => {
+  try {
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+  } catch (error) {
+  }
+  try {
+    window.sessionStorage.setItem(THEME_STORAGE_KEY, theme);
+  } catch (error) {
+  }
+};
+
+const initThemeToggle = () => {
+  const nav = document.querySelector("nav.nav");
+  if (!nav || nav.querySelector(".theme-toggle")) {
+    return;
+  }
+
+  const root = document.documentElement;
+
+  const applyTheme = (theme) => {
+    root.setAttribute("data-theme", theme);
+    writeThemePreference(theme);
+    toggleButton.innerHTML = theme === "dark" ? SUN_ICON : MOON_ICON;
+    toggleButton.setAttribute(
+      "aria-label",
+      theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+    );
+    toggleButton.title = theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+  };
+
+  const toggleButton = document.createElement("button");
+  toggleButton.type = "button";
+  toggleButton.className = "theme-toggle";
+
+  const initialTheme = readThemePreference() || getTimeBasedTheme();
+  applyTheme(initialTheme);
+
+  toggleButton.addEventListener("click", () => {
+    const currentTheme = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    applyTheme(currentTheme === "dark" ? "light" : "dark");
+  });
+
+  nav.appendChild(toggleButton);
 };
 
 const MEETING_COLUMNS = [
@@ -10,6 +81,7 @@ const MEETING_COLUMNS = [
   "email",
   "title",
   "authors",
+  "year",
   "journal",
   "doi",
   "link",
@@ -227,8 +299,6 @@ const setStatus = (element, message, isError = false) => {
   element.classList.toggle("error", isError);
 };
 
-const NEXT_MEETING_CUTOFF = "2026-03-01";
-
 const friendlyMessage = (message) => {
   if (message === "Email not authorized.") {
     return "Email not authorized. Contact froldan@nyu.edu to be added.";
@@ -242,36 +312,82 @@ const friendlyMessage = (message) => {
   return message;
 };
 
-const getNextWednesday = () => {
-  const today = new Date();
-  const day = today.getDay();
-  const baseDiff = (3 - day + 7) % 7;
-  const diff = day <= 3 ? baseDiff + 7 : baseDiff;
+const formatDateInputValue = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
+const getDefaultNextMeetingDate = () => {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const weekday = today.getDay();
+  if (weekday === 3) {
+    return formatDateInputValue(today);
+  }
+  const diff = (3 - weekday + 7) % 7;
   const target = new Date(today);
   target.setDate(today.getDate() + diff);
-  return target.toISOString().slice(0, 10);
+  return formatDateInputValue(target);
 };
 
-const getFirstWednesdayOfMarch = () => {
-  const today = new Date();
-  let year = today.getFullYear();
-  const marchFirst = new Date(year, 2, 1);
-  const diff = (3 - marchFirst.getDay() + 7) % 7;
-  let target = new Date(year, 2, 1 + diff);
-  if (target < today) {
-    year += 1;
-    const nextMarchFirst = new Date(year, 2, 1);
-    const nextDiff = (3 - nextMarchFirst.getDay() + 7) % 7;
-    target = new Date(year, 2, 1 + nextDiff);
+const getPublicDefaultNextMeetingDate = () => {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const weekday = today.getDay();
+  let diff = (3 - weekday + 7) % 7;
+  if (diff === 0) {
+    diff = 7;
   }
-  return target.toISOString().slice(0, 10);
+  if (weekday === 0 || weekday === 1 || weekday === 2) {
+    diff += 7;
+  }
+  const target = new Date(today);
+  target.setDate(today.getDate() + diff);
+  return formatDateInputValue(target);
 };
 
-const getCutoffMeetingDate = () => {
-  if (!NEXT_MEETING_CUTOFF) {
-    return getNextWednesday();
+const getFallbackNextMeetingDate = (scope = "admin") =>
+  scope === "public" ? getPublicDefaultNextMeetingDate() : getDefaultNextMeetingDate();
+
+const resolveNextMeetingInfo = async (scope = "admin") => {
+  const fallbackMeeting = getFallbackNextMeetingDate(scope);
+  if (!isApiConfigured()) {
+    return {
+      meeting: fallbackMeeting,
+      isBreakOverride: false,
+      breakResumeMonth: "",
+      breakResumeDate: "",
+      source: scope === "public" ? "public_schedule" : "admin_schedule",
+      scope
+    };
   }
-  return getFirstWednesdayOfMarch();
+  try {
+    const data = await fetchJson(apiUrl({ action: "nextMeeting", scope }));
+    return {
+      meeting: data.meeting || fallbackMeeting,
+      isBreakOverride: Boolean(data.isBreakOverride),
+      breakResumeMonth: String(data.breakResumeMonth || ""),
+      breakResumeDate: String(data.breakResumeDate || ""),
+      source: String(data.source || (scope === "public" ? "public_schedule" : "admin_schedule")),
+      scope: String(data.scope || scope)
+    };
+  } catch (error) {
+    return {
+      meeting: fallbackMeeting,
+      isBreakOverride: false,
+      breakResumeMonth: "",
+      breakResumeDate: "",
+      source: scope === "public" ? "public_schedule" : "admin_schedule",
+      scope
+    };
+  }
+};
+
+const resolveNextMeetingDate = async (scope = "admin") => {
+  const nextMeetingInfo = await resolveNextMeetingInfo(scope);
+  return nextMeetingInfo.meeting;
 };
 
 const formatReadableDate = (value) => {
@@ -317,6 +433,7 @@ const initSubmissionPage = () => {
     { key: "participant", label: "Participant name" },
     { key: "title", label: "Paper title" },
     { key: "authors", label: "Authors" },
+    { key: "year", label: "Year" },
     { key: "journal", label: "Journal Name" },
     { key: "link", label: "Link to paper" },
     { key: "status", label: "Status" },
@@ -464,33 +581,27 @@ const initSubmissionPage = () => {
     }
   };
 
-  const resolveNextMeeting = async () => {
-    if (!isApiConfigured()) {
-      return getCutoffMeetingDate();
-    }
-    try {
-      const data = await fetchJson(apiUrl({ action: "nextMeeting" }));
-      return data.meeting || getCutoffMeetingDate();
-    } catch (error) {
-      return getCutoffMeetingDate();
-    }
-  };
-
-  const fallbackMeeting = getCutoffMeetingDate();
+  const fallbackMeeting = getFallbackNextMeetingDate("public");
+  nextMeetingDate = fallbackMeeting;
   if (!meetingOverrideInput?.checked) {
     meetingInput.value = fallbackMeeting;
     nextMeetingDateLabel.textContent = formatReadableDate(fallbackMeeting);
   }
 
-  setLoading(true);
-  resolveNextMeeting()
+  loadMeeting().catch((error) => setStatus(status, error.message, true));
+
+  resolveNextMeetingDate("public")
     .then((meeting) => {
-      nextMeetingDate = meeting;
+      const changed = meeting && meeting !== nextMeetingDate;
+      nextMeetingDate = meeting || nextMeetingDate;
       if (!meetingOverrideInput?.checked) {
-        meetingInput.value = meeting;
-        nextMeetingDateLabel.textContent = formatReadableDate(meeting);
+        meetingInput.value = nextMeetingDate;
+        nextMeetingDateLabel.textContent = formatReadableDate(nextMeetingDate);
       }
-      return loadMeeting();
+      if (changed && !meetingOverrideInput?.checked) {
+        return loadMeeting();
+      }
+      return null;
     })
     .catch((error) => setStatus(status, error.message, true));
   applyVerifiedEmail();
@@ -533,6 +644,7 @@ const initSubmissionPage = () => {
       email,
       title: formData.get("title")?.trim() || "",
       authors: formData.get("authors")?.trim() || "",
+      year: formData.get("year")?.trim() || "",
       journal: formData.get("journal")?.trim() || "",
       doi: formData.get("doi")?.trim() || "",
       link: formData.get("link")?.trim() || "",
@@ -744,6 +856,9 @@ const initSubmissionPage = () => {
       const journal = Array.isArray(message["container-title"])
         ? message["container-title"][0]
         : "";
+      const year = Array.isArray(message.issued?.["date-parts"])
+        ? message.issued["date-parts"]?.[0]?.[0]
+        : "";
       const link = message.URL || "";
 
       if (title) {
@@ -754,6 +869,9 @@ const initSubmissionPage = () => {
       }
       if (journal) {
         submissionForm.querySelector("input[name='journal']").value = journal;
+      }
+      if (year) {
+        submissionForm.querySelector("input[name='year']").value = String(year);
       }
       if (link) {
         submissionForm.querySelector("input[name='link']").value = link;
@@ -779,6 +897,7 @@ const initArchivePage = () => {
     { key: "participant", label: "Participant" },
     { key: "title", label: "Paper" },
     { key: "authors", label: "Authors" },
+    { key: "year", label: "Year" },
     { key: "journal", label: "Journal" },
     { key: "link", label: "Link" },
     { key: "status", label: "Status" },
@@ -789,6 +908,7 @@ const initArchivePage = () => {
     { key: "participant", label: "Participant name" },
     { key: "title", label: "Paper title" },
     { key: "authors", label: "Authors" },
+    { key: "year", label: "Year" },
     { key: "journal", label: "Journal Name" },
     { key: "link", label: "Link to paper" },
     { key: "status", label: "Status" },
@@ -809,18 +929,6 @@ const initArchivePage = () => {
     meetingStatus.classList.toggle("is-loading", isLoading);
   };
 
-  const resolveNextMeeting = async () => {
-    if (!isApiConfigured()) {
-      return getCutoffMeetingDate();
-    }
-    try {
-      const data = await fetchJson(apiUrl({ action: "nextMeeting" }));
-      return data.meeting || getCutoffMeetingDate();
-    } catch (error) {
-      return getCutoffMeetingDate();
-    }
-  };
-
   const loadCurrentMeeting = async () => {
     if (!meetingTable || !meetingStatus || !meetingDateLabel) {
       return;
@@ -829,14 +937,20 @@ const initArchivePage = () => {
       setStatus(meetingStatus, "Set APPS_SCRIPT_URL in app.js to enable submissions.", true);
       return;
     }
-    const fallbackMeeting = getCutoffMeetingDate();
+    const fallbackMeeting = getFallbackNextMeetingDate("public");
     meetingDateLabel.textContent = formatReadableDate(fallbackMeeting);
     setMeetingLoading(true);
     try {
-      const meeting = await resolveNextMeeting();
-      meetingDateLabel.textContent = formatReadableDate(meeting);
-      const data = await fetchJson(apiUrl({ action: "meeting", meeting }));
-      renderTable(meetingTable, data.rows || [], meetingColumns, "No submissions yet.");
+      const fallbackData = await fetchJson(apiUrl({ action: "meeting", meeting: fallbackMeeting }));
+      renderTable(meetingTable, fallbackData.rows || [], meetingColumns, "No submissions yet.");
+
+      const meeting = await resolveNextMeetingDate("public");
+      if (meeting && meeting !== fallbackMeeting) {
+        meetingDateLabel.textContent = formatReadableDate(meeting);
+        const data = await fetchJson(apiUrl({ action: "meeting", meeting }));
+        renderTable(meetingTable, data.rows || [], meetingColumns, "No submissions yet.");
+      }
+      meetingDateLabel.textContent = formatReadableDate(meeting || fallbackMeeting);
     } catch (error) {
       setStatus(meetingStatus, error.message, true);
     } finally {
@@ -917,8 +1031,8 @@ const initArchivePage = () => {
       title.classList.add("archive-date");
       title.textContent = formatReadableDate(group.meeting);
 
-      const approvedCount = group.rows.filter(
-        (row) => String(row.status || "").toLowerCase() === "approved"
+      const okCount = group.rows.filter(
+        (row) => String(row.status || "").toLowerCase() === "ok"
       ).length;
       const longCount = group.rows.filter(
         (row) => String(row.status || "").toLowerCase() === "long"
@@ -930,7 +1044,7 @@ const initArchivePage = () => {
         (row) => String(row.slides || "").startsWith("http")
       ).length;
       const summaryText =
-        `${group.rows.length} submissions | ${approvedCount} approved | ${longCount} long | ` +
+        `${group.rows.length} submissions | ${okCount} ok | ${longCount} long | ` +
         `${vetoedCount} vetoed | ${slidesCount} slides`;
       const meta = document.createElement("span");
       meta.classList.add("archive-meta");
@@ -955,7 +1069,9 @@ const initArchivePage = () => {
 
   loadCurrentMeeting();
 
-  syncArchive();
+  if (!archiveRows.length) {
+    setStatus(archiveStatus, "Archive not loaded yet. Click Sync from admin sheet.");
+  }
 
   syncButton.addEventListener("click", syncArchive);
 };
@@ -965,8 +1081,11 @@ const initHomePage = () => {
   if (!nextMeetingHome) {
     return;
   }
-  const meeting = getCutoffMeetingDate();
-  nextMeetingHome.textContent = formatReadableDate(meeting);
+  const fallbackMeeting = getDefaultNextMeetingDate();
+  nextMeetingHome.textContent = formatReadableDate(fallbackMeeting);
+  resolveNextMeetingDate().then((meeting) => {
+    nextMeetingHome.textContent = formatReadableDate(meeting);
+  });
 };
 
 const initAdminPage = () => {
@@ -975,6 +1094,7 @@ const initAdminPage = () => {
   const adminKeyInput = document.getElementById("admin-key");
   const meetingInput = document.getElementById("admin-meeting");
   const loadButton = document.getElementById("admin-load");
+  const emailNextButton = document.getElementById("admin-email-next");
   const downloadButton = document.getElementById("admin-download");
   const clearButton = document.getElementById("admin-clear");
   const table = document.getElementById("admin-table");
@@ -986,24 +1106,62 @@ const initAdminPage = () => {
   const bulkNoteInput = document.getElementById("admin-bulk-note");
   const bulkApplyButton = document.getElementById("admin-bulk-apply");
   const selectedCount = document.getElementById("admin-selected-count");
+  const breakHint = document.getElementById("admin-break-hint");
   const gatedSections = Array.from(document.querySelectorAll("[data-admin-gated]"));
 
   const columns = [
     { key: "participant", label: "Participant" },
     { key: "email", label: "Email" },
-    { key: "doi", label: "DOI" },
     { key: "title", label: "Paper" },
     { key: "authors", label: "Authors" },
+    { key: "year", label: "Year" },
     { key: "link", label: "Link" },
     { key: "status", label: "Status" },
-    { key: "admin_note", label: "Admin note" },
     { key: "slides", label: "Slides" }
   ];
 
   let meetingRows = [];
   let selectedEmails = new Set();
   let isAdminVerified = false;
-  meetingInput.value = meetingInput.value || getCutoffMeetingDate();
+  const fallbackMeeting = getFallbackNextMeetingDate("admin");
+  const initialMeetingValue = meetingInput.value || fallbackMeeting;
+  meetingInput.value = initialMeetingValue;
+  const setBreakHint = (nextMeetingInfo) => {
+    if (!breakHint) {
+      return;
+    }
+    if (!nextMeetingInfo?.isBreakOverride) {
+      breakHint.textContent = "";
+      breakHint.classList.add("is-hidden");
+      return;
+    }
+    const resumeTarget = nextMeetingInfo.breakResumeDate || nextMeetingInfo.breakResumeMonth;
+    breakHint.textContent =
+      `Break override active (${resumeTarget}): ` +
+      `next meeting set to ${formatReadableDate(nextMeetingInfo.meeting)}.`;
+    breakHint.classList.remove("is-hidden");
+  };
+
+  let adminNextMeetingInfo = null;
+
+  const getAdminScheduleSourceLabel = () => {
+    if (!adminNextMeetingInfo) {
+      return "default schedule";
+    }
+    if (adminNextMeetingInfo.isBreakOverride) {
+      return `break override (${adminNextMeetingInfo.breakResumeDate || adminNextMeetingInfo.breakResumeMonth})`;
+    }
+    return "default schedule";
+  };
+
+  resolveNextMeetingInfo("admin").then((nextMeetingInfo) => {
+    adminNextMeetingInfo = nextMeetingInfo;
+    const meeting = nextMeetingInfo.meeting;
+    if (meetingInput.value === initialMeetingValue) {
+      meetingInput.value = meeting;
+    }
+    setBreakHint(nextMeetingInfo);
+  });
 
   const setLoading = (isLoading) => {
     status.classList.toggle("is-loading", isLoading);
@@ -1022,6 +1180,8 @@ const initAdminPage = () => {
     });
     updateSelectedUi();
     renderAdminTable();
+    updateAllowlistSelectedUi();
+    renderAllowlistTable();
   };
 
   const updateSelectedUi = () => {
@@ -1109,7 +1269,175 @@ const initAdminPage = () => {
     });
   };
 
-  const loadMeeting = async () => {
+  const allowlistTable = document.getElementById("allowlist-table");
+  const allowlistSelectAllInput = document.getElementById("allowlist-select-all");
+  const allowlistSelectedCount = document.getElementById("allowlist-selected-count");
+  const allowlistRemoveButton = document.getElementById("allowlist-remove");
+  let allowlistRows = [];
+  let selectedAllowlistEmails = new Set();
+
+  const updateAllowlistSelectedUi = () => {
+    const count = selectedAllowlistEmails.size;
+    if (allowlistSelectedCount) {
+      allowlistSelectedCount.textContent = `${count} selected`;
+    }
+    if (allowlistRemoveButton) {
+      allowlistRemoveButton.disabled = !isAdminVerified || count === 0;
+    }
+    if (count === 0 && allowlistSelectAllInput) {
+      allowlistSelectAllInput.checked = false;
+    }
+  };
+
+  const renderAllowlistTable = () => {
+    const thead = allowlistTable.querySelector("thead") || allowlistTable.createTHead();
+    const tbody = allowlistTable.querySelector("tbody") || allowlistTable.createTBody();
+    thead.innerHTML = "";
+    tbody.innerHTML = "";
+
+    const headerRow = document.createElement("tr");
+    const selectTh = document.createElement("th");
+    selectTh.classList.add("checkbox-cell");
+    headerRow.appendChild(selectTh);
+    const thEmail = document.createElement("th");
+    thEmail.textContent = "Email";
+    const thAdded = document.createElement("th");
+    thAdded.textContent = "Date Added";
+    headerRow.appendChild(thEmail);
+    headerRow.appendChild(thAdded);
+    thead.appendChild(headerRow);
+
+    if (allowlistRows.length === 0) {
+      const emptyRow = document.createElement("tr");
+      const td = document.createElement("td");
+      td.colSpan = 3;
+      td.textContent = "No emails in allowlist.";
+      emptyRow.appendChild(td);
+      tbody.appendChild(emptyRow);
+      return;
+    }
+
+    allowlistRows.forEach((row) => {
+      const tr = document.createElement("tr");
+      
+      const selectTd = document.createElement("td");
+      selectTd.classList.add("checkbox-cell");
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = selectedAllowlistEmails.has(row.email);
+      checkbox.disabled = !isAdminVerified;
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+          selectedAllowlistEmails.add(row.email);
+        } else {
+          selectedAllowlistEmails.delete(row.email);
+        }
+        updateAllowlistSelectedUi();
+      });
+      selectTd.appendChild(checkbox);
+      tr.appendChild(selectTd);
+      
+      const emailTd = document.createElement("td");
+      emailTd.textContent = row.email || "";
+      const dateTd = document.createElement("td");
+      dateTd.textContent = row.date_added || "-";
+      tr.appendChild(emailTd);
+      tr.appendChild(dateTd);
+      tbody.appendChild(tr);
+    });
+  };
+
+  const loadAllowlist = async ({ quietStatus = false } = {}) => {
+    if (!isApiConfigured()) {
+      setStatus(status, "Set APPS_SCRIPT_URL in app.js to enable admin access.", true);
+      return;
+    }
+    if (!isAdminVerified) {
+      setStatus(status, "Submit a valid admin key to unlock controls.", true);
+      return;
+    }
+    const adminKey = adminKeyInput.value.trim();
+    if (!adminKey) {
+      setStatus(status, "Admin key is required.", true);
+      return;
+    }
+    setLoading(true);
+    try {
+      const data = await postApi({ action: "adminGetAllowlist", adminKey });
+      allowlistRows = data.rows || [];
+      selectedAllowlistEmails = new Set();
+      renderAllowlistTable();
+      updateAllowlistSelectedUi();
+      if (!quietStatus) {
+        setStatus(status, `Allowlist loaded (${allowlistRows.length} emails).`);
+      }
+    } catch (error) {
+      setStatus(status, error.message, true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const allowlistLoadButton = document.getElementById("admin-allowlist-load");
+  if (allowlistLoadButton) {
+    allowlistLoadButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      loadAllowlist().catch((error) => setStatus(status, error.message, true));
+    });
+  }
+
+  if (allowlistSelectAllInput) {
+    allowlistSelectAllInput.addEventListener("change", () => {
+      if (allowlistSelectAllInput.checked) {
+        const allEmails = allowlistRows.map((row) => row.email).filter(Boolean);
+        selectedAllowlistEmails = new Set(allEmails);
+      } else {
+        selectedAllowlistEmails = new Set();
+      }
+      updateAllowlistSelectedUi();
+      renderAllowlistTable();
+    });
+  }
+
+  if (allowlistRemoveButton) {
+    allowlistRemoveButton.addEventListener("click", async () => {
+      const adminKey = adminKeyInput.value.trim();
+      if (!adminKey) {
+        setStatus(status, "Admin key is required.", true);
+        return;
+      }
+      const emails = Array.from(selectedAllowlistEmails);
+      if (!emails.length) {
+        setStatus(status, "Select at least one email to remove.", true);
+        return;
+      }
+      
+      const confirmed = window.confirm(
+        `Remove ${emails.length} email(s) from the allowlist?\n\n${emails.join("\n")}`
+      );
+      if (!confirmed) {
+        return;
+      }
+      
+      try {
+        setLoading(true);
+        const data = await postApi({
+          action: "adminRemoveAllowlist",
+          adminKey,
+          emails: JSON.stringify(emails)
+        });
+        selectedAllowlistEmails = new Set();
+        await loadAllowlist();
+        setStatus(status, `Removed ${data.removed || 0} email(s) from allowlist.`);
+      } catch (error) {
+        setStatus(status, error.message, true);
+      } finally {
+        setLoading(false);
+      }
+    });
+  }
+
+  const loadMeeting = async ({ quietStatus = false } = {}) => {
     if (!isApiConfigured()) {
       setStatus(status, "Set APPS_SCRIPT_URL in app.js to enable admin access.", true);
       return;
@@ -1132,7 +1460,9 @@ const initAdminPage = () => {
       selectAllInput.checked = false;
       updateSelectedUi();
       renderAdminTable();
-      setStatus(status, "Admin submissions loaded.");
+      if (!quietStatus) {
+        setStatus(status, "Admin submissions loaded.");
+      }
     } finally {
       setLoading(false);
     }
@@ -1153,9 +1483,21 @@ const initAdminPage = () => {
       setLoading(true);
       await postApi({ action: "adminList", meeting: "", adminKey });
       isAdminVerified = true;
-      window.sessionStorage.setItem(CONFIG.ADMIN_KEY_STORAGE, adminKey);
       setGatedControlsEnabled(true);
-      setStatus(status, "Admin key accepted. Controls unlocked.");
+      try {
+        await loadMeeting({ quietStatus: true });
+      } catch (error) {
+        setStatus(status, error.message, true);
+      }
+      try {
+        await loadAllowlist({ quietStatus: true });
+      } catch (error) {
+        setStatus(status, error.message, true);
+      }
+      setStatus(
+        status,
+        `Admin key accepted. Controls unlocked. Next-meeting source: ${getAdminScheduleSourceLabel()}.`
+      );
     } catch (error) {
       isAdminVerified = false;
       setGatedControlsEnabled(false);
@@ -1165,10 +1507,6 @@ const initAdminPage = () => {
     }
   };
 
-  const cachedKey = window.sessionStorage.getItem(CONFIG.ADMIN_KEY_STORAGE);
-  if (cachedKey) {
-    adminKeyInput.value = cachedKey;
-  }
   setGatedControlsEnabled(false);
   setStatus(status, "Submit your admin key to unlock controls.");
   updateSelectedUi();
@@ -1198,40 +1536,42 @@ const initAdminPage = () => {
     setStatus(status, "Meeting CSV downloaded.");
   });
 
-  updateForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const formData = new FormData(updateForm);
-    const email = formData.get("email")?.trim() || "";
-    const participant = formData.get("participant")?.trim() || "";
-    const statusValue = formData.get("status")?.trim() || "pending";
-    const adminNote = formData.get("admin_note")?.trim() || "";
-    const adminKey = adminKeyInput.value.trim();
+  if (updateForm) {
+    updateForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const formData = new FormData(updateForm);
+      const email = formData.get("email")?.trim() || "";
+      const participant = formData.get("participant")?.trim() || "";
+      const statusValue = formData.get("status")?.trim() || "pending";
+      const adminNote = formData.get("admin_note")?.trim() || "";
+      const adminKey = adminKeyInput.value.trim();
 
-    if (!email) {
-      setStatus(status, "Email is required to update a submission.", true);
-      return;
-    }
+      if (!email) {
+        setStatus(status, "Email is required to update a submission.", true);
+        return;
+      }
 
-    try {
-      setLoading(true);
-      await postApi({
-        action: "adminUpdate",
-        adminKey,
-        meeting: meetingInput.value,
-        email,
-        participant,
-        status: statusValue,
-        admin_note: adminNote
-      });
-      updateForm.reset();
-      await loadMeeting();
-      setStatus(status, "Submission updated.");
-    } catch (error) {
-      setStatus(status, error.message, true);
-    } finally {
-      setLoading(false);
-    }
-  });
+      try {
+        setLoading(true);
+        await postApi({
+          action: "adminUpdate",
+          adminKey,
+          meeting: meetingInput.value,
+          email,
+          participant,
+          status: statusValue,
+          admin_note: adminNote
+        });
+        updateForm.reset();
+        await loadMeeting();
+        setStatus(status, "Submission updated.");
+      } catch (error) {
+        setStatus(status, error.message, true);
+      } finally {
+        setLoading(false);
+      }
+    });
+  }
 
   if (allowlistForm) {
     allowlistForm.addEventListener("submit", async (event) => {
@@ -1264,6 +1604,10 @@ const initAdminPage = () => {
         } else {
           setStatus(status, `${email} is already in allowlist.`);
         }
+        // Refresh the allowlist if it's been loaded
+        if (allowlistRows.length > 0) {
+          await loadAllowlist();
+        }
       } catch (error) {
         setStatus(status, error.message, true);
       } finally {
@@ -1276,6 +1620,76 @@ const initAdminPage = () => {
     event.preventDefault();
     loadMeeting().catch((error) => setStatus(status, error.message, true));
   });
+
+  if (emailNextButton) {
+    emailNextButton.addEventListener("click", async () => {
+      const adminKey = adminKeyInput.value.trim();
+      const meetingDate = meetingInput.value;
+      if (!isApiConfigured()) {
+        setStatus(status, "Set APPS_SCRIPT_URL in app.js to enable admin access.", true);
+        return;
+      }
+      if (!adminKey) {
+        setStatus(status, "Admin key is required.", true);
+        return;
+      }
+      if (!meetingDate) {
+        setStatus(status, "Meeting date is required.", true);
+        return;
+      }
+      try {
+        setLoading(true);
+        const submitterData = await postApi({ action: "adminList", meeting: meetingDate, adminKey });
+        const submitterMap = new Map();
+        (submitterData.rows || []).forEach((row) => {
+          const email = String(row.email || "").trim();
+          if (!email) {
+            return;
+          }
+          if (!submitterMap.has(email)) {
+            const participant = String(row.participant || "").trim() || "Unknown";
+            submitterMap.set(email, participant);
+          }
+        });
+
+        const submitterLines = Array.from(submitterMap.entries())
+          .map(([email, participant]) => `${participant} (${email})`)
+          .sort((left, right) => left.localeCompare(right));
+
+        const confirmationMessage = submitterLines.length
+          ? [
+              "Send meeting email?",
+              "",
+              `Meeting: ${formatReadableDate(meetingDate)} (${meetingDate})`,
+              `Submitters (${submitterLines.length}):`,
+              ...submitterLines
+            ].join("\n")
+          : [
+              "Send meeting email?",
+              "",
+              `Meeting: ${formatReadableDate(meetingDate)} (${meetingDate})`,
+              "Warning: No submitters found.",
+              "This email will only be sent to froldan@nyu.edu."
+            ].join("\n");
+
+        const confirmed = window.confirm(confirmationMessage);
+        if (!confirmed) {
+          setStatus(status, "Cancelled meeting email.");
+          return;
+        }
+
+        const data = await postApi({ action: "adminEmailNextMeetingSubmitters", adminKey, meeting: meetingDate });
+        const sentCount = Number(data.sent || 0);
+        const ccCount = Number(data.ccCount || 0);
+        const sentMeetingDate = data.meeting || meetingDate;
+        setStatus(status, `Sent ${sentCount} email to froldan@nyu.edu with ${ccCount} submitter(s) in CC for ${sentMeetingDate}.`);
+      } catch (error) {
+        setStatus(status, error.message, true);
+      } finally {
+        setLoading(false);
+      }
+    });
+  }
 
   clearButton.addEventListener("click", async () => {
     const adminKey = adminKeyInput.value.trim();
@@ -1340,7 +1754,7 @@ const initAdminPage = () => {
         admin_note: bulkNoteInput.value.trim(),
         emails: JSON.stringify(emails)
       });
-      bulkStatusSelect.value = "approved";
+      bulkStatusSelect.value = "ok";
       bulkNoteInput.value = "";
       selectedEmails = new Set();
       selectAllInput.checked = false;
@@ -1356,6 +1770,7 @@ const initAdminPage = () => {
 };
 
 const page = document.body.dataset.page;
+initThemeToggle();
 if (page === "submission") {
   initSubmissionPage();
 }

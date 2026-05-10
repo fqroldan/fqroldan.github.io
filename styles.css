@@ -3,13 +3,24 @@
 :root {
   --ink: #08282e;
   --ink-soft: rgba(8, 40, 46, 0.82);
-  --muted: #555b63;
+  --muted: #444749;
   --paper: #f7f2ea;
   --accent: #b86a2f;
   --accent-2: #2f6f7a;
   --panel: #fff9f1;
   --shadow: 0 12px 28px rgba(21, 24, 28, 0.12);
   --gutter: clamp(28px, 6.5vw, 96px);
+}
+
+:root[data-theme="dark"] {
+  --ink: #e6edf2;
+  --ink-soft: rgba(230, 237, 242, 0.84);
+  --muted: #b7c1c9;
+  --paper: #0f1418;
+  --accent: #13100e;
+  --accent-2: #79c2cd;
+  --panel: #182027;
+  --shadow: 0 14px 30px rgba(0, 0, 0, 0.42);
 }
 
 * {
@@ -23,6 +34,7 @@ body {
   font-family: "DM Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 15px;
   line-height: 1.6;
+  padding-bottom: 44px;
 }
 
 a {
@@ -35,7 +47,7 @@ main li,
 section p,
 section li,
 td {
-  color: var(--ink-soft);
+  color: var(--muted);
 }
 
 header {
@@ -64,6 +76,12 @@ header {
   width: min(280px, 60vw);
   height: auto;
   display: block;
+  margin-right: 50px;
+}
+
+:root[data-theme="dark"] .home-portrait {
+  /* filter: invert(0.8) hue-rotate(180deg) brightness(0.86) contrast(0.92); */
+  /* filter: invert(0.2) brightness(0.9) contrast(0.9); */
 }
 
 .hero-text {
@@ -98,7 +116,7 @@ h1 {
 }
 
 header p {
-  max-width: 760px;
+  max-width: 1100px;
   color: var(--muted);
   font-size: 1rem;
   margin: 0;
@@ -135,27 +153,70 @@ nav.nav {
   font-size: 0.9rem;
 }
 
+.theme-toggle {
+  margin-left: auto;
+  width: auto;
+  height: auto;
+  min-width: 0;
+  padding: 0 2px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1;
+  box-shadow: none;
+  transform: none;
+}
+
+.theme-toggle svg {
+  width: 1.02rem;
+  height: 1.02rem;
+  display: block;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme-toggle:hover {
+  background: transparent;
+  color: var(--ink);
+  box-shadow: none;
+  transform: none;
+}
+
 nav.nav a {
   color: var(--ink);
   text-decoration: none;
   border-bottom: 1px solid transparent;
 }
 
-nav.nav a:hover {
-  border-bottom-color: var(--ink);
+nav.nav a strong {
+  box-shadow: inset 0 -2px 0 rgba(184, 106, 47, 0.45);
+  padding-bottom: 2px;
 }
+
 
 main {
   max-width: 1320px;
   margin: 0 auto;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 32px;
   padding: 0 var(--gutter) 72px;
+}
+
+main > * {
+  min-width: 0;
 }
 
 section {
   background: var(--panel);
   border: 1px solid rgba(18, 20, 23, 0.2);
+  /* border-top: 2px solid rgba(184, 106, 47, 0.25); */
   border-radius: 24px;
   padding: 26px;
   box-shadow: var(--shadow);
@@ -165,6 +226,14 @@ section {
   display: grid;
   gap: 24px;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+body[data-page="submission"] .submission-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+body[data-page="submission"] .submission-grid > * {
+  min-width: 0;
 }
 
 .image-row {
@@ -196,19 +265,29 @@ h3 {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 600;
+  background: linear-gradient(transparent 65%, rgba(184, 106, 47, 0.1) 65%);
+  display: inline-block;
+  width: fit-content;
+  justify-self: start;
+  padding: 0 0.12em;
+}
+
+.hero-text h3 {
+  margin-top: 16px;
+  margin-bottom: 6px;
 }
 
 blockquote {
   margin: 8px 0 20px -0.85em;
   padding: 12px 16px;
-  background: rgba(8, 40, 46, 0.08);
-  border-left: 5px solid rgba(8, 40, 46, 0.5);
+  background: rgba(8, 40, 46, 0.04);
+  border-left: 5px solid #b86a2fbe;
   width: calc(95% + 0.85em);
 }
 
 blockquote p {
   margin: 0;
-  color: black;
+  color: var(--muted);
 }
 
 form {
@@ -240,6 +319,17 @@ textarea {
   background: #fff;
 }
 
+input[name="year"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[name="year"]::-webkit-outer-spin-button,
+input[name="year"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 input:disabled,
 select:disabled,
 textarea:disabled {
@@ -252,11 +342,61 @@ textarea {
   resize: vertical;
 }
 
+ul {
+  color: black;
+  list-style-position: outside;
+  padding-left: 1.25em;
+  margin-left: 1.5em;
+}
+
+ul li::marker {
+  color: rgba(8, 40, 46, 0.5);
+}
+
 .button-row {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   align-items: flex-end;
+}
+
+#admin-allowlist .button-row {
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+
+#admin-auth .button-row {
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+
+#admin-allowlist .button-row label {
+  margin: 0;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+#admin-auth .button-row label {
+  margin: 0;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+#admin-allowlist .button-row button,
+#admin-auth .button-row button {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 720px) {
+  #admin-allowlist .button-row {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  #admin-auth .button-row {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
 }
 
 .buttons-centered {
@@ -299,11 +439,26 @@ button.secondary {
   font-size: 0.75rem;
   padding: 4px 8px;
   vertical-align: middle;
+  transform: translateY(-2px);
 }
 
 .icon-button {
   padding-left: 24px;
   padding-right: 24px;
+}
+
+.icon-button img {
+  display: block;
+  width: 1.6rem;
+  height: 1.6rem;
+  object-fit: contain;
+  -webkit-filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1);
+}
+
+:root[data-theme="dark"] .icon-button img {
+  -webkit-filter: none;
+  filter: none;
 }
 
 iframe {
@@ -314,15 +469,89 @@ iframe {
   padding: 0;
 }
 
+.expandable-text {
+  display: none;
+  width: 90%;
+  font-family: 'Source Code Pro', 'Fira Code', 'Cascadia Code', 'Consolas', 'Monaco', monospace;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  padding: 10px 14px;
+  margin: 8px 0;
+  white-space: pre-wrap;
+  background: #ebe6df;
+  color: var(--ink, #111);
+  border-radius: 0 4px 4px 0;
+}
+
+:root[data-theme="dark"] .expandable-text {
+  background: var(--panel);
+  color: var(--ink, #e6edf2);
+}
+
 
 .button-link.invert {
   background: var(--paper);
   color: var(--ink);
 }
 
+:root[data-theme="dark"] section {
+  border-color: rgba(230, 237, 242, 0.18);
+}
+
+:root[data-theme="dark"] ul li::marker {
+  color: rgba(230, 237, 242, 0.55);
+}
+
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] textarea {
+  background: #10171d;
+  color: var(--ink);
+  border-color: rgba(230, 237, 242, 0.22);
+}
+
+:root[data-theme="dark"] button,
+:root[data-theme="dark"] .button-link {
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+  color: #081116;
+}
+
+:root[data-theme="dark"] .theme-toggle {
+  background: transparent;
+  border: 0;
+  color: var(--ink-soft);
+}
+
+:root[data-theme="dark"] .theme-toggle:hover {
+  background: transparent;
+  color: var(--ink);
+}
+
+:root[data-theme="dark"] blockquote {
+  background: rgba(230, 237, 242, 0.05);
+  border-left-color: rgba(207, 139, 83, 0.75);
+}
+
+:root[data-theme="dark"] .archive-accordion,
+:root[data-theme="dark"] .archive-group {
+  background: rgba(230, 237, 242, 0.05);
+}
+
+:root[data-theme="dark"] .archive-group {
+  border-color: rgba(230, 237, 242, 0.18);
+}
+
+:root[data-theme="dark"] .button-link.ghost,
+:root[data-theme="dark"] button.secondary {
+  background: transparent;
+  color: var(--ink);
+  border-color: rgba(230, 237, 242, 0.35);
+}
+
 button:hover,
 .button-link:hover {
-  transform: translateY(-2px);
+  transform: translateY(-4px);
   box-shadow: 0 8px 18px rgba(18, 20, 23, 0.15);
 }
 
@@ -532,6 +761,94 @@ th {
   font-weight: 600;
 }
 
+@media (min-width: 1024px) {
+  /* Admin table desktop column map (includes leading checkbox column):
+     1 = Select checkbox
+     2 = Participant
+     3 = Email (truncated)
+     4 = Paper title
+     5 = Authors
+     6 = Year
+     7 = Link
+     8 = Status
+     9 = Slides */
+  #admin-table {
+    table-layout: fixed;
+  }
+
+  /* Default wrapping for all admin table cells (email is overridden below). */
+  #admin-table td {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  /* 1: Select checkbox */
+  #admin-table th:nth-child(1),
+  #admin-table td:nth-child(1) {
+    width: 36px;
+  }
+
+  /* 2: Participant */
+  #admin-table th:nth-child(2),
+  #admin-table td:nth-child(2) {
+    width: 10%;
+  }
+
+  /* 3: Email (censored/truncated style) */
+  #admin-table th:nth-child(3),
+  #admin-table td:nth-child(3) {
+    width: 10%;
+    overflow: hidden;
+    /* white-space: nowrap;
+    text-overflow: ellipsis; */
+  }
+
+  /* 4: Paper title */
+  #admin-table th:nth-child(4),
+  #admin-table td:nth-child(4) {
+    width: 24%;
+  }
+
+  /* 5: Authors */
+  #admin-table th:nth-child(5),
+  #admin-table td:nth-child(5) {
+    width: 12%;
+  }
+
+  /* 6: Year */
+  #admin-table th:nth-child(6),
+  #admin-table td:nth-child(6) {
+    width: 6%;
+  }
+
+  /* 7: Link */
+  #admin-table th:nth-child(7),
+  #admin-table td:nth-child(7) {
+    width: 25%;
+  }
+
+  /* Link anchors inside 7th column wrap long URLs. */
+  #admin-table td:nth-child(7) a {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  /* 8: Status */
+  #admin-table th:nth-child(8),
+  #admin-table td:nth-child(8) {
+    width: 6%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  /* 9: Slides */
+  #admin-table th:nth-child(9),
+  #admin-table td:nth-child(9) {
+    width: 5%;
+  }
+}
+
 .accent {
   color: var(--accent-2);
   font-weight: 500;
@@ -545,7 +862,38 @@ footer {
   font-size: 0.85rem;
 }
 
+.site-disclaimer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 20;
+  margin: 0;
+  padding: 0;
+}
+
+.site-disclaimer p {
+  margin: 0;
+  padding: 8px 14px;
+  border-top: 1px solid rgba(8, 40, 46, 0.16);
+  background: rgba(247, 242, 234, 0.94);
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  line-height: 1.35;
+  text-align: center;
+}
+
+:root[data-theme="dark"] .site-disclaimer p {
+  border-top: 1px solid rgba(230, 237, 242, 0.2);
+  background: rgba(15, 20, 24, 0.96);
+}
+
 @media (max-width: 720px) {
+  body[data-page="submission"] .submission-grid {
+    grid-template-columns: 1fr;
+  }
+
   header {
     padding: 40px var(--gutter);
   }

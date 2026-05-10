@@ -4,10 +4,59 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Roldán Reading Group | Archive</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&family=Source+Serif+4:wght@500;600&display=swap" rel="stylesheet" />
+  <script>
+    (function () {
+      const key = "site_theme";
+      let theme = null;
+      try {
+        const saved = window.localStorage.getItem(key);
+        if (saved === "dark" || saved === "light") {
+          theme = saved;
+        }
+      } catch (error) {}
+      if (!theme) {
+        try {
+          const saved = window.sessionStorage.getItem(key);
+          if (saved === "dark" || saved === "light") {
+            theme = saved;
+          }
+        } catch (error) {}
+      }
+      if (!theme) {
+        const hour = new Date().getHours();
+        theme = hour >= 7 && hour < 19 ? "light" : "dark";
+      }
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
   <link rel="stylesheet" href="styles.css" />
+    <!-- Google Analytics 2 -->
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+      ga('create', 'UA-144923322-1', 'auto');
+      ga('require', 'displayfeatures');
+      ga('send', 'pageview');
+    </script>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FTD7GM5L6D"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'G-FTD7GM5L6D');
+    </script>
 </head>
 <body data-page="archive">
   <header>
@@ -15,7 +64,7 @@
       <a href="index.html">Home</a>
       <a href="rrg.html">RRG</a>
       <a href="submission.html">Submit a paper</a>
-      <a href="archive.html"><strong>Past meetings</strong></a>
+      <a href="archive.html"><strong>Archive</strong></a>
     </nav>
     <h1>Past Meetings Archive</h1>
     <p>
@@ -31,7 +80,7 @@
         <table id="archive-meeting-table" aria-label="Current meeting submissions"></table>
       </div>
       <p class="helper">
-        Status: pending = awaiting review, approved = accepted, long = selected for a long talk,
+        Status: pending = awaiting review, ok = accepted, long = selected for a long talk,
         vetoed = not selected.
       </p>
     </section>
@@ -44,6 +93,10 @@
       <div id="archive-accordion" class="archive-accordion" aria-label="Archive entries"></div>
     </section>
   </main>
+
+  <section class="site-disclaimer" aria-label="Disclaimer">
+      <p><strong>Disclaimer</strong>&nbsp;This is my own website. The views expressed herein are my own and do not necessarily reflect those of the International Monetary Fund, its Executive Board, or its management.</p>
+  </section>
 
   <footer></footer>
 
