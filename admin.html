@@ -4,43 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Roldán Reading Group | Admin</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&family=Source+Serif+4:wght@500;600&display=swap" rel="stylesheet" />
-  <script>
-    (function () {
-      const key = "site_theme";
-      let theme = null;
-      try {
-        const saved = window.localStorage.getItem(key);
-        if (saved === "dark" || saved === "light") {
-          theme = saved;
-        }
-      } catch (error) {}
-      if (!theme) {
-        try {
-          const saved = window.sessionStorage.getItem(key);
-          if (saved === "dark" || saved === "light") {
-            theme = saved;
-          }
-        } catch (error) {}
-      }
-      if (!theme) {
-        const hour = new Date().getHours();
-        theme = hour >= 7 && hour < 19 ? "light" : "dark";
-      }
-      document.documentElement.setAttribute("data-theme", theme);
-    })();
-  </script>
   <link rel="stylesheet" href="styles.css" />
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144923322-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-144923322-1');
-  </script>
 </head>
 <body data-page="admin">
   <header>
@@ -48,7 +15,7 @@
       <a href="index.html">Home</a>
       <a href="rrg.html">RRG</a>
       <a href="submission.html">Submit a paper</a>
-      <a href="archive.html">Archive</a>
+      <a href="archive.html">Past meetings</a>
     </nav>
     <h1>Admin Review</h1>
     <p>
@@ -63,11 +30,11 @@
         <p class="helper">Your key is stored only in this browser session.</p>
       </div>
       <form id="admin-auth" aria-label="Admin authentication">
+        <label>
+          Admin key
+          <input id="admin-key" type="password" name="admin_key" placeholder="Enter admin key" required />
+        </label>
         <div class="button-row">
-          <label>
-            Admin key
-            <input id="admin-key" type="password" name="admin_key" placeholder="Enter admin key" required />
-          </label>
           <button id="admin-auth-submit" type="submit">Submit</button>
         </div>
         <div id="admin-status" class="status">Submit your admin key to unlock controls.</div>
@@ -82,11 +49,9 @@
           <input id="admin-meeting" type="date" name="meeting" />
         </label>
         <button id="admin-load" type="button">Load meeting</button>
-        <button id="admin-email-next" type="button" class="secondary">Email meeting submitters</button>
         <button id="admin-download" type="button" class="secondary">Download meeting CSV</button>
         <button id="admin-clear" type="button" class="secondary">Clear submissions</button>
       </div>
-      <p id="admin-break-hint" class="helper is-hidden" aria-live="polite"></p>
       <div class="bulk-bar" aria-label="Bulk actions">
         <label class="bulk-select">
           <input id="admin-select-all" type="checkbox" />
@@ -97,7 +62,7 @@
           <label>
             Status
             <select id="admin-bulk-status">
-              <option value="ok">Ok</option>
+              <option value="approved">Approved</option>
               <option value="long">Long talk</option>
               <option value="vetoed">Vetoed</option>
               <option value="pending">Pending</option>
@@ -115,45 +80,51 @@
       </div>
     </section>
 
-    <section data-admin-gated>
-      <h2>Allowlist</h2>
-      <div class="button-row">
-        <button id="admin-allowlist-load" type="button">Load allowlist</button>
+    <section class="grid-2" data-admin-gated>
+      <div>
+        <h2>Allowlist</h2>
+        <p class="helper">Add an email to the verified submitter allowlist.</p>
       </div>
-      <div class="bulk-bar" aria-label="Allowlist actions">
-        <label class="bulk-select">
-          <input id="allowlist-select-all" type="checkbox" />
-          Select all
+      <form id="admin-allowlist" aria-label="Admin allowlist form">
+        <label>
+          Email
+          <input type="email" name="email" placeholder="name@domain.edu" required />
         </label>
-        <div class="bulk-actions">
-          <span id="allowlist-selected-count" class="helper">0 selected</span>
-          <button id="allowlist-remove" type="button" class="secondary">Remove selected</button>
-        </div>
-      </div>
-      <div class="table-wrap">
-        <table id="allowlist-table" aria-label="Verified submitter allowlist"></table>
-      </div>
-      <div class="grid-2">
-        <div>
-          <h3>Add to Allowlist</h3>
-          <p class="helper">Add an email to the verified submitter allowlist.</p>
-        </div>
-        <form id="admin-allowlist" aria-label="Admin allowlist form">
-          <div class="button-row">
-            <label>
-              <input type="email" name="email" placeholder="name@domain.edu" required />
-            </label>
-            <button type="submit">Add</button>
-          </div>
-        </form>
-      </div>
+        <button type="submit">Add to allowlist</button>
+      </form>
     </section>
 
+    <section class="grid-2" data-admin-gated>
+      <div>
+        <h2>Update a submission</h2>
+        <p class="helper">Find the submission by email or participant name.</p>
+      </div>
+      <form id="admin-update" aria-label="Admin update form">
+        <label>
+          Email
+          <input type="email" name="email" placeholder="name@domain.edu" required />
+        </label>
+        <label>
+          Participant
+          <input type="text" name="participant" placeholder="Participant name" />
+        </label>
+        <label>
+          Status
+          <select name="status">
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="vetoed">Vetoed</option>
+            <option value="long">Long talk</option>
+          </select>
+        </label>
+        <label>
+          Admin note
+          <textarea name="admin_note" placeholder="Reason or scheduling note."></textarea>
+        </label>
+        <button type="submit">Update entry</button>
+      </form>
+    </section>
   </main>
-
-  <section class="site-disclaimer" aria-label="Disclaimer">
-      <p><strong>Disclaimer</strong>&nbsp;This is my own website. The views expressed herein are my own and do not necessarily reflect those of the International Monetary Fund, its Executive Board, or its management.</p>
-  </section>
 
   <footer>
     <div>
