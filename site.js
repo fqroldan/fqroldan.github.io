@@ -58,7 +58,7 @@ const initThemeToggle = () => {
     const portrait = document.querySelector(".home-portrait");
     if (portrait) {
       portrait.src = theme === "dark"
-        ? "data/images/portrait_dark.svg"
+        ? "data/images/portrait_dark2.svg"
         : "data/images/portrait2.svg";
     }
   };
