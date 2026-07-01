@@ -1,0 +1,10 @@
+@techreport{UpgradingGFSN,
+	author = {Dell'Ariccia, Giovanni and Farahmand, Pascal and Gourinchas, Pierre-Olivier and Mak, Istvan and Peralta-Alva, Adrian and Rold\'{a}n, Francisco},
+	year = 2026,
+	institution = {International Monetary Fund},
+	type = {IMF Working Paper},
+	number = {2026/235},
+	keywords = {Bonds, Global, Global Financial Safety Net, International Reserves, Liquidity, Reserve assets, Reserve Management, Reserves accumulation, Safe Asset Scarcity},
+	doi = {10.5089/9798229051378.001},
+	url = {https://doi.org/10.5089/9798229051378.001},
+}
