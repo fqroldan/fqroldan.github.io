@@ -6,7 +6,6 @@ using Distributions, LinearAlgebra, StatsBase, PlotlyJS
 mutable struct McCall
 	β::Float64
 	γ::Float64
-
 	b::Float64
 
 	wgrid::Vector{Float64}
@@ -50,7 +49,6 @@ end
 
 function u(c, mc::McCall)
 	γ = mc.γ
-
 	if γ == 1
 		return log(c)
 	else
@@ -66,12 +64,15 @@ end
 
 function E_v(mc::McCall)
 	## Valor esperado de la función de valor integrando sobre la oferta de mañana
+	# Ev = ∑_j pw[j] * v[j]
 	Ev = 0.0
-	for jwp in eachindex(mc.wgrid)
+	@inbounds for jwp in eachindex(mc.wgrid)
 		Ev += mc.pw[jwp] * mc.v[jwp]
 	end
 	return Ev
 end
+
+Ev2(mc::McCall) = mc.pw'*mc.v
 
 function update_v(ac, re, EV=false)
 	## Actualizar la función de valor con max(aceptar, rechazar) si EV es falso o usando la forma cerrada con el extreme value si EV es verdadero
@@ -110,13 +111,18 @@ function vf_iter!(new_v, mc::McCall)
 end
 
 function vfi!(mc::McCall; maxiter = 2000, tol = 1e-8, verbose=true)
+
 	dist, iter = 1+tol, 0
+
 	new_v = similar(mc.v)
+
 	while dist > tol && iter < maxiter
 		iter += 1
 		vf_iter!(new_v, mc)
 		dist = norm(mc.v - new_v)
+
 		mc.v .= new_v # volcar lo de new_v hacia mc.v, lugar a lugar
+
 		if verbose
 			print("Iter $iter: dist = $dist\n")
 		end
@@ -156,7 +162,7 @@ function make_plots(mc::McCall)
     layout = Layout(shapes=shapes,
         annotations=annotations,
         title="Value function in McCall's model",
-        width=1920 * 0.5, height=1080 * 0.5,
+        # width=1920 * 0.5, height=1080 * 0.5,
         legend=attr(orientation="h", x=0.05),
         xaxis=attr(zeroline=false, gridcolor="#434343"),
         yaxis=attr(zeroline=false, gridcolor="#434343"),
