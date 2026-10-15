@@ -228,6 +228,32 @@ section {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
+.home-dual {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 36px;
+  align-items: stretch;
+}
+
+.home-dual > * {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.home-dual > * + * {
+  padding-left: 36px;
+  border-left: 1px solid rgba(18, 20, 23, 0.16);
+}
+
+.home-dual p {
+  margin: 10px 0 0;
+  flex: 1 1 auto;
+}
+
+.home-dual .button-row {
+  margin-top: 18px;
+}
+
 body[data-page="submission"] .submission-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -496,6 +522,10 @@ iframe {
 
 :root[data-theme="dark"] section {
   border-color: rgba(230, 237, 242, 0.18);
+}
+
+:root[data-theme="dark"] .home-dual > * + * {
+  border-left-color: rgba(230, 237, 242, 0.18);
 }
 
 :root[data-theme="dark"] ul li::marker {
@@ -890,6 +920,22 @@ footer {
 }
 
 @media (max-width: 720px) {
+  .home-dual {
+    grid-template-columns: 1fr;
+    gap: 22px 0;
+  }
+
+  .home-dual > * + * {
+    padding-left: 0;
+    padding-top: 22px;
+    border-left: 0;
+    border-top: 1px solid rgba(18, 20, 23, 0.16);
+  }
+
+  :root[data-theme="dark"] .home-dual > * + * {
+    border-top-color: rgba(230, 237, 242, 0.18);
+  }
+
   body[data-page="submission"] .submission-grid {
     grid-template-columns: 1fr;
   }
