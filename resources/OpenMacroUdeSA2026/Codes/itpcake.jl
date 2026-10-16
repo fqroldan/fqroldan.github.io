@@ -9,7 +9,9 @@ function eval_value(kpv, kv, itp_v::AbstractInterpolation, ce::CakeEating)
 
 	cv = budget_constraint(kpv, kv, r)
 
-	cv > 0 || throw(error("Consumo negativo!!!!!"))
+	if !(cv > 0)
+		throw(error("Consumo negativo!!!!!"))
+	end
 	
 	# Utilidad de consumir cv
 	ut = u(cv, ce)

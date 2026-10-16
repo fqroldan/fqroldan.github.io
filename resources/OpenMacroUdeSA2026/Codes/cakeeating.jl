@@ -99,7 +99,7 @@ function eval_value(jkp, kv, ce::CakeEating)
 end
 
 function opt_value(jk, ce::CakeEating)
-	# Elige la torta de mañana en el jk-ésimo estado
+	# Elige la torta de mañana dado que hoy tengo jk-ésimo elemento de la grilla de torta de hoy
 	kv = ce.kgrid[jk]
 	
 	vp = -Inf
