@@ -2,8 +2,19 @@ using QuantEcon, Optim, Interpolations, LinearAlgebra, PlotlyJS, Distributions, 
 
 abstract type Deuda end
 
+struct NoDefPars
+    β::Float64
+    γ::Float64
+    r::Float64
+    ρy::Float64
+    σy::Float64
+    Nb::Int
+    Ny::Int
+    bmax::Float64
+end
+
 struct NoDefault <: Deuda
-    pars::Dict{Symbol,Float64}
+    pars::NoDefPars
 
     bgrid::Vector{Float64}
     ygrid::Vector{Float64}
@@ -26,7 +37,7 @@ function NoDefault(;
     bmax=0.9
 )
 
-    pars = Dict(:β => β, :γ => γ, :r => r, :ρy => ρy, :σy => σy, :Nb => Nb, :Ny => Ny, :bmax => bmax)
+    pars = NoDefPars(β, γ, r, ρy, σy, Nb, Ny, bmax)
 
     ychain = tauchen(Ny, ρy, σy, 0, 2)
 
@@ -42,7 +53,7 @@ function NoDefault(;
     return NoDefault(pars, bgrid, ygrid, Py, v, gc, gb)
 end
 
-u(cv, dd::Deuda) = u(cv, dd.pars[:γ])
+u(cv, dd::Deuda) = u(cv, dd.pars.γ)
 function u(cv, γ::Real)
     cmin = 1e-3
     if cv < cmin
@@ -61,11 +72,11 @@ end
 budget_constraint(bpv, bv, yv, q, ::Deuda) = yv + q * bpv - bv
 
 # LA MAGIA DEL MULTIPLE DISPATCH
-debtprice(dd::NoDefault, _, _, _) = 1/(1+dd.pars[:r])
+debtprice(dd::NoDefault, _, _, _) = 1/(1+dd.pars.r)
 
 function eval_value(jb, jy, bpv, q, itp_v, dd::Deuda)
     """ Evalúa la función de valor en (b,y) para una elección de b' """
-    β = dd.pars[:β]
+    β = dd.pars.β
     bv, yv = dd.bgrid[jb], dd.ygrid[jy]
 
     # Interpola el precio de la deuda para el nivel elegido
@@ -127,7 +138,7 @@ function vfi_iter!(new_v, q, dd::NoDefault)
     end
 end
 
-make_q(dd::NoDefault) = 1/(1+dd.pars[:r])
+make_q(::NoDefault) = nothing
 
 function vfi!(dd::Deuda; tol::Float64=1e-8, maxiter=2000, verbose=true)
     """ Itera sobre la ecuación de Bellman del país para encontrar la función de valor, probabilidad de default, consumo en repago y en default """

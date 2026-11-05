@@ -32,7 +32,7 @@ struct IFP{T<:Preferencias}
     gk::Matrix{Float64}
 end
 
-function IFP(T::DataType=CRRA; β=0.96, γ=2, r=0.02, kmin=-0.5, kmax=1, Nk=200, Ny=25, μy=1, ρy=0.8, σy=0.02)
+function IFP(T=CRRA; β=0.96, γ=2, r=0.02, kmin=-0.5, kmax=1, Nk=200, Ny=25, μy=1, ρy=0.8, σy=0.02)
     # Límite de deuda natural
     pars = IFPPars(β, γ, r, ρy, σy, Nk, Ny, kmax)
 
@@ -57,7 +57,7 @@ u(cv, ce::IFP{CARA}) = CARA(cv, ce.pars.γ)
 
 CARA(cv, γ::Number) = exp(-γ * cv) / (-γ)
 
-function CRRA(cv, γ; cmin = 1e-3)
+function CRRA(cv, γ; cmin = 1e-8)
     if cv < cmin
         # Por debajo de cmin, lineal con la derivada de u en cmin
         return CRRA(cmin, γ) + (cv - cmin) * cmin^(-γ)
@@ -103,7 +103,8 @@ function opt_value(jk, jy, itp_v::AbstractInterpolation, ce::IFP)
     yv = ce.ygrid[jy]
 
     k_min = minimum(ce.kgrid)
-    k_min = findfirst( sum(isnan.(ce.v[jkp, :])) == 0 for jkp in eachindex(ce.kgrid)  )
+    jk_min = findfirst( sum(isnan.(ce.v[jkp, :])) == 0 for jkp in eachindex(ce.kgrid)  )
+    k_min = max(k_min, ce.kgrid[jk_min])
 
     k_max = maximum(ce.kgrid)
     k_max = min(k_max, kv * (1 + r) + yv - 1e-5)

@@ -3,12 +3,32 @@ abstract type Default <: Deuda end
 
 abstract type DefaultCost end
 
-abstract type OG <: DefaultCost end
-abstract type Lin <: DefaultCost end
-abstract type Quad <: DefaultCost end
+mutable struct OG <: DefaultCost
+	yh::Float64
+end
+
+mutable struct Lin <: DefaultCost
+	Δ::Float64
+end
+
+mutable struct Quad <: DefaultCost
+	d0::Float64
+	d1::Float64
+end
+
+mutable struct ArellanoPars
+	β::Float64
+	γ::Float64
+	r::Float64
+	ψ::Float64
+	χ::Float64
+	ρy::Float64
+	σy::Float64
+end
 
 struct Arellano{T<:DefaultCost} <: Default
-	pars::Dict{Symbol, Float64}
+	pars::ArellanoPars
+	cost::T
 
 	bgrid::Vector{Float64}
 	ygrid::Vector{Float64}
@@ -35,6 +55,7 @@ function Arellano(T = OG;
 	Δ = 0.1,
 	d0 = -.18819,
 	d1 = .24558,
+	yh = 0.969,
 
 	ρy = 0.945,
 	σy = 0.025,
@@ -45,13 +66,14 @@ function Arellano(T = OG;
 	bmax = 0.6
 	)
 
-	pars = Dict(:β=>β, :γ=>γ, :r=>r, :ψ=>ψ, :χ=>χ, :ρy=>ρy, :σy=>σy)
+	pars = ArellanoPars(β, γ, r, ψ, χ, ρy, σy)
 
-	if T == Lin
-		pars[:Δ] = Δ
+	cost = if T == OG
+		OG(yh)
+	elseif T == Lin
+		Lin(Δ)
 	elseif T == Quad
-		pars[:d0] = d0
-		pars[:d1] = d1
+		Quad(d0, d1)
 	end
 
 	ychain = tauchen(Ny, ρy, σy, 0, 2)
@@ -71,46 +93,42 @@ function Arellano(T = OG;
 
 	q = ones(Nb, Ny) ./ (1+r)
 
-	return Arellano{T}(pars, bgrid, ygrid, Py, v, vR, vD, prob, gc, gb, q)
+	return Arellano{T}(pars, cost, bgrid, ygrid, Py, v, vR, vD, prob, gc, gb, q)
 end
+
 
 function logsumexp(a::AbstractVector{<:Real})
 	m = maximum(a)
 	return m + log.(sum(exp.(a .- m)))
 end
 
+function switch_Cost(dd::Arellano, T; yh=0.969, Δ=0.1, d0=-0.18819, d1=0.24558)
 
-function switch_Cost(dd::Arellano, T; Δ = 0.1, d0 = 0.1, d1 = 0)
+	cost = if T == OG
+		OG(yh)
+	elseif T == Lin
+		Lin(Δ)
+	elseif T == Quad
+		Quad(d0, d1)
+	end
 
-    d2 = Arellano{T}(copy(dd.pars), copy(dd.bgrid), copy(dd.ygrid), copy(dd.Py), copy(dd.v), copy(dd.vR), copy(dd.vD), copy(dd.prob), copy(dd.gc), copy(dd.gb), copy(dd.q))
-
-    if T == Lin
-        d2.pars[:Δ] = Δ
-    elseif T == Quad
-        d2.pars[:d0] = d0
-        d2.pars[:d1] = d1
-    end
+    d2 = Arellano{T}(deepcopy(dd.pars), cost, copy(dd.bgrid), copy(dd.ygrid), copy(dd.Py), copy(dd.v), copy(dd.vR), copy(dd.vD), copy(dd.prob), copy(dd.gc), copy(dd.gb), copy(dd.q))
 
 	return d2
 end
 
-h(yv, ::Arellano{OG}) = defcost_OG(yv)
-h(yv, dd::Arellano{Lin}) = defcost_linear(yv, dd)
-h(yv, dd::Arellano{Quad}) = defcost_quad(yv, dd)
+h(yv, dd::Arellano) = h(yv, dd.cost)
 
-defcost_quad(yv, dd::Default) = defcost_quad(yv, dd.pars[:d0], dd.pars[:d1])
-defcost_quad(yv, d0::Number, d1::Number) = yv - d0*yv - d1*yv^2
+h(yv, cost::OG) = min(yv, cost.yh)
+h(yv, cost::Lin) = yv * (1-cost.Δ)
+h(yv, cost::Quad) = yv * (1 - max(0, cost.d0 + cost.d1 * yv))
 
-defcost_OG(yv; yh = 0.969) = ifelse(yv <= yh, yv, yh)
-
-defcost_linear(yv, dd::Default) = defcost_linear(yv, dd.pars[:Δ])
-defcost_linear(yv, Δ::Number) = yv * (1-Δ)
 
 debtprice(::Default, bpv, yv, itp_q) = itp_q(bpv, yv)
 
 function value_default(jy, dd::Default)
 	""" Calcula el valor de estar en default en el estado (b,y) """
-	β, ψ = (dd.pars[sym] for sym in (:β, :ψ))
+	(; β, ψ) = dd.pars
 	yv = dd.ygrid[jy]
 
 	# Consumo en default es el ingreso menos los costos de default
@@ -150,7 +168,7 @@ function vfi_iter!(new_v, itp_q, dd::Arellano)
 		dd.gc[:, jy, 2] .= cD
 	end
 
-	χ = dd.pars[:χ]
+	χ = dd.pars.χ
 	for jb in eachindex(dd.bgrid), jy in eachindex(dd.ygrid)
 		# Valor de repagar y defaultear llegando a (b,y)
 		vr = dd.vR[jb, jy]
@@ -163,7 +181,9 @@ function vfi_iter!(new_v, itp_q, dd::Arellano)
 
 		## Modo 2: valor extremo tipo X evitando comparar exponenciales de cosas grandes
 		lse = logsumexp([vd/χ, vr/χ])
-		lpr = vd / χ - lse # log(pr) = log(exp(vd/\chi)) - log( suma (exps))
+        
+		# log(pr) = log(exp(vd/\chi)) - log( suma (exps))
+		lpr = vd / χ - lse
 		pr = exp(lpr)
 		V = χ * lse
 
@@ -175,7 +195,7 @@ end
 
 function q_iter!(new_q, dd::Arellano)
 	""" Ecuación de Euler de los acreedores determinan el precio de la deuda dada la deuda, el ingreso, y el precio esperado de la deuda """
-	r = dd.pars[:r]
+	r = dd.pars.r
 
 	for jbp in eachindex(dd.bgrid), jy in eachindex(dd.ygrid)
 		Eq = 0.0
@@ -183,9 +203,9 @@ function q_iter!(new_q, dd::Arellano)
 			prob = dd.Py[jy, jyp]
 			prob_def = dd.prob[jbp, jyp]
 
-			rep_R = (1-prob_def) * 1 + prob_def * 0
+			rep = (1-prob_def) * 1 + prob_def * 0
 
-			Eq += prob * rep_R
+			Eq += prob * rep
 		end
 		new_q[jbp, jy]  = Eq / (1+r)
 	end
@@ -269,7 +289,7 @@ function mpe!(dd::Default; tol = 1e-6, maxiter = 500, verbose=true)
 		dist_v = norm(new_v - dd.v) / max(1, norm(dd.v))
 
 		# Distancias
-		dist = max(dist_q/500, dist_v)
+		dist = max(dist_q, dist_v)
 
 		# Guardamos todo
 		dd.v .= new_v
