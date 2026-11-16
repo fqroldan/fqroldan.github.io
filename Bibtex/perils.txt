@@ -1,4 +1,4 @@
-@techreport{NBERw35590,
+@techreport{RoldanSosaPadilla2026,
  title = "The Perils of Bilateral Sovereign Debt",
  author = "Rold\'{a}n, Francisco and Sosa-Padilla, C\'{e}sar",
  institution = "National Bureau of Economic Research",
