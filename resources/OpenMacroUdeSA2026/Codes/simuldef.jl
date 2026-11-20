@@ -71,7 +71,6 @@ function simul(dd::Default; T = 1000, b0 = 0., y0 = 1., d0 = 0)
         pp[:c, t] = ct
         pp[:q, t] = qt
 
-
         spr = (1+get_spread(qt, dd))^4 - 1
         pp[:spr, t] = spr
 
@@ -102,6 +101,7 @@ function acciones_t(itp_def, itp_gb, itp_q, d0, bt, yt, dd)
 
     bp = bt
 
+    # Si arranco desde el default, reentro con probabilidad ψ
     sigo = 0
     if d0 == 1
         ϵ = rand()

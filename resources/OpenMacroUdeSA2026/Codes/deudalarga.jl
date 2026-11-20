@@ -38,7 +38,28 @@ function switch_δ!(dd::DeudaLarga, δ)
     nothing
 end
 
-ChatterjeeEyigungor(; Nb=200, Ny=21, kwargs...) = DeudaLarga(T=Quad, γ=2, σy=0.027092, ρy=0.948503, ψ=0.0385, r=0.01, δ=0.05, bmax=1.5, χ=0.02, ℏ=1, β = 0.95402, d0 = -.18819, d1 = .24558; Nb, Ny, kwargs...)
+function switch_r!(dd::DeudaLarga, r)
+    dd.pars.κ = r + dd.pars.δ
+    dd.pars.r = r
+    nothing
+end
+
+function switch_Cost(dd::DeudaLarga, T; yh=0.969, Δ=0.1, d0=-0.18819, d1=0.24558)
+
+    cost = if T == OG
+        OG(yh)
+    elseif T == Lin
+        Lin(Δ)
+    elseif T == Quad
+        Quad(d0, d1)
+    end
+
+    d2 = DeudaLarga{T}(deepcopy(dd.pars), cost, copy(dd.bgrid), copy(dd.ygrid), copy(dd.Py), copy(dd.v), copy(dd.vR), copy(dd.vD), copy(dd.prob), copy(dd.gc), copy(dd.gb), copy(dd.q))
+
+    return d2
+end
+
+ChatterjeeEyigungor(; Nb=200, Ny=21, kwargs...) = DeudaLarga(T=Quad, γ=2, σy=0.027092, ρy=0.948503, ψ=0.0385, r=0.01, δ=0.05, bmax=1.5, χ=0.025, ℏ=1, β = 0.95402, d0 = -.18819, d1 = .24558; Nb, Ny, kwargs...)
 
 function DeudaLarga(; T = OG,
     β=0.953,
@@ -89,20 +110,6 @@ function DeudaLarga(; T = OG,
     return DeudaLarga{T}(pars, cost, bgrid, ygrid, Py, v, vR, vD, prob, gc, gb, q)
 end
 
-function switch_Cost(dd::DeudaLarga, T; yh=0.969, Δ=0.1, d0=-0.18819, d1=0.24558)
-
-    cost = if T == OG
-        OG(yh)
-    elseif T == Lin
-        Lin(Δ)
-    elseif T == Quad
-        Quad(d0, d1)
-    end
-
-    d2 = DeudaLarga{T}(deepcopy(dd.pars), cost, copy(dd.bgrid), copy(dd.ygrid), copy(dd.Py), copy(dd.v), copy(dd.vR), copy(dd.vD), copy(dd.prob), copy(dd.gc), copy(dd.gb), copy(dd.q))
-
-    return d2
-end
 
 
 function budget_constraint(bpv, bv, yv, q, dd::DeudaLarga)
@@ -181,11 +188,11 @@ function q_iter!(new_q, dd::DeudaLarga)
     (; r, κ, δ, ℏ, ψ) = dd.pars
 
     # 1 es repago, 2 es default
-    itp_q = make_itp(dd, dd.q, 1)
+    itp_q  = make_itp(dd, dd.q, 1)
     itp_qD = make_itp(dd, dd.q, 2)
 
     for (jbp, bpv) in enumerate(dd.bgrid), jy in eachindex(dd.ygrid)
-        Eq = 0.0
+        Eq  = 0.0
         EqD = 0.0
         for (jyp, ypv) in enumerate(dd.ygrid)
             prob = dd.Py[jy, jyp]
