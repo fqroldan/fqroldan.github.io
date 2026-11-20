@@ -117,7 +117,7 @@ function switch_Cost(dd::Arellano, T; yh=0.969, Δ=0.1, d0=-0.18819, d1=0.24558)
 	return d2
 end
 
-h(yv, dd::Arellano) = h(yv, dd.cost)
+h(yv, dd::Default) = h(yv, dd.cost)
 
 h(yv, cost::OG) = min(yv, cost.yh)
 h(yv, cost::Lin) = yv * (1-cost.Δ)
@@ -265,7 +265,7 @@ function make_itp(dd::Default, M::Matrix)
 	return interpolate(knts, M, Gridded(Linear()))
 end
 
-function mpe!(dd::Default; tol = 1e-6, maxiter = 500, verbose=true)
+function mpe!(dd::Default; tol = 1e-5, maxiter = 500, verbose=true)
 	new_v = similar(dd.v)
 	new_q = similar(dd.q)
 
@@ -289,7 +289,7 @@ function mpe!(dd::Default; tol = 1e-6, maxiter = 500, verbose=true)
 		dist_v = norm(new_v - dd.v) / max(1, norm(dd.v))
 
 		# Distancias
-		dist = max(dist_q, dist_v)
+		dist = max(dist_q/100, dist_v)
 
 		# Guardamos todo
 		dd.v .= new_v
